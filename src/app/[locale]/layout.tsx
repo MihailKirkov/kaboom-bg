@@ -1,10 +1,13 @@
 import type {Metadata} from 'next';
-import { NextIntlClientProvider } from 'next-intl';
-import { routing } from '@/i18n/routing';
+import {NextIntlClientProvider, hasLocale} from 'next-intl';
+import {setRequestLocale} from 'next-intl/server';
+import {notFound} from 'next/navigation';
+import {routing} from '@/i18n/routing';
+import type {Locale as I18nLocale} from '@/i18n'; // your existing Locale type
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import '@/app/globals.css';
-import { kaboomDisplay, kaboomSans, kaboomLegacy } from '@/app/fonts';
+import {kaboomDisplay, kaboomSans, kaboomLegacy} from '@/app/fonts';
 
 export const metadata: Metadata = {
   title: 'Kaboom.bg',
@@ -13,19 +16,32 @@ export const metadata: Metadata = {
 
 type Props = {
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
+  // Next.js 15: params is a Promise
+  params: Promise<{ locale: string }>;
 };
 
 export default async function LocaleLayout({children, params}: Props) {
-  const {locale} = await params;
+  const {locale: rawLocale} = await params;
+
+  // Validate the locale coming from the URL
+  if (!hasLocale(routing.locales, rawLocale)) {
+    notFound(); // never returns
+  }
+  const locale = rawLocale as I18nLocale;
+
+  // Enable static rendering for this locale
+  setRequestLocale(locale);
 
   return (
-    <html lang={locale} suppressHydrationWarning
+    <html
+      lang={locale}
+      suppressHydrationWarning
       className={`${kaboomDisplay.variable} ${kaboomSans.variable} ${kaboomLegacy.variable}`}
     >
       <body className="antialiased bg-zinc-900 text-white" suppressHydrationWarning>
+        {/* Messages are provided via src/i18n/request.ts through the plugin */}
         <NextIntlClientProvider>
-          <Header currentLocale={locale as any} />
+          <Header currentLocale={locale} />
           <main>{children}</main>
           <Footer />
         </NextIntlClientProvider>
@@ -33,7 +49,8 @@ export default async function LocaleLayout({children, params}: Props) {
     </html>
   );
 }
-// Optional: static rendering
+
+// Pre-generate pages for each supported locale
 export function generateStaticParams() {
   return routing.locales.map((l) => ({locale: l}));
 }
