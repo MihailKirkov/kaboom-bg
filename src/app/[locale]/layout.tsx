@@ -43,7 +43,6 @@ export default async function LocaleLayout({children, params}: Props) {
         <NextIntlClientProvider>
           <Header currentLocale={locale} />
           <main>{children}</main>
-          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

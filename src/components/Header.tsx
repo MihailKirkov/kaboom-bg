@@ -16,6 +16,7 @@ import {
 
 import { Locale } from "@/i18n";
 import LangSwitcher from "./language-switcher";
+import { SERVICES } from "@/data/services";
 
 const Header = ({ currentLocale }: { currentLocale: Locale }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -37,8 +38,7 @@ const Header = ({ currentLocale }: { currentLocale: Locale }) => {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className={`mx-auto w-[min(1200px,92vw)] rounded-b-xl backdrop-blur-md
-                    px-4 md:px-6 h-14 flex items-center justify-between`}
+        className="mx-auto w-[min(1200px,92vw)] px-4 md:px-6 h-14 flex items-center justify-between"
       >
         {/* LEFT: Menu */}
         <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
@@ -56,14 +56,46 @@ const Header = ({ currentLocale }: { currentLocale: Locale }) => {
             </Button>
           </SheetTrigger>
 
+          {/** Menu Dropdown (below header) */}
           <SheetContent
             side="top"
-            className="max-h-[80vh] p-0 border-x-0 border-t-0 bg-zinc-900 text-white"
+            className="border-none bg-white text-black shadow-xl rounded-b-xl 
+                        mt-[56px] p-0 w-full max-w-[min(1200px,92vw)] mx-auto pb-12"
           >
-            <SheetHeader className="px-6 pt-4 pb-2">
-              <SheetTitle className="sr-only">Navigation</SheetTitle>
-            </SheetHeader>
-            {/* TODO: menu items go here */}
+            <div className="relative py-6 px-4 md:px-8 overflow-hidden">
+              {/* BG sketch */}
+              <div className="absolute inset-0 -z-10 opacity-20">
+                <Image
+                  src="/images/header-bg.svg"
+                  alt="Background sketch"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+                {SERVICES.map((service, i) => (
+                  <button
+                    key={service.id}
+                    className="group flex items-center justify-between px-4 py-3 rounded-md transition-all 
+                                border-b border-zinc-300 hover:bg-zinc-200/80"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Image
+                        src={service.iconRedSrc}
+                        alt=""
+                        width={24}
+                        height={24}
+                        className="transition-all group-hover:brightness-0 group-hover:contrast-200"
+                      />
+                      <span className="text-[13px] font-bold text-left group-hover:text-red-600 transition-colors">
+                        {service.title}
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
           </SheetContent>
         </Sheet>
 
