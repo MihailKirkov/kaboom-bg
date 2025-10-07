@@ -22,9 +22,10 @@ export default function Footer({ scrollToRef }: FooterProps) {
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-  const scrollToLastSection = () => {
-    scrollToRef?.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+
+    const scrollToLastSection = () => {
+        scrollToRef?.current?.scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (
         <footer
@@ -36,8 +37,9 @@ export default function Footer({ scrollToRef }: FooterProps) {
                 }
             )}
         >
-            <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-6 h-full" 
-          onClick={scrollToLastSection}>
+            <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-6 h-full"
+                onClick={scrollToLastSection}
+            >
                 <span className="text-lg md:text-2xl tracking-wider font-unbounded font-extrabold pointer-none pointer-events-none" >
                     LET’S GO!
                 </span>

@@ -9,15 +9,6 @@ export default function SectionContactUs() {
     <SectionWrapper
       className="bg-black text-white"
       aria-label="Свържете се с нас"
-      background={
-        <Image
-          src="/images/section-contactus-bg.svg"
-          alt="Kaboom Contact"
-          fill
-          priority
-          className="object-cover opacity-40"
-        />
-      }
     >
       <div className="flex flex-col items-center text-center gap-6">
         <h2 className="uppercase tracking-[0.4em] text-muted text-xs font-bold">

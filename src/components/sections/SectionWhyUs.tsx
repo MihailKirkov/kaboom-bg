@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, MinusCircle, MinusCircleIcon, MinusIcon, PlusIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionWrapper from "@/components/layout/section-wrapper";
 
@@ -83,13 +83,13 @@ export default function SectionWhyUs() {
                     className={`rounded-md overflow-hidden border px-4 py-2 transition-all`}
                     >
                     <button
-                        className="w-full flex justify-between items-center text-left text-white font-bold text-sm tracking-wide"
+                        className="w-full flex justify-between items-center text-center text-white font-bold text-sm tracking-wide"
                         onClick={() =>
                         setOpenId((prev) => (prev === item.id ? "" : item.id))
                         }
                     >
                         {item.title}
-                        {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                        {isOpen ? <MinusIcon className="rounded-xl bg-white" color="black" size={20} /> : <PlusIcon className="rounded-xl bg-black" size={20} />}
                     </button>
 
                     <motion.div
