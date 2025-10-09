@@ -4,39 +4,8 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, MinusCircle, MinusCircleIcon, MinusIcon, PlusIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionWrapper from "@/components/layout/section-wrapper";
+import { WHY_US_ITEMS } from "@/data/why-us-items";
 
-const WHY_US_ITEMS = [
-    {
-        id: "competence",
-        title: "КОМПЕТЕНТНОСТ",
-        content:
-        "Малко обяснително текстче към този текстови блок. Малко обяснително текстче към този блок. Малко обяснително текстче към този текстови блок.",
-    },
-    {
-        id: "qa",
-        title: "QUALITY ASSURANCE",
-        content:
-        "Малко обяснително текстче към този текстови блок. Малко обяснително текстче към този блок.",
-    },
-    {
-        id: "kaizen",
-        title: "КАЙЗЕН",
-        content:
-        "Малко обяснително текстче към този текстови блок. Малко обяснително текстче към този блок.",
-    },
-    {
-        id: "heart",
-        title: "РАБОТИМ СЪС СЪРЦЕ",
-        content:
-        "Малко обяснително текстче към този текстови блок. Малко обяснително текстче към този блок.",
-    },
-    {
-        id: "cool",
-        title: "ГОТИНИ ХОРА",
-        content:
-        "Малко обяснително текстче към този текстови блок. Малко обяснително текстче към този блок.",
-    },
-];
 
 export default function SectionWhyUs() {
     const [openId, setOpenId] = useState("competence");

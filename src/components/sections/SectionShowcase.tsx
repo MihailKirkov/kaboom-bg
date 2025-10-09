@@ -65,9 +65,15 @@ export default function SectionShowcase() {
           <button
             onClick={() => setCurrentPage((p) => (p - 1 + totalPages) % totalPages)}
             aria-label="Предишен"
-            className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-red-700 transition cursor-pointer"
+            className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:-translate-x-2 hover:scale-115 transition cursor-pointer"
           >
-            <ChevronLeft size={24} />
+            <Image 
+              src='/icons/arrow-left.svg'
+              alt=''
+              width={20}
+              height={40}
+              className='object-contain max-h-24'
+            />
           </button>
 
           <h3 className="text-4xl md:text-5xl font-display text-white font-bold tracking-[0.375rem]">
@@ -77,9 +83,16 @@ export default function SectionShowcase() {
           <button
             onClick={() => setCurrentPage((p) => (p + 1) % totalPages)}
             aria-label="Следващ"
-            className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-red-700 transition cursor-pointer"
+            className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:translate-x-2 hover:scale-115 transition cursor-pointer"
           >
-            <ChevronRight size={24} />
+            
+            <Image 
+              src='/icons/arrow-right.svg'
+              alt=''
+              width={20}
+              height={40}
+              className='object-contain max-h-24'
+            />
           </button>
         </div>
       </div>
@@ -98,4 +111,4 @@ export default function SectionShowcase() {
       />
     </SectionWrapper>
   );
-}
+} 
