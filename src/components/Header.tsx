@@ -1,24 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Menu, ChevronDown } from "lucide-react";
-
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
-import { Locale } from "@/i18n";
 import LangSwitcher from "./language-switcher";
 import { SERVICES } from "@/data/services";
+import { Locale } from "@/i18n";
 
-const Header = ({ currentLocale }: { currentLocale: Locale }) => {
+export default function Header({ currentLocale }: { currentLocale: Locale }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -28,84 +18,114 @@ const Header = ({ currentLocale }: { currentLocale: Locale }) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close the menu when clicking outside
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("#kaboom-menu, #kaboom-menu-trigger")) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("click", close);
+    return () => window.removeEventListener("click", close);
+  }, [menuOpen]);
+
   return (
-    <div
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-1" : "py-3"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black/70 backdrop-blur ${
+        !scrolled && "py-2"
       }`}
     >
-      <motion.div
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="mx-auto w-[min(1200px,92vw)] px-4 md:px-6 h-14 flex items-center justify-between"
-      >
-        {/* LEFT: Menu */}
-        <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              className="h-10 w-10 p-0 text-white hover:bg-white/10"
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-            >
-              {menuOpen ? (
-                <ChevronDown className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </Button>
-          </SheetTrigger>
-
-          {/** Menu Dropdown (below header) */}
-          <SheetContent
-            side="top"
-            className="border-none bg-white text-black shadow-xl rounded-b-xl 
-                        mt-[56px] p-0 w-full max-w-[min(1200px,92vw)] mx-auto pb-12"
+      <div className="mx-auto w-[80dvw] md:w-[min(900px,75dvw)] lg:w-[min(900px,40dvw)] px-4 md:px-6 h-14 flex items-center justify-between">
+        {/* LEFT: Menu button */}
+        <div className="relative" id="kaboom-menu">
+          <Button
+            id="kaboom-menu-trigger"
+            variant="ghost"
+            className="h-10 w-10 p-0 text-white hover:bg-white/10"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((v) => !v)}
           >
-            <div className="relative py-6 px-4 md:px-8 overflow-hidden">
-              {/* BG sketch */}
-              <div className="absolute inset-0 -z-10 opacity-20">
-                <Image
-                  src="/images/header-bg.svg"
-                  alt="Background sketch"
-                  fill
-                  className="object-cover"
-                />
-              </div>
+            <Image
+              src={menuOpen ? "/icons/arrow-down.svg" : "/icons/hamburger.svg"}
+              alt="menu toggle"
+              width={28}
+              height={28}
+            />
+          </Button>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
-                {SERVICES.map((service, i) => (
-                  <button
-                    key={service.id}
-                    className="group flex items-center justify-between px-4 py-3 rounded-md transition-all 
-                                border-b border-zinc-300 hover:bg-zinc-200/80"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={service.iconRedSrc}
-                        alt=""
-                        width={24}
-                        height={24}
-                        className="transition-all "
-                      />
-                      <span className="text-[13px] font-bold text-left group-hover:text-red-600 transition-colors">
-                        {service.title}
-                      </span>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </SheetContent>
-        </Sheet>
+          {/* MENU PANEL */}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  marginTop: scrolled ? 8 : 16, // <— animate this like CSS mt-2 (8px) ↔ mt-4 (16px)
+                }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="absolute z-0 left-0 top-full w-[80dvw] md:w-[min(900px,75dvw)] lg:w-[min(900px,40dvw)] 
+                            rounded-b-xl bg-white text-black shadow-xl border border-zinc-200 pb-12"
+              >
+                <div className="absolute inset-0 z-[-1] opacity-25 flex items-center justify-center overflow-hidden">
+                  <div className="relative max-w-none 
+                    w-[100%] h-[100%] top-[25%] -right-[0%]
+                    md:w-[100%] md:h-[100%] md:top-[25%] md:-right-[0%]
+                    lg:w-[150%] lg:h-[150%] lg:top-[25%] lg:-right-[0%]">
+                    <Image
+                      src="/images/header-bg.svg"
+                      alt="Background sketch"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                </div>
+
+                <div className="relative py-6 px-4 md:px-8 overflow-hidden">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-y-2">
+                    {SERVICES.map((service) => (
+                      <div key={service.id} className="group flex flex-col items-center justify-end">
+                        <button
+                          key={service.id}
+                          className="group flex items-center justify-between px-4 py-3 rounded-md
+                                      transition-all hover:bg-zinc-200/80 w-full text-left"
+                        >
+                          <div className="flex items-center gap-3">
+                            <Image
+                              src={service.iconRedSrc}
+                              alt=""
+                              width={24}
+                              height={24}
+                              className="transition-all"
+                            />
+                            <span className="text-[13px] font-bold transition-colors leading-[1.05]">
+                              {service.title1}
+                              <br/>
+                              {service.title2}
+                            </span>
+                          </div>
+                        </button>
+                        <div className="w-full h-1 border-b border-zinc-400"/>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* CENTER: Logo */}
         <div className="flex items-center">
           <Image
             src="/logo-kaboom-text.svg"
             alt="Kaboom"
-            width={120}
-            height={40}
+            width={90}
+            height={32}
             priority
             className="select-none"
           />
@@ -113,9 +133,7 @@ const Header = ({ currentLocale }: { currentLocale: Locale }) => {
 
         {/* RIGHT: Language switcher */}
         <LangSwitcher current={currentLocale} />
-      </motion.div>
-    </div>
+      </div>
+    </header>
   );
-};
-
-export default Header;
+}

@@ -33,7 +33,7 @@ export default function SectionHero() {
           viewport={{ once: false, amount: 0.3 }} // re-animates when visible again
         >
           <motion.h1
-            className="font-display text-muted text-sm"
+            className="font-display text-muted text-sm tracking-wider"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
@@ -43,7 +43,7 @@ export default function SectionHero() {
           </motion.h1>
 
           <motion.h2
-            className="font-display font-extrabold text-red-600 text-8xl"
+            className="font-display font-extrabold text-red-600 text-6xl sm:text-7xl md:text-8xl"
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
@@ -55,15 +55,15 @@ export default function SectionHero() {
 
         {/* Text block */}
         <motion.div
-          className="max-w-md text-white text-lg leading-relaxed"
+          className="max-w-md text-white text-md md:text-lg leading-relaxed"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
           viewport={{ once: false, amount: 0.3 }}
         >
-          Малко обяснително текстче към този текстови блок. Малко обяснително
-          текстче към този текстови блок.Малко обяснително текстче към този
-          текстови блок.
+          В Kaboom не сме силни в празните приказки —
+          <br />оставяме резултатите от работата ни да говорят.
+          <br />Готови да започваме?
         </motion.div>
       </div>
     </SectionWrapper>

@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import SectionWrapper from '@/components/layout/section-wrapper';
-import { Mail, Phone } from 'lucide-react';
 
 export default function SectionContactUs() {
   return (

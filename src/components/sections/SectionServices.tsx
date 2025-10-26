@@ -62,7 +62,7 @@ export default function SectionServices() {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.h1
-          className="text-lg text-white/60 font-bold tracking-[0.375rem] uppercase"
+          className="text-lg text-white/60 font-bold tracking-[0.375rem] uppercase font-display"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -70,7 +70,7 @@ export default function SectionServices() {
           Услуги
         </motion.h1>
         <motion.h2
-          className="font-display text-white text-[96px] leading-none md:text-[180px]"
+          className="text-white text-[96px] leading-none md:text-[180px] font-display"
           initial={{ scale: 0.9, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -97,7 +97,7 @@ export default function SectionServices() {
         </AnimatePresence>
 
         <motion.div
-          className="absolute left-1/2 -translate-x-1/2 -bottom-6 flex items-center justify-center pointer-events-none"
+          className="absolute left-1/2 -translate-x-1/2 -bottom-4 flex items-center justify-center pointer-events-none"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
