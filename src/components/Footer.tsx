@@ -41,35 +41,39 @@ export default function Footer({ scrollToRef }: FooterProps) {
             <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-6 h-full"
                 onClick={scrollToLastSection}
             >
-                <span className="text-lg sm:text-xl md:text-4xl tracking-wider font-display font-extrabold pointer-none pointer-events-none" >
+                <span className="text-2xl sm:text-3xl md:text-4xl tracking-wider font-display font-extrabold cursor-pointer" >
                     LET’S GO!
                 </span>
 
                 <div className="flex items-center gap-2 md:gap-4">
                     <a
                         href="tel:+359000000000"
-                        className="flex items-center gap-1 bg-[rgb(30,30,30)] text-white rounded-md px-3 py-1 text-sm md:text-base transition-all hover:bg-white hover:text-black"
+                        className="flex items-center justify-center bg-[rgb(30,30,30)] border border-[rgb(30,30,30)] text-red-600 
+                                rounded-md w-max h-max py-2 px-4 transition-all hover:border-white/50 hover:text-white"
                     >
-                        
                         <Image
                             src="/icons/phone.svg"
                             alt="Phone"
-                            width={24}
-                            height={24}
+                            width={20}
+                            height={20}
+                            className="w-5 h-5"
                         />
+                        <span className="hidden md:inline-block text-xs font-montserrat px-2">ОБАДЕТЕ СЕ</span>
                     </a>
 
                     <a
                         href="mailto:contact@kaboom.bg"
-                        className="flex items-center gap-1 bg-[rgb(30,30,30)] text-white rounded-md px-3 py-1 text-sm md:text-base transition-all hover:bg-white hover:text-black"
+                        className="flex items-center justify-center bg-[rgb(30,30,30)] border border-[rgb(30,30,30)] text-red-600 
+                                rounded-md w-max h-max py-2 px-4 transition-all hover:border-white/50 hover:text-white"
                     >
-                        
                         <Image
                             src="/icons/mail.svg"
                             alt="Mail"
-                            width={24}
-                            height={24}
+                            width={20}
+                            height={20}
+                            className="w-5 h-5"
                         />
+                        <span className="hidden md:inline-block text-xs font-montserrat px-2">ПИШЕТЕ НИ</span>
                     </a>
                 </div>
             </div>

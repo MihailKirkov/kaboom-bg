@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.54 47.31">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-family: Unbounded-ExtraBold, Unbounded;
+        font-size: 40.75px;
+        font-variation-settings: 'wght' 800;
+        font-weight: 700;
+        letter-spacing: .78em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <text class="cls-1" transform="translate(0 35.66) scale(1.01 1)"><tspan x="0" y="0">+</tspan></text>
+  </g>
+</svg>
