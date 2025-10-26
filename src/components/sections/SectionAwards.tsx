@@ -23,11 +23,11 @@ export default function SectionAwardsAndFormats() {
       aria-label="Награди и Формати"
     >
       {/* Awards Header */}
-      <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2">
+      <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2 font-display">
         НАГРАДИ
       </h2>
-      <h3 className="text-4xl font-display font-light mb-12">
-        Журито <span className="font-normal">ни обича</span>
+      <h3 className="text-2xl sm:text-4xl md:text-5xl font-display font-light mb-12 tracking-wider">
+        Журито <br/><span className="font-normal">ни обича</span>
       </h3>
 
       {/* Awards Logos */}
@@ -45,7 +45,7 @@ export default function SectionAwardsAndFormats() {
       </div>
 
       {/* Formats Header */}
-      <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2">
+      <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2 font-display">
         НАШИТЕ ФОРМАТИ
       </h2>
       <h3 className="text-4xl font-display text-red-600 font-extrabold mb-4">

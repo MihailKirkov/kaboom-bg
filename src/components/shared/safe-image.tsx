@@ -7,8 +7,8 @@ const FALLBACK_DATA_URI =
     encodeURIComponent(
         `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200">
         <rect width="100%" height="100%" fill="#f5f5f5"/>
-        <g fill="#c7c7c7">
-            <rect x="20" y="20" width="280" height="160" rx="10" />
+        <g fill="#f3f3f3" stroke="#ccc" stroke-width="10" stroke-dasharray="10,10">
+            <rect x="5" y="10" width="310" height="180"/>
         </g>
     </svg>`
 );

@@ -1,49 +1,47 @@
-```markdown
-# Client Website – Task List (Meeting Notes)
+# 🧾 WE DARE — To-Do Списък
 
-## Typography
-- [ ] Use **“WE DARE”** in a different font  
-- [ ] Use **UNBOUNDED** font for all titles  
-- [ ] Fix incorrect fonts across all sections  
-- [ ] FAQ section:  
-  - [ ] Correct font for heading and text  
-  - [ ] Center the text  
-  - [ ] Remove box outline  
-  - [ ] Make “+” and “–” icons thicker and slightly right-shifted  
+## 🖋 Шрифтове
+- [ ] WE DARE е с различен шрифт  
+- [ ] UNBOUNDED шрифт по title-ите  
+- [ ] “КАК ПОСТИГАМЕ РЕЗУЛТАТА” е с грешен шрифт  
+- [ ] FAQ кутиите – грешен шрифт (heading + текста да са по средата)  
+- [ ] FAQ кутиите – без outline  
+- [ ] “+” и “–” да са по-дебели и малко по-вдясно  
+- [ ] Шрифтът на много места е грешен – да се оправи навсякъде  
 
-## Services Section
-- [ ] Make service card text appear on **two lines**  
-- [ ] Adjust top block to be **width of 3 cards** and positioned **lower**  
-- [ ] Make SVG arrow **thinner**  
+## 💼 Services Section
+- [ ] Картите с услугите – текстът да е на 2 реда  
+- [ ] Блокчето отгоре да е на широчината на 3 карти и да е по-надолу  
+- [ ] SVG-то за стрелката да е по-тънко  
 
-## "Sofiiska Banica" Cards
-- [ ] Update design and layout  
-- [ ] Ensure dialog matches **exact card size**  
-- [ ] Add **red outline** on hover  
-- [ ] Make “X” close button turn **red** on hover  
+## 🥐 Картите на “Софийска баница”
+- [X] Картите трябва да се пипнат доста  
+- [X] Диалогът от картинките да е точно размера на показаните карти  
+- [X] При hover – червен outline
+- [X] “X” за затваряне да става червен
 
-## "How We Achieve Results" Section
-- [ ] Correct the font according to design  
+## 🏆 “Журито ни обича”
+- [X] Текстът да е на 2 реда  
+- [ ] Логата на наградите са си ок ✅
 
-## “Jury Loves Us” Section
-- [ ] Make title **two lines**  
-- [ ] Keep awards logos as they are  
+## 📺 Видео секция
+- [ ] YT видеата ще са Shorts  
 
-## Video Section
-- [ ] Use **YouTube Shorts** format for videos  
+## 🚀 “LET’S GO” секция
+- [X] “LET’S GO” да е по-голямо  
 
-## Buttons and Header
-- [ ] Increase size of **“LET’S GO”** button  
-- [ ] Redesign **“CALL US”** and **“WRITE TO US”** buttons  
-- [ ] Enlarge flag icon  
-- [ ] Rebuild header dialog:  
-  - [ ] Add image  
-  - [ ] Set text to **two lines**  
-- [ ] Set header background to **black**  
-- [ ] Reduce **logo** and **language button** size  
-- [ ] Replace **arrow** icon  
-- [ ] Make **phone button** slide out to the left  
+## ☎️ Бутони за контакт
+- [X] Флагчето да е по-голямо  
+- [X] “ОБАДЕТЕ СЕ” и “ПИШЕТЕ НИ” бутоните да се направят наново  
+- [X] Да се сложи правилен шрифт  
 
-## Footer
-- [ ] Match footer **exactly to the design**
-```
+## ⚫ Header
+- [ ] Да се сложи черен background  
+- [ ] Да се смалят логото и бутонът за езика  
+- [ ] Да се смени стрелката  
+- [ ] Бутонът за телефон да излиза наляво  
+- [ ] Диалогът от header-а да се направи изцяло наново  
+- [ ] Да се сложи картинката и текстът да е на 2 реда  
+
+## 🦶 Footer
+- [ ] Footer-ът да е баш както е в дизайна  

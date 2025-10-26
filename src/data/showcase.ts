@@ -8,11 +8,11 @@ export type ShowcaseItem = {
 
 export const SHOWCASE_ITEMS: ShowcaseItem[] = [
   { id: "01", title: "Фотография, стайлинг, анимация на продуктите", description: "Фотография, стайлинг, анимация на продуктите", imageSrc: "/images/showcase/01.jpg" },
-  { id: "02", title: "Баница лайв", description: "Софийска баница лайв, Море от баница, Детектор на лъжата", imageSrc: "/images/showcase/02.jpg" },
-  { id: "03", title: "Идентичност и дизайн", description: "Цялостна идентичност и дизайн, включително интериорни акценти", imageSrc: "/images/showcase/03.jpg" },
-  { id: "04", title: "Кампании и content", description: "Рекламни кампании и съдържание в социалните мрежи", imageSrc: "/images/showcase/04.jpg" },
-  { id: "05", title: "Опаковки", description: "Опаковки, брандировка на превозни средства", imageSrc: "/images/showcase/05.jpg" },
-  { id: "06", title: "Маркетингова стратегия", description: "Изграждане на дигитална маркетингова стратегия", imageSrc: "/images/showcase/06.jpg" },
+  { id: "02", title: "Софийска баница лайв, Море от баница, Детекторна лъжата", description: "Софийска баница лайв, Море от баница, Детектор на лъжата", imageSrc: "/images/showcase/02.jpg" },
+  { id: "03", title: "Цялостна идентичности дизайн, включително интериорни акценти", description: "Цялостна идентичност и дизайн, включително интериорни акценти", imageSrc: "/images/showcase/03.jpg" },
+  { id: "04", title: "Рекламни кампании и съдържание в социалните мрежи", description: "Рекламни кампании и съдържание в социалните мрежи", imageSrc: "/images/showcase/04.jpg" },
+  { id: "05", title: "Опаковки, брандировка на превозни средства", description: "Опаковки, брандировка на превозни средства", imageSrc: "/images/showcase/05.jpg" },
+  { id: "06", title: "Извеждане на дигитална маркетингова стратегия, първата някога за фирмата", description: "Изграждане на дигитална маркетингова стратегия", imageSrc: "/images/showcase/06.jpg" },
   { id: "07", title: "Видео клипове", description: "Креатив, сценарий и продукция", imageSrc: "/images/showcase/07.jpg" },
   { id: "08", title: "Фотосесии", description: "Продуктова и лайфстайл фотография", imageSrc: "/images/showcase/08.jpg" },
   { id: "09", title: "Събития", description: "Организация и отразяване на събития", imageSrc: "/images/showcase/09.jpg" },

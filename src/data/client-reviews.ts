@@ -15,7 +15,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     name: "Магдалена Андонова",
     position: "Маркетинг мениджър",
     company: "ERA Недвижими Имоти",
-    avatar: "/images/clients/magdalena.png",
+    avatar: "/images/clients/art-figure.svg",
     quote:
       "Малко обяснително текстче към този текстови блок. Малко обяснително текстче към този текстови блок.",
   },

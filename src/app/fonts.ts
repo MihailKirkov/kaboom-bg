@@ -6,7 +6,7 @@ export const kaboomDisplay = localFont({
         // variable first (smooth weight transitions)
         { path: "../../public/fonts/Unbounded-VariableFont_wght.ttf", weight: "100 900", style: "normal" },
         // fallback heavy static
-        { path: "../../public/fonts/Montserrat-ExtraBold.ttf", weight: "800", style: "normal" }
+        // { path: "../../public/fonts/Montserrat-ExtraBold.ttf", weight: "800", style: "normal" }
     ],
     variable: "--font-display",
     display: "swap",
@@ -29,10 +29,19 @@ export const kaboomSans = localFont({
 // Optional: a “legacy” set you can target if design needs it
 export const kaboomLegacy = localFont({
     src: [
-        { path: "../../public/fonts/verdanab.ttf", weight: "700", style: "normal" },
-        { path: "../../public/fonts/verdana.ttf",  weight: "400", style: "normal" }
+        { path: "../../public/fonts/verdana.ttf",  weight: "400", style: "normal" },
+        { path: "../../public/fonts/verdanab.ttf", weight: "700", style: "normal" }
     ],
     variable: "--font-legacy",
     display: "swap",
     preload: false
+});
+
+export const montserrat = localFont({
+    src: [
+        { path: "../../public/fonts/Montserrat-ExtraBold.ttf", weight: "800", style: "normal" },
+    ],
+    variable: "--font-montserrat",
+    display: "swap",
+    preload: true
 });

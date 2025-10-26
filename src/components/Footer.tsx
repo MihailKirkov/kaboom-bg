@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Phone, Mail } from 'lucide-react';
 import clsx from 'clsx';
 import { RefObject } from 'react';
+import Image from 'next/image';
 
 type FooterProps = {
     scrollToRef?: RefObject<HTMLElement | null>;
@@ -40,23 +41,35 @@ export default function Footer({ scrollToRef }: FooterProps) {
             <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-6 h-full"
                 onClick={scrollToLastSection}
             >
-                <span className="text-lg md:text-2xl tracking-wider font-unbounded font-extrabold pointer-none pointer-events-none" >
+                <span className="text-lg sm:text-xl md:text-4xl tracking-wider font-display font-extrabold pointer-none pointer-events-none" >
                     LET’S GO!
                 </span>
 
                 <div className="flex items-center gap-2 md:gap-4">
                     <a
                         href="tel:+359000000000"
-                        className="flex items-center gap-1 bg-black text-white rounded px-3 py-1 text-sm md:text-base transition-all hover:bg-white hover:text-black"
+                        className="flex items-center gap-1 bg-[rgb(30,30,30)] text-white rounded-md px-3 py-1 text-sm md:text-base transition-all hover:bg-white hover:text-black"
                     >
-                        <Phone size={14} />
+                        
+                        <Image
+                            src="/icons/phone.svg"
+                            alt="Phone"
+                            width={24}
+                            height={24}
+                        />
                     </a>
 
                     <a
                         href="mailto:contact@kaboom.bg"
-                        className="flex items-center gap-1 bg-black text-white rounded px-3 py-1 text-sm md:text-base transition-all hover:bg-white hover:text-black"
+                        className="flex items-center gap-1 bg-[rgb(30,30,30)] text-white rounded-md px-3 py-1 text-sm md:text-base transition-all hover:bg-white hover:text-black"
                     >
-                        <Mail size={14} />
+                        
+                        <Image
+                            src="/icons/mail.svg"
+                            alt="Mail"
+                            width={24}
+                            height={24}
+                        />
                     </a>
                 </div>
             </div>

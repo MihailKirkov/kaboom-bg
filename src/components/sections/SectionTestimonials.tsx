@@ -6,7 +6,6 @@ import { CLIENT_REVIEWS } from '@/data/client-reviews';
 import Image from 'next/image';
 import { motion, useAnimation } from 'framer-motion';
 import SectionWrapperFullWidth from '@/components/layout/section-wrapper-full-width';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import PaginationDots from '@/components/shared/pagination-dots';
 
 export default function SectionTestimonials() {
@@ -38,10 +37,25 @@ export default function SectionTestimonials() {
     });
   }, [speedUp, controls]);
 
+  const pagination = (
+    <div className="pointer-events-auto">
+  
+        <PaginationDots
+          total={total}
+          current={current}
+          onChange={setCurrent}
+        className="absolute left-1/2 bottom-0 translate-y-1/2 -translate-x-1/2 z-30"
+        style={{ marginBottom: 'calc(var(--spacing) * 3)' }}
+        />
+    </div>
+  );
+
   return (
     <SectionWrapperFullWidth
-      className="bg-gradient-to-b from-zinc-900 to-red-600 via-black"
+      className="bg-gradient-to-b from-zinc-900 to-red-600 via-black/90 relative"
       aria-label="Клиенти"
+      footerContent={pagination}
+      footerClassName="pointer-events-none"
     >
       {/* Header */}
       <div className="mb-10 text-center space-y-4">
@@ -95,16 +109,13 @@ export default function SectionTestimonials() {
           className="absolute right-0 bottom-0 opacity-40 pointer-events-none hidden md:block"
         />
 
-        <h2 className="text-xs uppercase tracking-[0.3em] text-white font-semibold mb-2">
+        <h2 className="text-xs uppercase tracking-[0.3em] text-red-600 font-semibold mb-2 font-display">
           КЛИЕНТСКИ ОТЗИВИ
         </h2>
-        <h3 className="text-2xl md:text-4xl font-display text-white font-extrabold">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-extrabold mt-2">
           ГЛАС КЛИЕНТСКИ,<br /> ГЛАС БОЖИЙ
         </h3>
 
-        <div className="mt-6 max-w-xl text-white text-sm leading-relaxed">
-          {review.quote}
-        </div>
 
         <div className="relative mt-10 flex items-center justify-center gap-6">
           <button
@@ -112,20 +123,27 @@ export default function SectionTestimonials() {
             className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
             aria-label="Предишен"
           >
-            <ChevronLeft size={24} />
+            <Image
+              src="/icons/arrow-left.svg"
+              alt="Previous"
+              width={24}
+              height={24}
+            />
           </button>
 
           <div className="flex flex-col items-center text-center">
-            <div className="w-20 h-20 relative rounded-full overflow-hidden border-2 border-white">
-              <Image
+              
+            <div className="mt-6 max-w-[50dvw] text-white text-sm uppercase font-display font-thin tracking-wider">
+              {review.quote}
+            </div>
+              {/* <Image
                 src={review.avatar}
                 alt={review.name}
                 fill
                 className="object-cover"
-              />
-            </div>
-            <p className="mt-3 text-white text-sm font-bold">{review.name}</p>
-            <p className="text-white text-xs opacity-70">{review.position}</p>
+              /> */}
+            {/* <p className="mt-3 text-white text-sm font-bold">{review.name}</p>
+            <p className="text-white text-xs opacity-70">{review.position}</p> */}
           </div>
 
           <button
@@ -133,16 +151,14 @@ export default function SectionTestimonials() {
             className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
             aria-label="Следващ"
           >
-            <ChevronRight size={24} />
+            <Image
+              src="/icons/arrow-right.svg"
+              alt="Previous"
+              width={24}
+              height={24}
+            />
           </button>
         </div>
-
-        <PaginationDots
-          total={total}
-          current={current}
-          onChange={setCurrent}
-          className="mt-6"
-        />
       </div>
     </SectionWrapperFullWidth>
   );
