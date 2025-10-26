@@ -21,11 +21,12 @@ function makeRowVariants(reduce: boolean): Variants {
     ? {duration: 0}
     : {staggerChildren: 0.06, staggerDirection: -1};
 
-  return {
-    hidden: {opacity: 0, x: -8},
-    show: {opacity: 1, x: 8, transition: showT},
-    exit: {opacity: 0, x: -8, transition: exitT},
-  };
+return {
+  hidden: { opacity: 0, y: -4 }, // slight upward motion if you want
+  show: { opacity: 1, y: 0, transition: showT },
+  exit: { opacity: 0, y: -4, transition: exitT },
+};
+
 }
 
 function makeItemVariants(reduce: boolean): Variants {
@@ -80,7 +81,7 @@ export default function LangSwitcher({current}: Props) {
   const itemVariants = makeItemVariants(prefersReducedMotion);
 
   return (
-    <div ref={rootRef} className="relative inline-flex items-center">
+    <div ref={rootRef} className="relative inline-flex flex-col md:flex-row items-center">
       {/* Current language button */}
       <button
         type="button"
@@ -90,8 +91,8 @@ export default function LangSwitcher({current}: Props) {
         onKeyDown={onKeyDown}
         className={[
           'flex items-center justify-center',
-          'h-9 w-9 rounded-full',
-          'text-md font-extrabold font-display',
+          'h-7 w-7 rounded-full',
+          'text-xs font-extrabold font-display',
           'bg-white border border-white/20 text-black',
           'backdrop-blur-sm',
           'transition-all',
@@ -110,7 +111,9 @@ export default function LangSwitcher({current}: Props) {
             initial="hidden"
             animate="show"
             exit="exit"
-            className="absolute left-full top-1/2 -translate-y-1/2 ml-2 flex gap-2"
+            className="absolute flex
+              top-full left-[50%] translate-x-[-50%] mt-1.5 flex-col items-center
+              md:left-full md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:mt-0 md:ml-2 md:flex-row md:items-start gap-1.5"
             role="menu"
             aria-label="Choose language"
           >

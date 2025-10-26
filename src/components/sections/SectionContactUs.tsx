@@ -7,7 +7,7 @@ import { Mail, Phone } from 'lucide-react';
 export default function SectionContactUs() {
   return (
     <SectionWrapper
-      className="bg-black text-white"
+      className="bg-yellow text-white"
       aria-label="Свържете се с нас"
     >
       <div className="flex flex-col items-center text-center gap-6">

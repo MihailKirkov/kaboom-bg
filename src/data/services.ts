@@ -2,6 +2,8 @@
 export type Service = {
   id: string;
   title: string;
+  title1?: string;
+  title2?: string;
   blurb: string;
   iconSrc: `/icons/${string}`;        // SVG path from /public/icons
   iconRedSrc: `/icons-red/${string}`;        // SVG path from /public/icons
@@ -13,6 +15,8 @@ export const SERVICES: Service[] = [
   {
     id: "strategy",
     title: "МАРКЕТИНГОВА СТРАТЕГИЯ",
+    title1: "МАРКЕТИНГОВА",
+    title2: "СТРАТЕГИЯ",
     iconSrc: "/icons/pawn.svg",
     iconRedSrc: "/icons-red/pawn.svg",
     blurb:
@@ -21,6 +25,8 @@ export const SERVICES: Service[] = [
   {
     id: "ai",
     title: "МАЙСТОРСКИ AI (ИЗКУСТВЕН ИНТЕЛЕКТ)",
+    title1: "МАЙСТОРСКИ AI",
+    title2: "(ИЗКУСТВЕН ИНТЕЛЕКТ)",
     iconSrc: "/icons/ai.svg",
     iconRedSrc: "/icons-red/ai.svg",
     blurb:
@@ -29,6 +35,8 @@ export const SERVICES: Service[] = [
   {
     id: "targeting",
     title: "ТАРГЕТИРАНИ РЕКЛАМНИ КАМПАНИИ",
+    title1: "ТАРГЕТИРАНИ",
+    title2: "РЕКЛАМНИ КАМПАНИИ",
     iconSrc: "/icons/ad.svg",
     iconRedSrc: "/icons-red/ad.svg",
     blurb:
@@ -37,6 +45,8 @@ export const SERVICES: Service[] = [
   {
     id: "email",
     title: "ЕФЕКТИВЕН ИМЕЙЛ-МАРКЕТИНГ",
+    title1: "ЕФЕКТИВЕН",
+    title2: "ИМЕЙЛ-МАРКЕТИНГ",
     iconSrc: "/icons/email-marketing.svg",
     iconRedSrc: "/icons-red/email-marketing.svg",
     blurb:
@@ -45,6 +55,8 @@ export const SERVICES: Service[] = [
   {
     id: "google",
     title: "РЕКЛАМА В GOOGLE (SEARCH, YOUTUBE, DISPLAY)",
+    title1: "РЕКЛАМА В GOOGLE",
+    title2: "(SEARCH, YOUTUBE, DISPLAY)",
     iconSrc: "/icons/google-ads.svg",
     iconRedSrc: "/icons-red/google-ads.svg",
     blurb:
@@ -53,6 +65,8 @@ export const SERVICES: Service[] = [
   {
     id: "design",
     title: "ГРАФИЧЕН И УЕБ-ДИЗАЙН НА СВЕТОВНО НИВО",
+    title1: "ГРАФИЧЕН И УЕБ-ДИЗАЙН",
+    title2: "НА СВЕТОВНО НИВО",
     iconSrc: "/icons/design.svg",
     iconRedSrc: "/icons-red/design.svg",
     blurb:
@@ -61,6 +75,8 @@ export const SERVICES: Service[] = [
   {
     id: "tv",
     title: "TV, РАДИО, OOH И BTL-КАМПАНИИ",
+    title1: "TV, РАДИО, OOH И",
+    title2: "BTL-КАМПАНИИ",
     iconSrc: "/icons/balloons.svg",
     iconRedSrc: "/icons-red/balloons.svg",
     blurb:
@@ -69,6 +85,8 @@ export const SERVICES: Service[] = [
   {
     id: "awards",
     title: "МЕЖДУНАРОДНИ НАГРАДИ ЗА ВИДЕО",
+    title1: "МЕЖДУНАРОДНИ",
+    title2: "НАГРАДИ ЗА ВИДЕО",
     iconSrc: "/icons/video.svg",
     iconRedSrc: "/icons-red/video.svg",
     blurb:
