@@ -7,7 +7,9 @@ type Props = {
   children: ReactNode;
   className?: string;           // Section wrapper (for layout/flex/bg)
   innerClassName?: string;      // Inner container (for width, text alignment, etc.)
-  background?: ReactNode;       // Optional background image/video
+  background?: ReactNode;       // Optional background image/video\
+  footerContent?: ReactNode;    // content pinned at section bottom
+  footerClassName?: string;
 } & HTMLAttributes<HTMLElement>; // allows aria-label, id, etc.
 
 export default function SectionWrapper({
@@ -15,11 +17,13 @@ export default function SectionWrapper({
   className,
   innerClassName,
   background,
+  footerContent,
+  footerClassName
 }: Props) {
   return (
     <section
       className={clsx(
-        "relative overflow-hidden min-h-screen flex flex-col items-center justify-center text-center p-4",
+        "relative min-h-screen flex flex-col items-center justify-center text-center p-4",
         className
       )}
     >
@@ -33,12 +37,23 @@ export default function SectionWrapper({
       {/* Content Container */}
       <div
         className={clsx(
-          "relative z-10 w-full max-w-6xl px-6 mx-auto",
+          "relative z-10 w-full max-w-6xl px-4 sm:px-6 mx-auto",
           innerClassName
         )}
       >
         {children}
       </div>
+      {/* Footer Slot pinned to section bottom */}
+      {footerContent && (
+        <div
+          className={clsx(
+            "absolute inset-x-0 bottom-0 z-20 flex items-center justify-center",
+            footerClassName
+          )}
+        >
+          {footerContent}
+        </div>
+      )}
     </section>
   );
 }

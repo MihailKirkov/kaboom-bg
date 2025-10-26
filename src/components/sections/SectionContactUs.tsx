@@ -11,23 +11,23 @@ export default function SectionContactUs() {
       aria-label="Свържете се с нас"
     >
       <div className="flex flex-col items-center text-center gap-6">
-        <h2 className="uppercase tracking-[0.4em] text-muted text-xs font-bold">
+        <h2 className="uppercase tracking-[0.4em] text-muted text-xs font-bold font-display">
           Свържете се с нас
         </h2>
 
-        <h1 className="text-4xl md:text-6xl font-display font-extrabold">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-extrabold">
           LET’S GO!
         </h1>
 
         <Image
           src="/icons-red/flag.svg"
           alt="Red Flag"
-          width={24}
-          height={24}
+          width={32}
+          height={32}
           className="text-red-600"
         />
 
-        <div className="text-sm leading-relaxed mt-2 space-y-1 text-white/80">
+        <div className="text-sm leading-relaxed mt-2 space-y-1 text-white/80 font-display font-thin">
           <p>OFFICE@KABOOM.BG</p>
           <p>+359 877 199 199</p>
           <p>ЧЕРКОВНА 79, ОБОРИЩЕ, СОФИЯ</p>
@@ -36,16 +36,30 @@ export default function SectionContactUs() {
         <div className="mt-6 flex gap-4 flex-wrap justify-center">
           <a
             href="tel:+359877199199"
-            className="flex items-center gap-2 bg-black text-white border border-white rounded-full px-4 py-2 text-sm font-bold hover:bg-white hover:text-black transition"
+            className="flex items-center gap-2 bg-[rgb(30,30,30)]  rounded-md px-4 py-1 border border-[rgb(30,30,30)]
+              text-xs font-thin font-montserrat text-red-600 tracking-wide
+              hover:border-red-600 transition"
           >
-            <Phone size={16} />
+            <Image
+              src="/icons/phone.svg"
+              alt="Phone"
+              width={24}
+              height={24}
+            />
             ОБАДЕТЕ СЕ
           </a>
           <a
             href="mailto:office@kaboom.bg"
-            className="flex items-center gap-2 bg-black text-white border border-white rounded-full px-4 py-2 text-sm font-bold hover:bg-white hover:text-black transition"
+            className="flex items-center gap-2 bg-[rgb(30,30,30)]  rounded-md px-4 py-1 border border-[rgb(30,30,30)]
+              text-xs font-thin font-montserrat text-red-600 tracking-wide
+              hover:border-red-600 transition"
           >
-            <Mail size={16} />
+            <Image
+              src="/icons/mail.svg"
+              alt="Mail"
+              width={24}
+              height={24}
+            />
             ПИШЕТЕ НИ
           </a>
         </div>

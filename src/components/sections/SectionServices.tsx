@@ -88,7 +88,7 @@ export default function SectionServices() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="mx-auto h-[220px] w-[min(92vw,860px)] rounded-xl bg-zinc-800/90 shadow-[0_8px_24px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center"
+            className="mx-auto h-[220px] w-[min(92vw,660px)] rounded-xl bg-zinc-800/90 shadow-[0_8px_24px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center"
           >
             <span className="text-center">
               IMAGE #{current + 1} <br /> {SERVICES[current]?.title}
@@ -101,7 +101,15 @@ export default function SectionServices() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="h-16 w-16 text-red-500" />
+          {/* <ChevronDown className="h-16 w-16 text-red-500" /> */}
+          
+          <Image
+            src="/icons-red/arrow-down.svg"
+            alt=""
+            width={60}
+            height={60}
+            className="object-contain max-h-24"
+          />
         </motion.div>
       </div>
 
@@ -126,7 +134,7 @@ export default function SectionServices() {
               return (
                 <CarouselItem
                   key={s.id}
-                  className="basis-3/4 sm:basis-1/2 md:basis-1/3 lg:basis-1/5"
+                  className="basis-3/4 sm:basis-1/2 md:basis-1/3 lg:basis-1/6 p-0 m-0"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -136,7 +144,7 @@ export default function SectionServices() {
                       duration: 0.5,
                       ease: "easeOut",
                     }}
-                    className="relative w-full flex justify-center"
+                    className="relative flex justify-center" style={{width:'200px'}}
                   >
                     <ServiceCard
                       title={s.title}
@@ -146,10 +154,8 @@ export default function SectionServices() {
                       onClick={() => api?.scrollTo(i)}
                     />
 
-                    {/* Separator on the right, except for last card */}
-                    {i < SERVICES.length - 1 && (
-                      <div className="absolute right-[-12px] top-1/2 -translate-y-1/2 w-[2px] h-16 bg-white/20 pointer-events-none" />
-                    )}
+                    {/* Separator lines */}
+                      <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 w-[2px] h-16 bg-white/20 pointer-events-none" />
                   </motion.div>
                 </CarouselItem>
               );
@@ -183,7 +189,7 @@ function ServiceCard({ title, blurb, iconSrc, active, onClick }: {
       >
         <CardContent
           className={[
-            "relative p-4 text-center transition-colors",
+            "relative p-2 text-center transition-colors",
             active
               ? "bg-white/15 shadow-lg ring-1 ring-white/20"
               : "bg-transparent hover:bg-white/5",

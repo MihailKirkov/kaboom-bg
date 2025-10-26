@@ -7,6 +7,7 @@ type Props = {
     current: number;
     onChange: (index: number) => void;
     className?: string;
+    style?: React.CSSProperties;
 };
 
 export default function PaginationDots({
@@ -14,12 +15,13 @@ export default function PaginationDots({
     current,
     onChange,
     className = '',
+    style,
 }: Props) {
     const baseInactive = 'bg-black hover:bg-white/50';
     const baseActive = 'bg-white hover:bg-white/70';
 
     return (
-        <div className={`flex justify-center gap-2 ${className}`}>
+        <div className={`flex justify-center gap-2 ${className}`} style={style}>
             <nav 
                 className="relative z-10 mt-6 flex items-center gap-2 bg-red-600 rounded-md py-1 px-2" 
                 aria-label="Пейджинг"

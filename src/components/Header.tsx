@@ -86,7 +86,7 @@ const Header = ({ currentLocale }: { currentLocale: Locale }) => {
                         alt=""
                         width={24}
                         height={24}
-                        className="transition-all group-hover:brightness-0 group-hover:contrast-200"
+                        className="transition-all "
                       />
                       <span className="text-[13px] font-bold text-left group-hover:text-red-600 transition-colors">
                         {service.title}
