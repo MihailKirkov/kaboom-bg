@@ -9,27 +9,17 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { SERVICES } from "@/data/services";
-import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import PaginationDots from "../shared/pagination-dots";
+import { SERVICES } from "@/data/services";
+import { useTranslations } from "next-intl";
 
 const ILLUSTRATION_SRC = "/images/section-services.svg";
-
-// Variants
-const containerVariants = {
-  hidden: { opacity: 1 },
-  show: { opacity: 1, transition: { staggerChildren: 0.12 } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 120, damping: 16 } },
-};
 
 export default function SectionServices() {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [current, setCurrent] = useState(4);
+  const t = useTranslations("SectionServices");
 
   useEffect(() => {
     if (!api) return () => {};
@@ -42,7 +32,7 @@ export default function SectionServices() {
   return (
     <section
       className="relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-20 md:pb-24 min-h-screen bg-black"
-      aria-label="Услуги"
+      aria-label={t("ariaLabel")}
     >
       <Image
         src={ILLUSTRATION_SRC}
@@ -67,7 +57,7 @@ export default function SectionServices() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          Услуги
+          {t("servicesTitle")}
         </motion.h1>
         <motion.h2
           className="text-white text-[96px] leading-none md:text-[180px] font-display"
@@ -75,7 +65,7 @@ export default function SectionServices() {
           whileInView={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          360°
+          {t("angleText")}
         </motion.h2>
       </motion.div>
 
@@ -91,7 +81,9 @@ export default function SectionServices() {
             className="mx-auto h-[220px] w-[min(92vw,660px)] rounded-xl bg-zinc-800/90 shadow-[0_8px_24px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center"
           >
             <span className="text-center">
-              IMAGE #{current + 1} <br /> {SERVICES[current]?.title}
+              IMAGE #{current + 1}
+              <br />
+              {t(`services.${SERVICES[current].id}.title`)}
             </span>
           </motion.div>
         </AnimatePresence>
@@ -101,8 +93,6 @@ export default function SectionServices() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          {/* <ChevronDown className="h-16 w-16 text-red-500" /> */}
-          
           <Image
             src="/icons-red/arrow-down.svg"
             alt=""
@@ -144,18 +134,19 @@ export default function SectionServices() {
                       duration: 0.5,
                       ease: "easeOut",
                     }}
-                    className="relative flex justify-center" style={{width:'200px'}}
+                    className="relative flex justify-center"
+                    style={{ width: "200px" }}
                   >
                     <ServiceCard
-                      title={s.title}
-                      blurb={s.blurb}
+                      title={t(`services.${s.id}.title`)}
+                      blurb={t(`services.${s.id}.blurb`)}
                       iconSrc={s.iconSrc}
                       active={i === current}
                       onClick={() => api?.scrollTo(i)}
                     />
 
-                    {/* Separator lines */}
-                      <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 w-[2px] h-16 bg-white/20 pointer-events-none" />
+                    {/* Separator line */}
+                    <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 w-[2px] h-16 bg-white/20 pointer-events-none" />
                   </motion.div>
                 </CarouselItem>
               );
@@ -174,7 +165,13 @@ export default function SectionServices() {
   );
 }
 
-function ServiceCard({ title, blurb, iconSrc, active, onClick }: {
+function ServiceCard({
+  title,
+  blurb,
+  iconSrc,
+  active,
+  onClick,
+}: {
   title: string;
   blurb: string;
   iconSrc: `/icons/${string}`;
@@ -182,7 +179,10 @@ function ServiceCard({ title, blurb, iconSrc, active, onClick }: {
   onClick: () => void;
 }) {
   return (
-    <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
       <Card
         className="h-full cursor-pointer border-0 relative overflow-visible bg-transparent"
         onClick={onClick}
