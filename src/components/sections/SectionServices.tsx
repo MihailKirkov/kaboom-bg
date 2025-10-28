@@ -17,22 +17,21 @@ import { useTranslations } from "next-intl";
 const ILLUSTRATION_SRC = "/images/section-services.svg";
 
 /**
- * Sizing rules (desktop):
- * - Card width: md: 220px, lg+: 240px
- * - Separator width: md: 24px, lg+: 28px
- * - Showcase width: exactly 3 * card width (md: 660px, lg+: 720px)
+ * We drive layout with CSS variables so everything stays in lockstep:
+ *   --card-w  : card width
+ *   --sep-w   : separator width
+ *   --show-w  : 3 * card width
+ *
+ * Tailwind responsive arbitrary properties set these per breakpoint,
+ * including very small screens (<360px).
  */
-const CARD_W_MD = 220;
-const CARD_W_LG = 240;
-const SEP_W_MD = 24;
-const SEP_W_LG = 28;
 
 export default function SectionServices() {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [currentCard, setCurrentCard] = useState(0);
   const t = useTranslations("SectionServices");
 
-  // Build interleaved slides: card, sep, card, sep, ...
+  // Interleave: card, sep, card, sep, ...
   const slides = useMemo(
     () =>
       SERVICES.flatMap((s, i) => [
@@ -41,34 +40,44 @@ export default function SectionServices() {
       ]),
     []
   );
-  // Even indices are cards, odd are separators.
   const snapCount = slides.length; // = SERVICES.length * 2
 
   useEffect(() => {
-    if (!api) return;
+    if (!api) return () => {};
 
     const onSelect = () => {
-      const snap = api.selectedScrollSnap();
-      // Map to nearest *card* (even) snap.
-      const cardSnap = snap % 2 === 0 ? snap : snap - 1;
+      const snap = api.selectedScrollSnap(); // can be odd (separator) or even (card)
+      const cardSnap = snap % 2 === 0 ? snap : snap - 1; // snap to nearest card on the left
       const cardIndex = (cardSnap / 2 + SERVICES.length) % SERVICES.length;
       setCurrentCard(cardIndex);
     };
 
     api.on("select", onSelect);
     onSelect();
-    return () => {
-      api.off("select", onSelect);
-    };
+    return () => api.off("select", onSelect);
   }, [api]);
 
-  // Helpers to ensure we always scroll to a card (even snap).
   const scrollToCard = (i: number) => api?.scrollTo((i * 2) % snapCount);
 
   return (
     <section
-      className="relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-20 md:pb-24 min-h-screen bg-black"
       aria-label={t("ariaLabel")}
+      className={[
+        "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-20 md:pb-24 min-h-screen bg-black",
+        // --- CSS variables (responsive) ---
+        // Smallest screens first (works under 360px too)
+        "[--card-w:96px] [--sep-w:14px]",
+        // Slightly wider phones
+        "xs:[--card-w:108px] xs:[--sep-w:16px]",
+        // 360–639
+        "sm:[--card-w:132px] sm:[--sep-w:18px]",
+        // ≥640 (Tailwind md starts at 768; we cover 640–767 via sm above)
+        "md:[--card-w:220px] md:[--sep-w:24px]",
+        // ≥1024
+        "lg:[--card-w:240px] lg:[--sep-w:28px]",
+        // Derived: showcase = 3 * card width
+        "[--show-w:calc(var(--card-w)*3)]",
+      ].join(" ")}
     >
       <Image
         src={ILLUSTRATION_SRC}
@@ -105,7 +114,7 @@ export default function SectionServices() {
         </motion.h2>
       </motion.div>
 
-      {/* Service Image / Showcase (width = 3 * card width on desktop) */}
+      {/* Showcase: width = 3 × card width, always */}
       <div className="relative z-10 mt-6 md:mt-4">
         <AnimatePresence mode="wait">
           <motion.div
@@ -116,8 +125,7 @@ export default function SectionServices() {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className={[
               "mx-auto h-[220px] rounded-xl bg-zinc-800/90 shadow-[0_8px_24px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center",
-              // mobile/tablet fluid width, desktop exact match to 3 cards
-              "w-[min(92vw,660px)] md:w-[660px] lg:w-[720px]",
+              "w-[var(--show-w)]", // exact 3× card width at *all* breakpoints
             ].join(" ")}
           >
             <span className="text-center">
@@ -144,7 +152,7 @@ export default function SectionServices() {
       </div>
 
       {/* Carousel */}
-      <div className="relative z-10 mt-16 w-full">
+      <div className="relative z-10 mt-16 w-full px-[3vw]">
         <Carousel
           setApi={setApi}
           className="w-full"
@@ -154,18 +162,18 @@ export default function SectionServices() {
             containScroll: "trimSnaps",
             dragFree: false,
             skipSnaps: false,
+            slidesToScroll: 1,
           }}
         >
-          <CarouselContent className="px-[3vw] flex items-center">
+          {/* Remove default track gutters to avoid seam drift */}
+          <CarouselContent className="!ml-0 !px-0 flex items-center gap-0">
             {slides.map((slide, idx) => {
-              const isCard = slide.type === "card";
-              if (!isCard) {
-                // Separator slide
+              if (slide.type === "sep") {
                 return (
                   <CarouselItem
                     key={`sep-${idx}`}
-                    // narrow fixed width; centered vertical line
-                    className="basis-[16px] md:basis-[24px] lg:basis-[28px] p-0 m-0"
+                    // Fixed separator width via CSS var; no margins/padding
+                    className="!pl-0 !ml-0 !mr-0 p-0 m-0 basis-[var(--sep-w)] grow-0 shrink-0"
                   >
                     <div className="flex h-full items-center justify-center">
                       <motion.div
@@ -184,15 +192,15 @@ export default function SectionServices() {
               const s = slide.service;
               const active = i === currentCard;
 
-              // Stagger entrance (relative to center)
+              // Stagger entrance relative to center
               const middle = Math.floor(SERVICES.length / 2);
               const offset = Math.abs(i - middle);
 
               return (
                 <CarouselItem
                   key={s.id}
-                  // fixed card widths -> showcase width can match 3x
-                  className="p-0 m-0 basis-[70%] sm:basis-[55%] md:basis-[220px] lg:basis-[240px]"
+                  // Card width is *exactly* var(--card-w)
+                  className="!pl-0 !ml-0 !mr-0 p-0 m-0 basis-[var(--card-w)] grow-0 shrink-0"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
