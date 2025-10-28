@@ -9,25 +9,61 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PaginationDots from "../shared/pagination-dots";
 import { SERVICES } from "@/data/services";
 import { useTranslations } from "next-intl";
 
 const ILLUSTRATION_SRC = "/images/section-services.svg";
 
+/**
+ * Sizing rules (desktop):
+ * - Card width: md: 220px, lg+: 240px
+ * - Separator width: md: 24px, lg+: 28px
+ * - Showcase width: exactly 3 * card width (md: 660px, lg+: 720px)
+ */
+const CARD_W_MD = 220;
+const CARD_W_LG = 240;
+const SEP_W_MD = 24;
+const SEP_W_LG = 28;
+
 export default function SectionServices() {
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [current, setCurrent] = useState(4);
+  const [currentCard, setCurrentCard] = useState(0);
   const t = useTranslations("SectionServices");
 
+  // Build interleaved slides: card, sep, card, sep, ...
+  const slides = useMemo(
+    () =>
+      SERVICES.flatMap((s, i) => [
+        { type: "card" as const, service: s, index: i },
+        { type: "sep" as const, key: `sep-${i}` },
+      ]),
+    []
+  );
+  // Even indices are cards, odd are separators.
+  const snapCount = slides.length; // = SERVICES.length * 2
+
   useEffect(() => {
-    if (!api) return () => {};
-    const onSelect = () => setCurrent(api.selectedScrollSnap());
+    if (!api) return;
+
+    const onSelect = () => {
+      const snap = api.selectedScrollSnap();
+      // Map to nearest *card* (even) snap.
+      const cardSnap = snap % 2 === 0 ? snap : snap - 1;
+      const cardIndex = (cardSnap / 2 + SERVICES.length) % SERVICES.length;
+      setCurrentCard(cardIndex);
+    };
+
     api.on("select", onSelect);
     onSelect();
-    return () => api.off("select", onSelect);
+    return () => {
+      api.off("select", onSelect);
+    };
   }, [api]);
+
+  // Helpers to ensure we always scroll to a card (even snap).
+  const scrollToCard = (i: number) => api?.scrollTo((i * 2) % snapCount);
 
   return (
     <section
@@ -69,21 +105,25 @@ export default function SectionServices() {
         </motion.h2>
       </motion.div>
 
-      {/* Service Image / Showcase */}
+      {/* Service Image / Showcase (width = 3 * card width on desktop) */}
       <div className="relative z-10 mt-6 md:mt-4">
         <AnimatePresence mode="wait">
           <motion.div
-            key={SERVICES[current]?.id ?? "placeholder"}
+            key={SERVICES[currentCard]?.id ?? "placeholder"}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="mx-auto h-[220px] w-[min(92vw,660px)] rounded-xl bg-zinc-800/90 shadow-[0_8px_24px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center"
+            className={[
+              "mx-auto h-[220px] rounded-xl bg-zinc-800/90 shadow-[0_8px_24px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center",
+              // mobile/tablet fluid width, desktop exact match to 3 cards
+              "w-[min(92vw,660px)] md:w-[660px] lg:w-[720px]",
+            ].join(" ")}
           >
             <span className="text-center">
-              IMAGE #{current + 1}
+              IMAGE #{currentCard + 1}
               <br />
-              {t(`services.${SERVICES[current].id}.title`)}
+              {t(`services.${SERVICES[currentCard].id}.title`)}
             </span>
           </motion.div>
         </AnimatePresence>
@@ -117,36 +157,60 @@ export default function SectionServices() {
           }}
         >
           <CarouselContent className="px-[3vw] flex items-center">
-            {SERVICES.map((s, i) => {
+            {slides.map((slide, idx) => {
+              const isCard = slide.type === "card";
+              if (!isCard) {
+                // Separator slide
+                return (
+                  <CarouselItem
+                    key={`sep-${idx}`}
+                    // narrow fixed width; centered vertical line
+                    className="basis-[16px] md:basis-[24px] lg:basis-[28px] p-0 m-0"
+                  >
+                    <div className="flex h-full items-center justify-center">
+                      <motion.div
+                        aria-hidden
+                        initial={{ opacity: 0, scaleY: 0.8 }}
+                        animate={{ opacity: 0.6, scaleY: 1 }}
+                        transition={{ duration: 0.35, ease: "easeOut" }}
+                        className="w-px h-16 bg-white/30"
+                      />
+                    </div>
+                  </CarouselItem>
+                );
+              }
+
+              const i = slide.index;
+              const s = slide.service;
+              const active = i === currentCard;
+
+              // Stagger entrance (relative to center)
               const middle = Math.floor(SERVICES.length / 2);
               const offset = Math.abs(i - middle);
 
               return (
                 <CarouselItem
                   key={s.id}
-                  className="basis-3/4 sm:basis-1/2 md:basis-1/3 lg:basis-1/6 p-0 m-0"
+                  // fixed card widths -> showcase width can match 3x
+                  className="p-0 m-0 basis-[70%] sm:basis-[55%] md:basis-[220px] lg:basis-[240px]"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{
-                      delay: offset * 0.15,
+                      delay: offset * 0.12,
                       duration: 0.5,
                       ease: "easeOut",
                     }}
                     className="relative flex justify-center"
-                    style={{ width: "200px" }}
                   >
                     <ServiceCard
                       title={t(`services.${s.id}.title`)}
                       blurb={t(`services.${s.id}.blurb`)}
                       iconSrc={s.iconSrc}
-                      active={i === current}
-                      onClick={() => api?.scrollTo(i)}
+                      active={active}
+                      onClick={() => scrollToCard(i)}
                     />
-
-                    {/* Separator line */}
-                    <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 w-[2px] h-16 bg-white/20 pointer-events-none" />
                   </motion.div>
                 </CarouselItem>
               );
@@ -157,8 +221,8 @@ export default function SectionServices() {
 
       <PaginationDots
         total={SERVICES.length}
-        current={current}
-        onChange={(i) => api?.scrollTo(i)}
+        current={currentCard}
+        onChange={scrollToCard}
         className="mt-6"
       />
     </section>
@@ -182,6 +246,7 @@ function ServiceCard({
     <motion.div
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="w-full"
     >
       <Card
         className="h-full cursor-pointer border-0 relative overflow-visible bg-transparent"
