@@ -7,6 +7,8 @@ import { motion } from 'framer-motion';
 export default function SectionHero() {
   const t = useTranslations('SectionHero');
 
+  const textLines = t('textBlock').split('\n');
+
   return (
     <SectionWrapper
       background={
@@ -30,7 +32,7 @@ export default function SectionHero() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          viewport={{ once: false, amount: 0.3 }} // re-animates when visible again
+          viewport={{ once: false, amount: 0.3 }}
         >
           <motion.h1
             className="font-display text-muted text-sm tracking-wider"
@@ -61,9 +63,12 @@ export default function SectionHero() {
           transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
           viewport={{ once: false, amount: 0.3 }}
         >
-          В Kaboom не сме силни в празните приказки —
-          <br />оставяме резултатите от работата ни да говорят.
-          <br />Готови да започваме?
+          {textLines.map((line, index) => (
+            <span key={index}>
+              {line}
+              {index !== textLines.length - 1 && <br />}
+            </span>
+          ))}
         </motion.div>
       </div>
     </SectionWrapper>

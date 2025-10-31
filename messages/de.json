@@ -1,9 +1,111 @@
 {
-    "nav": {
-        "services": "Dienstleistungen"
-    },
     "SectionHero": {
-        "nooneWorksLikeUs" : "NIEMAND ARBEITET WIE WIR",
-        "weDare" : "WE DARE"
+        "nooneWorksLikeUs": "NIEMAND ARBEITET WIE WIR",
+        "weDare": "WE DARE",
+        "textBlock": "Bei Kaboom sind wir nicht stark in leeren Worten —\nwir lassen unsere Ergebnisse für sich sprechen.\nBereit zu starten?"
+    },
+    "SectionServices": {
+        "ariaLabel": "Dienstleistungen",
+        "servicesTitle": "Dienstleistungen",
+        "angleText": "360°",
+        "services": {
+            "strategy": {
+                "title": "MAR KETINGSTRATEGIE",
+                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+            },
+            "ai": {
+                "title": "MEISTERHAFTE KI (KÜNSTLICHE INTELLIGENZ)",
+                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+            },
+            "targeting": {
+                "title": "ZIELGERICHTETE WERBEKAMPAGNEN",
+                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+            },
+            "email": {
+                "title": "EFFIZIENTES E-MAIL-MARKETING",
+                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+            },
+            "google": {
+                "title": "WERBUNG AUF GOOGLE (SEARCH, YOUTUBE, DISPLAY)",
+                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+            },
+            "design": {
+                "title": "GRAFIK- UND WEBDESIGN AUF WELTNIVEAU",
+                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+            },
+            "tv": {
+                "title": "TV-, RADIO-, OOH- UND BTL-KAMPAGNEN",
+                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+            },
+            "awards": {
+                "title": "INTERNATIONALE VIDEOAUSZEICHNUNGEN",
+                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+            }
+        }
+    },
+    "SectionShowcase": {
+        "ariaLabel": "Showcase",
+        "heading1": "360 MARKETING",
+        "heading2": "NIEMAND ARBEITET WIE WIR",
+        "centerTitle": "Sofia Banitsa",
+        "prev": "Zurück",
+        "next": "Weiter",
+        "close": "Schließen",
+        "items": {
+            "01": { "title": "Fotografie, Styling, Produktanimation", "description": "Produktfotografie, Styling und Animation" },
+            "02": { "title": "Sofia Banitsa Live, Meer aus Banitsa, Lügendetektor", "description": "Sofia Banitsa Live, Meer aus Banitsa, Lügendetektor" },
+            "03": { "title": "Komplettes Branding und Design, inklusive Innenakzente", "description": "Komplettes Branding und Design, inklusive Innenakzente" },
+            "04": { "title": "Werbekampagnen und Social-Media-Inhalte", "description": "Werbekampagnen und Inhalte für soziale Medien" },
+            "05": { "title": "Verpackungen, Fahrzeugbranding", "description": "Verpackungsdesign und Fahrzeugbranding" },
+            "06": { "title": "Digitale Marketingstrategie entwickeln", "description": "Entwicklung der ersten digitalen Marketingstrategie des Unternehmens" },
+            "07": { "title": "Videoclips", "description": "Kreativkonzept, Drehbuch und Produktion" },
+            "08": { "title": "Fotoshootings", "description": "Produkt- und Lifestylefotografie" },
+            "09": { "title": "Events", "description": "Organisation und Berichterstattung" },
+            "10": { "title": "UI/UX", "description": "Konzept, Prototyping und Designsysteme" },
+            "11": { "title": "Outdoor", "description": "Plakatwände und Stadtbranding" },
+            "12": { "title": "PR und Medien", "description": "Planung und Verteilung" },
+            "13": { "title": "Animationen", "description": "2D/3D Motion für Kampagnen" },
+            "14": { "title": "Copywriting", "description": "Tonfall, Botschaften und Slogans" },
+            "15": { "title": "Brand Audit", "description": "Analyse und Empfehlungen für Marken" },
+            "16": { "title": "E-Mail-Marketing", "description": "Segmentierung, Automatisierungen, A/B-Tests" },
+            "17": { "title": "SEO/Content", "description": "Optimierung und Inhalte" },
+            "18": { "title": "PPC", "description": "Search-, Display- und Videokampagnen" }
+        }
+    },
+    "SectionWhyUs": {
+        "ariaLabel": "Warum wir",
+        "heading1": "WARUM KABOOM",
+        "heading2": "WIE ERZIELEN WIR\nERGEBNISSE?",
+        "items": {
+            "competence": { "title": "KOMPETENZ", "content": "Ein kurzer erklärender Text für diesen Abschnitt. Eine kurze Beschreibung zur Erläuterung des Blocks. Noch eine Zeile kurzer Erklärung." },
+            "qa": { "title": "QUALITÄTSSICHERUNG", "content": "Ein kurzer erklärender Text für diesen Block. Etwas Kontext zur Verdeutlichung." },
+            "kaizen": { "title": "KAIZEN", "content": "Ein kurzer erklärender Text für diesen Block. Etwas Kontext zur Verdeutlichung." },
+            "heart": { "title": "MIT HERZ ARBEITEN", "content": "Ein kurzer erklärender Text für diesen Block. Etwas Kontext zur Verdeutlichung." },
+            "cool": { "title": "COOLE LEUTE", "content": "Ein kurzer erklärender Text für diesen Block. Etwas Kontext zur Verdeutlichung." }
+        }
+    },
+    "SectionAwardsAndFormats": {
+        "ariaLabel": "Auszeichnungen und Formate",
+        "awards": {
+            "heading1": "AUSZEICHNUNGEN",
+            "heading2": "Die Jury\nliebt uns"
+        },
+        "formats": {
+            "heading1": "UNSERE FORMATE",
+            "heading2": "KABOOM ORIGINALS",
+            "description": "Ein kurzer erklärender Text für diesen Abschnitt. Eine kurze Beschreibung, worum es bei Kaboom Originals geht.",
+            "prev": "Zurück",
+            "next": "Weiter",
+            "items": {
+                "1": { "title": "Kaboom Talks" },
+                "2": { "title": "Real Reels" },
+                "3": { "title": "Brand Pulse" },
+                "4": { "title": "Behind the Boom" },
+                "5": { "title": "Creative Cuts" },
+                "6": { "title": "Client Chronicles" },
+                "7": { "title": "Motion Lab" },
+                "8": { "title": "Sound & Vision" }
+            }
+        }
     }
 }

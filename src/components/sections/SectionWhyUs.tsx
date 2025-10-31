@@ -1,25 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ChevronDown,
-  ChevronUp,
-  MinusCircle,
-  MinusCircleIcon,
-  MinusIcon,
-  PlusIcon,
-} from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import SectionWrapper from "@/components/layout/section-wrapper";
 import { WHY_US_ITEMS } from "@/data/why-us-items";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function SectionWhyUs() {
+  const t = useTranslations("SectionWhyUs");
   const [openId, setOpenId] = useState("competence");
+  const heading2Lines = t('heading2').split('\n');
 
   return (
     <SectionWrapper
-      aria-label="Why Us"
+      aria-label={t("ariaLabel")}
       className="bg-black text-white"
       background={
         <img
@@ -36,10 +31,15 @@ export default function SectionWhyUs() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          ЗАЩО KABOOM
+          {t("heading1")}
         </motion.h3>
         <h2 className="text-4xl md:text-5xl font-extrabold text-red-600 font-display">
-          КАК ПОСТИГАМЕ <br /> РЕЗУЛТАТИ?
+          {heading2Lines.map((line, i) => (
+            <span key={i}>
+              {line}
+              {i < heading2Lines.length - 1 && <br />}
+            </span>
+          ))}
         </h2>
       </div>
 
@@ -55,7 +55,7 @@ export default function SectionWhyUs() {
                 backgroundColor: isOpen ? "#111" : "#222",
                 borderColor: isOpen ? "#f00" : "#222",
               }}
-              className={`rounded-md overflow-hidden px-2 py-2 transition-all relative border`}
+              className="rounded-md overflow-hidden px-2 py-2 transition-all relative border"
             >
               <button
                 className="w-full h-full flex justify-center items-center text-center text-white text-sm tracking-wider font-display font-thin"
@@ -63,10 +63,11 @@ export default function SectionWhyUs() {
                   setOpenId((prev) => (prev === item.id ? "" : item.id))
                 }
               >
-                {item.title}
+                {t(`items.${item.id}.title`)}
                 <div
-                  className={`absolute top-1 right-1 w-6 h-6 rounded-full flex items-center justify-center transition-all
-                            ${isOpen ? "bg-white" : "bg-black"}`}
+                  className={`absolute top-1 right-1 w-6 h-6 rounded-full flex items-center justify-center transition-all ${
+                    isOpen ? "bg-white" : "bg-black"
+                  }`}
                 >
                   <Image
                     src={isOpen ? "/icons/minus.svg" : "/icons/plus.svg"}
@@ -85,14 +86,12 @@ export default function SectionWhyUs() {
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                {" "}
                 {isOpen && (
                   <div className="pt-4 pb-2 text-sm text-white/80 leading-relaxed font-legacy">
-                    {" "}
-                    {item.content}{" "}
+                    {t(`items.${item.id}.content`)}
                   </div>
-                )}{" "}
-              </motion.div>{" "}
+                )}
+              </motion.div>
             </motion.div>
           );
         })}

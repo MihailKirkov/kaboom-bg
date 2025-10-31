@@ -15,6 +15,7 @@ import ShowcaseCard from '@/components/cards/showcase-card';
 import PaginationDots from '@/components/shared/pagination-dots';
 import { motion, AnimatePresence } from 'framer-motion';
 import SafeImage from '@/components/shared/safe-image';
+import { useTranslations } from 'next-intl';
 
 function chunkArray<T>(arr: T[], size: number): T[][] {
   const chunks: T[][] = [];
@@ -23,6 +24,7 @@ function chunkArray<T>(arr: T[], size: number): T[][] {
 }
 
 export default function SectionShowcase() {
+  const t = useTranslations('SectionShowcase');
   const [currentPage, setCurrentPage] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(6);
   const [selectedItem, setSelectedItem] =
@@ -31,7 +33,6 @@ export default function SectionShowcase() {
   const gridRef = useRef<HTMLDivElement>(null);
   const [stableHeight, setStableHeight] = useState<number>(0);
 
-  // 🔹 Responsive card count
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
@@ -53,7 +54,6 @@ export default function SectionShowcase() {
 
   const close = useCallback(() => setSelectedItem(null), []);
 
-  // 🔹 ESC closes dialog
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close();
     window.addEventListener('keydown', onKey);
@@ -65,7 +65,6 @@ export default function SectionShowcase() {
     setSelectedItem(null);
   };
 
-  // 🔹 Measure tallest rendered page height (real card content, not dummy)
   useLayoutEffect(() => {
     const pagesArr = chunkArray(SHOWCASE_ITEMS, cardsPerPage);
     const tempHeights: number[] = [];
@@ -91,7 +90,7 @@ export default function SectionShowcase() {
         img.style.height = '160px';
         img.className = 'bg-white/10 rounded';
         const text = document.createElement('div');
-        text.textContent = item.title;
+        text.textContent = t(`items.${item.id}.title`);
         text.className = 'text-md leading-5 px-2 text-white font-medium';
         card.appendChild(img);
         card.appendChild(text);
@@ -104,7 +103,7 @@ export default function SectionShowcase() {
     const maxH = Math.max(...tempHeights);
     setStableHeight(maxH);
     measureWrapper.remove();
-  }, [cardsPerPage]);
+  }, [cardsPerPage, t]);
 
   const pagination = (
     <div className="pointer-events-auto">
@@ -122,7 +121,7 @@ export default function SectionShowcase() {
     <SectionWrapper
       className="bg-gradient-to-b from-red-600/50 to-black/20 via-red-600/30 relative"
       innerClassName="h-full"
-      aria-label="Showcase"
+      aria-label={t('ariaLabel')}
       background={
         <Image
           src="/images/section-showcase.svg"
@@ -137,10 +136,10 @@ export default function SectionShowcase() {
     >
       <div className="text-center space-y-6 mt-6">
         <h1 className="text-sm uppercase tracking-[0.4em] text-muted font-semibold">
-          360 МАРКЕТИНГ
+          {t('heading1')}
         </h1>
         <h2 className="text-2xl md:text-4xl font-extrabold text-black">
-          НИКОЙ НЕ РАБОТИ КАТО НАС
+          {t('heading2')}
         </h2>
 
         <div className="mt-2 w-full flex items-center justify-between max-w-4xl mx-auto px-4 md:px-0">
@@ -148,7 +147,7 @@ export default function SectionShowcase() {
             onClick={() =>
               handlePageChange((currentPage - 1 + totalPages) % totalPages)
             }
-            aria-label="Предишен"
+            aria-label={t('prev')}
             className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:-translate-x-2 hover:scale-115 transition cursor-pointer"
           >
             <Image
@@ -161,14 +160,14 @@ export default function SectionShowcase() {
           </button>
 
           <h3 className="text-xl sm:text-3xl md:text-5xl font-display text-white tracking-[0.375rem] font-thin text-center">
-            Софийска баница
+            {t('centerTitle')}
           </h3>
 
           <button
             onClick={() =>
               handlePageChange((currentPage + 1) % totalPages)
             }
-            aria-label="Следващ"
+            aria-label={t('next')}
             className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:translate-x-2 hover:scale-115 transition cursor-pointer"
           >
             <Image
@@ -182,7 +181,6 @@ export default function SectionShowcase() {
         </div>
       </div>
 
-      {/* GRID WRAPPER */}
       <div className="relative mt-12 w-[80dvw] sm:w-[65dvw] lg:w-[max(40dvw,_550px)] mx-auto">
         <motion.div
           ref={gridRef}
@@ -191,19 +189,24 @@ export default function SectionShowcase() {
           style={{
             minHeight: stableHeight ? `${stableHeight}px` : undefined,
           }}
-          className="grid gap-6 px-2 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr mb-4 lg:mb-0"
+          className="grid gap-6 px-2 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr mb-6 lg:mb-4"
         >
           {currentItems.map((item, i) => (
             <ShowcaseCard
               key={item.id}
-              item={item}
+              item={{
+                ...item,
+                title: t(`items.${item.id}.title`),
+                description: t(`items.${item.id}.description`),
+              } as ShowcaseItem & { title: string; description: string }}
               index={i}
               onOpen={() => setSelectedItem(item)}
             />
+
           ))}
         </motion.div>
 
-        <ShowcaseDialog selectedItem={selectedItem} onClose={close} />
+        <ShowcaseDialog selectedItem={selectedItem} onClose={close} t={t} />
       </div>
     </SectionWrapper>
   );
@@ -212,9 +215,10 @@ export default function SectionShowcase() {
 type ShowcaseDialogProps = {
   selectedItem: ShowcaseItem | null;
   onClose: () => void;
+  t: ReturnType<typeof useTranslations>;
 };
 
-function ShowcaseDialog({ selectedItem, onClose }: ShowcaseDialogProps) {
+function ShowcaseDialog({ selectedItem, onClose, t }: ShowcaseDialogProps) {
   return (
     <AnimatePresence>
       {selectedItem && (
@@ -237,22 +241,22 @@ function ShowcaseDialog({ selectedItem, onClose }: ShowcaseDialogProps) {
             <div className="w-full h-[75%] relative">
               <SafeImage
                 src={selectedItem.imageSrc}
-                alt={selectedItem.title}
+                alt={t(`items.${selectedItem.id}.title`)}
                 fill
                 className="object-cover rounded"
               />
             </div>
 
             <h4 className="text-xl md:text-lg font-bold mb-3 text-center text-red-600 uppercase">
-              {selectedItem.title}
+              {t(`items.${selectedItem.id}.title`)}
             </h4>
             <p className="max-w-prose text-center text-white/90 font-legacy font-thin">
-              {selectedItem.description}
+              {t(`items.${selectedItem.id}.description`)}
             </p>
 
             <button
               onClick={onClose}
-              aria-label="Затвори"
+              aria-label={t('close')}
               className="absolute bottom-0 -translate-x-1/2 left-1/2 translate-y-4 h-8 w-8 rounded-full bg-black border-1 border-white/50 text-white grid place-items-center hover:bg-red-500 font-display font-extrabold text-xl transition"
             >
               X
