@@ -6,8 +6,10 @@ import SectionWrapperFullWidth from '@/components/layout/section-wrapper-full-wi
 import { AWARDS } from '@/data/awards';
 import { FORMATS } from '@/data/formats';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export default function SectionAwardsAndFormats() {
+  const t = useTranslations('SectionAwardsAndFormats');
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 4;
 
@@ -17,17 +19,24 @@ export default function SectionAwardsAndFormats() {
     currentPage * itemsPerPage + itemsPerPage
   );
 
+  const heading2Lines = t('awards.heading2').split('\n');
+
   return (
     <SectionWrapperFullWidth
       className="bg-black text-white text-center py-20"
-      aria-label="Награди и Формати"
+      aria-label={t('ariaLabel')}
     >
       {/* Awards Header */}
       <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2 font-display">
-        НАГРАДИ
+        {t('awards.heading1')}
       </h2>
       <h3 className="text-2xl sm:text-4xl md:text-5xl font-display font-light mb-12 tracking-wider">
-        Журито <br/><span className="font-normal">ни обича</span>
+        {heading2Lines.map((line, i) => (
+          <span key={i}>
+            {line}
+            {i < heading2Lines.length - 1 && <br />}
+          </span>
+        ))}
       </h3>
 
       {/* Awards Logos */}
@@ -46,39 +55,43 @@ export default function SectionAwardsAndFormats() {
 
       {/* Formats Header */}
       <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2 font-display">
-        НАШИТЕ ФОРМАТИ
+        {t('formats.heading1')}
       </h2>
       <h3 className="text-4xl font-display text-red-600 font-extrabold mb-4">
-        KABOOM ORIGINALS
+        {t('formats.heading2')}
       </h3>
       <div className="flex justify-center items-center gap-6 mb-10">
         <button
-          onClick={() => setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages)}
+          onClick={() =>
+            setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages)
+          }
           className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
+          aria-label={t('formats.prev')}
         >
           <ChevronLeft size={24} />
         </button>
 
-        <p className="text-white/80 text-sm max-w-xl ">
-          Малко обяснително текстче към този текстови блок. Малко обяснително текстче към този текстови блок.
+        <p className="text-white/80 text-sm max-w-xl text-balance">
+          {t('formats.description')}
         </p>
 
         <button
           onClick={() => setCurrentPage((prev) => (prev + 1) % totalPages)}
           className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
+          aria-label={t('formats.next')}
         >
           <ChevronRight size={24} />
         </button>
       </div>
 
-      {/* Format Items (YouTube Videos) */}
+      {/* Format Items */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 px-6 max-w-[max(640px,50dvw)] mx-auto">
         {visibleFormats.map((item) => (
           <div key={item.id} className="space-y-4">
             <div className="aspect-video max-w-[600px] rounded-xl overflow-hidden">
               <iframe
                 src={`https://www.youtube.com/embed/${item.youtubeId}`}
-                title={item.title}
+                title={t(`formats.items.${item.id}.title`)}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="w-full h-full"

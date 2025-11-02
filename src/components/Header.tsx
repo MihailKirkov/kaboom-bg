@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button";
 import LangSwitcher from "./language-switcher";
 import { SERVICES } from "@/data/services";
 import { Locale } from "@/i18n";
+import { useTranslations } from "next-intl";
 
 export default function Header({ currentLocale }: { currentLocale: Locale }) {
+  const t = useTranslations("SectionServices");
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -87,7 +89,7 @@ export default function Header({ currentLocale }: { currentLocale: Locale }) {
 
                 <div className="relative py-6 px-4 md:px-8 overflow-hidden">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-y-2">
-                    {SERVICES.map((service) => (
+                    {SERVICES.map((service, id) => (
                       <div key={service.id} className="group flex flex-col items-center justify-end">
                         <button
                           key={service.id}
@@ -103,9 +105,7 @@ export default function Header({ currentLocale }: { currentLocale: Locale }) {
                               className="transition-all"
                             />
                             <span className="text-[13px] font-bold transition-colors leading-[1.05]">
-                              {service.title1}
-                              <br/>
-                              {service.title2}
+                              {t(`services.${SERVICES[id].id}.title`)}
                             </span>
                           </div>
                         </button>

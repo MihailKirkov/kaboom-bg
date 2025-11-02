@@ -9,40 +9,75 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { SERVICES } from "@/data/services";
-import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PaginationDots from "../shared/pagination-dots";
+import { SERVICES } from "@/data/services";
+import { useTranslations } from "next-intl";
 
 const ILLUSTRATION_SRC = "/images/section-services.svg";
 
-// Variants
-const containerVariants = {
-  hidden: { opacity: 1 },
-  show: { opacity: 1, transition: { staggerChildren: 0.12 } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 120, damping: 16 } },
-};
+/**
+ * We drive layout with CSS variables so everything stays in lockstep:
+ *   --card-w  : card width
+ *   --sep-w   : separator width
+ *   --show-w  : 3 * card width
+ *
+ * Tailwind responsive arbitrary properties set these per breakpoint,
+ * including very small screens (<360px).
+ */
 
 export default function SectionServices() {
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [current, setCurrent] = useState(4);
+  const [currentCard, setCurrentCard] = useState(0);
+  const t = useTranslations("SectionServices");
+
+  // Interleave: card, sep, card, sep, ...
+  const slides = useMemo(
+    () =>
+      SERVICES.flatMap((s, i) => [
+        { type: "card" as const, service: s, index: i },
+        { type: "sep" as const, key: `sep-${i}` },
+      ]),
+    []
+  );
+  const snapCount = slides.length; // = SERVICES.length * 2
 
   useEffect(() => {
     if (!api) return () => {};
-    const onSelect = () => setCurrent(api.selectedScrollSnap());
+
+    const onSelect = () => {
+      const snap = api.selectedScrollSnap(); // can be odd (separator) or even (card)
+      const cardSnap = snap % 2 === 0 ? snap : snap - 1; // snap to nearest card on the left
+      const cardIndex = (cardSnap / 2 + SERVICES.length) % SERVICES.length;
+      setCurrentCard(cardIndex);
+    };
+
     api.on("select", onSelect);
     onSelect();
     return () => api.off("select", onSelect);
   }, [api]);
 
+  const scrollToCard = (i: number) => api?.scrollTo((i * 2) % snapCount);
+
   return (
     <section
-      className="relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-20 md:pb-24 min-h-screen bg-black"
-      aria-label="Услуги"
+      aria-label={t("ariaLabel")}
+      className={[
+        "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-20 md:pb-24 min-h-screen bg-black",
+        // --- CSS variables (responsive) ---
+        // Smallest screens first (works under 360px too)
+        "[--card-w:96px] [--sep-w:14px]",
+        // Slightly wider phones
+        "xs:[--card-w:108px] xs:[--sep-w:16px]",
+        // 360–639
+        "sm:[--card-w:132px] sm:[--sep-w:18px]",
+        // ≥640 (Tailwind md starts at 768; we cover 640–767 via sm above)
+        "md:[--card-w:220px] md:[--sep-w:24px]",
+        // ≥1024
+        "lg:[--card-w:240px] lg:[--sep-w:28px]",
+        // Derived: showcase = 3 * card width
+        "[--show-w:calc(var(--card-w)*3)]",
+      ].join(" ")}
     >
       <Image
         src={ILLUSTRATION_SRC}
@@ -67,7 +102,7 @@ export default function SectionServices() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          Услуги
+          {t("servicesTitle")}
         </motion.h1>
         <motion.h2
           className="text-white text-[96px] leading-none md:text-[180px] font-display"
@@ -75,23 +110,28 @@ export default function SectionServices() {
           whileInView={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          360°
+          {t("angleText")}
         </motion.h2>
       </motion.div>
 
-      {/* Service Image / Showcase */}
+      {/* Showcase: width = 3 × card width, always */}
       <div className="relative z-10 mt-6 md:mt-4">
         <AnimatePresence mode="wait">
           <motion.div
-            key={SERVICES[current]?.id ?? "placeholder"}
+            key={SERVICES[currentCard]?.id ?? "placeholder"}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="mx-auto h-[220px] w-[min(92vw,660px)] rounded-xl bg-zinc-800/90 shadow-[0_8px_24px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center"
+            className={[
+              "mx-auto h-[220px] rounded-xl bg-zinc-800/90 shadow-[0_8px_24px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center",
+              "w-[var(--show-w)]", // exact 3× card width at *all* breakpoints
+            ].join(" ")}
           >
             <span className="text-center">
-              IMAGE #{current + 1} <br /> {SERVICES[current]?.title}
+              IMAGE #{currentCard + 1}
+              <br />
+              {t(`services.${SERVICES[currentCard].id}.title`)}
             </span>
           </motion.div>
         </AnimatePresence>
@@ -101,8 +141,6 @@ export default function SectionServices() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          {/* <ChevronDown className="h-16 w-16 text-red-500" /> */}
-          
           <Image
             src="/icons-red/arrow-down.svg"
             alt=""
@@ -114,7 +152,7 @@ export default function SectionServices() {
       </div>
 
       {/* Carousel */}
-      <div className="relative z-10 mt-16 w-full">
+      <div className="relative z-10 mt-16 w-full px-[3vw]">
         <Carousel
           setApi={setApi}
           className="w-full"
@@ -124,38 +162,63 @@ export default function SectionServices() {
             containScroll: "trimSnaps",
             dragFree: false,
             skipSnaps: false,
+            slidesToScroll: 1,
           }}
         >
-          <CarouselContent className="px-[3vw] flex items-center">
-            {SERVICES.map((s, i) => {
+          {/* Remove default track gutters to avoid seam drift */}
+          <CarouselContent className="!ml-0 !px-0 flex items-center gap-0">
+            {slides.map((slide, idx) => {
+              if (slide.type === "sep") {
+                return (
+                  <CarouselItem
+                    key={`sep-${idx}`}
+                    // Fixed separator width via CSS var; no margins/padding
+                    className="!pl-0 !ml-0 !mr-0 p-0 m-0 basis-[var(--sep-w)] grow-0 shrink-0"
+                  >
+                    <div className="flex h-full items-center justify-center">
+                      <motion.div
+                        aria-hidden
+                        initial={{ opacity: 0, scaleY: 0.8 }}
+                        animate={{ opacity: 0.6, scaleY: 1 }}
+                        transition={{ duration: 0.35, ease: "easeOut" }}
+                        className="w-px h-16 bg-white/30"
+                      />
+                    </div>
+                  </CarouselItem>
+                );
+              }
+
+              const i = slide.index;
+              const s = slide.service;
+              const active = i === currentCard;
+
+              // Stagger entrance relative to center
               const middle = Math.floor(SERVICES.length / 2);
               const offset = Math.abs(i - middle);
 
               return (
                 <CarouselItem
                   key={s.id}
-                  className="basis-3/4 sm:basis-1/2 md:basis-1/3 lg:basis-1/6 p-0 m-0"
+                  // Card width is *exactly* var(--card-w)
+                  className="!pl-0 !ml-0 !mr-0 p-0 m-0 basis-[var(--card-w)] grow-0 shrink-0"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{
-                      delay: offset * 0.15,
+                      delay: offset * 0.12,
                       duration: 0.5,
                       ease: "easeOut",
                     }}
-                    className="relative flex justify-center" style={{width:'200px'}}
+                    className="relative flex justify-center"
                   >
                     <ServiceCard
-                      title={s.title}
-                      blurb={s.blurb}
+                      title={t(`services.${s.id}.title`)}
+                      blurb={t(`services.${s.id}.blurb`)}
                       iconSrc={s.iconSrc}
-                      active={i === current}
-                      onClick={() => api?.scrollTo(i)}
+                      active={active}
+                      onClick={() => scrollToCard(i)}
                     />
-
-                    {/* Separator lines */}
-                      <div className="absolute right-[-10px] top-1/2 -translate-y-1/2 w-[2px] h-16 bg-white/20 pointer-events-none" />
                   </motion.div>
                 </CarouselItem>
               );
@@ -166,15 +229,21 @@ export default function SectionServices() {
 
       <PaginationDots
         total={SERVICES.length}
-        current={current}
-        onChange={(i) => api?.scrollTo(i)}
+        current={currentCard}
+        onChange={scrollToCard}
         className="mt-6"
       />
     </section>
   );
 }
 
-function ServiceCard({ title, blurb, iconSrc, active, onClick }: {
+function ServiceCard({
+  title,
+  blurb,
+  iconSrc,
+  active,
+  onClick,
+}: {
   title: string;
   blurb: string;
   iconSrc: `/icons/${string}`;
@@ -182,7 +251,11 @@ function ServiceCard({ title, blurb, iconSrc, active, onClick }: {
   onClick: () => void;
 }) {
   return (
-    <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="w-full"
+    >
       <Card
         className="h-full cursor-pointer border-0 relative overflow-visible bg-transparent"
         onClick={onClick}
