@@ -59,14 +59,14 @@ export default function SectionTestimonials() {
     >
       {/* Header */}
       <div className="mb-10 text-center space-y-4">
-        <h1 className="text-muted uppercase tracking-[0.4em] text-sm font-bold">
+        <h1 className="text-muted uppercase tracking-[0.4em] text-sm font-bold font-display">
           ЗАЩО KABOOM
         </h1>
-        <h2 className="text-red-600 font-display text-4xl md:text-5xl font-extrabold leading-tight">
+        <h2 className="text-red-600 font-display text-4xl md:text-5xl font-thin leading-tight">
           НЕЗАВИСИМО <br /> ОТ БРАНША
         </h2>
-        <p className="text-white/80 text-sm max-w-xl mx-auto leading-relaxed">
-          Малко обяснително текстче към този текстови блок. Малко обяснително текстче към този текстови блок.
+        <p className="text-white/80 text-sm max-w-sm mx-auto leading-relaxed font-legacy">
+          От недвижими имоти до козметика, индустриален сектор и здравеопазване, дори екология. Какъвто и да е Вашият бизнес, от Kaboom ще получите от качество.
         </p>
       </div>
 
