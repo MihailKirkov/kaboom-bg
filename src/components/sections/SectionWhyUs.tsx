@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import SectionWrapper from "@/components/layout/section-wrapper";
 import { WHY_US_ITEMS } from "@/data/why-us-items";
 import Image from "next/image";
@@ -16,24 +16,24 @@ export default function SectionWhyUs() {
     <SectionWrapper
       aria-label={t("ariaLabel")}
       className="bg-black text-white"
-      background={
-        <img
-          src="/images/section-whyus.svg"
-          alt=""
-          className="absolute inset-0 object-cover w-full h-full opacity-30"
-        />
-      }
+      // background={
+      //   <img
+      //     src="/images/section-whyus.svg"
+      //     alt=""
+      //     className="absolute inset-0 object-cover w-full h-full opacity-30"
+      //   />
+      // }
     >
       <div className="text-center mb-12">
         <motion.h3
-          className="text-lg text-white/60 font-bold tracking-[0.375rem] uppercase"
+          className="text-md sm:text-lg text-white/60 font-bold tracking-[0.375rem] uppercase"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {t("heading1")}
         </motion.h3>
-        <h2 className="text-4xl md:text-5xl font-extrabold text-red-600 font-display">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-red-600 font-display mt-2">
           {heading2Lines.map((line, i) => (
             <span key={i}>
               {line}
@@ -77,21 +77,22 @@ export default function SectionWhyUs() {
                   />
                 </div>
               </button>
-              <motion.div
-                initial={false}
-                animate={{
-                  height: isOpen ? "auto" : 0,
-                  opacity: isOpen ? 1 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
-              >
+              <AnimatePresence initial={false}>
                 {isOpen && (
-                  <div className="pt-4 pb-2 text-sm text-white/80 leading-relaxed font-legacy">
-                    {t(`items.${item.id}.content`)}
-                  </div>
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pt-4 pb-2 text-sm text-white/80 leading-relaxed font-legacy">
+                      {t(`items.${item.id}.content`)}
+                    </div>
+                  </motion.div>
                 )}
-              </motion.div>
+              </AnimatePresence>
             </motion.div>
           );
         })}

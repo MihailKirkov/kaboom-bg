@@ -36,8 +36,8 @@ export default function SectionShowcase() {
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
-      if (w < 640) setCardsPerPage(2);
-      else if (w < 1024) setCardsPerPage(4);
+      if (w < 640) setCardsPerPage(3);
+      else if (w < 1024) setCardsPerPage(6);
       else setCardsPerPage(6);
     };
     handleResize();
@@ -49,6 +49,18 @@ export default function SectionShowcase() {
     () => chunkArray(SHOWCASE_ITEMS, cardsPerPage),
     [cardsPerPage]
   );
+  const LOGICAL_GROUP_SIZE = 6;
+  const pageTitles = useMemo(
+    () => [t('centerTitle#1'), t('centerTitle#2'), t('centerTitle#3')],
+    [t]
+  );
+
+  // Logical group index is consistent across screen sizes
+  const logicalGroupIndex = useMemo(() => {
+    return Math.floor((currentPage * cardsPerPage) / LOGICAL_GROUP_SIZE);
+  }, [currentPage, cardsPerPage]);
+
+
   const totalPages = pages.length;
   const currentItems = pages[currentPage] || [];
 
@@ -153,14 +165,14 @@ export default function SectionShowcase() {
             <Image
               src="/icons/arrow-left.svg"
               alt=""
-              width={20}
-              height={40}
+              width={30}
+              height={50}
               className="object-contain max-h-24"
             />
           </button>
 
           <h3 className="text-xl sm:text-3xl md:text-5xl font-display text-white tracking-[0.375rem] font-thin text-center">
-            {t('centerTitle')}
+            {pageTitles[logicalGroupIndex] || ''}
           </h3>
 
           <button
@@ -173,8 +185,8 @@ export default function SectionShowcase() {
             <Image
               src="/icons/arrow-right.svg"
               alt=""
-              width={20}
-              height={40}
+              width={30}
+              height={50}
               className="object-contain max-h-24"
             />
           </button>
