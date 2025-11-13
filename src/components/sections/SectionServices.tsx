@@ -66,17 +66,17 @@ export default function SectionServices() {
         "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-20 md:pb-24 min-h-screen bg-black",
         // --- CSS variables (responsive) ---
         // Smallest screens first (works under 360px too)
-        "[--card-w:96px] [--sep-w:14px]",
+        "[--card-w:96px] [--sep-w:10px]",
         // Slightly wider phones
-        "xs:[--card-w:108px] xs:[--sep-w:16px]",
+        "xs:[--card-w:108px] xs:[--sep-w:12px]",
         // 360–639
-        "sm:[--card-w:132px] sm:[--sep-w:18px]",
+        "sm:[--card-w:132px] sm:[--sep-w:14px]",
         // ≥640 (Tailwind md starts at 768; we cover 640–767 via sm above)
-        "md:[--card-w:220px] md:[--sep-w:24px]",
+        "md:[--card-w:200px] md:[--sep-w:16px]",
         // ≥1024
-        "lg:[--card-w:240px] lg:[--sep-w:28px]",
+        "lg:[--card-w:210px] lg:[--sep-w:18px]",
         // Derived: showcase = 3 * card width
-        "[--show-w:calc(var(--card-w)*3)]",
+        "[--show-w:calc(var(--card-w)*3+var(--sep-w)*3)]",
       ].join(" ")}
     >
       <Image
@@ -152,7 +152,7 @@ export default function SectionServices() {
       </div>
 
       {/* Carousel */}
-      <div className="relative z-10 mt-16 w-full px-[3vw]">
+      <div className="relative z-10 mt-16 w-full px-[2vw]">
         <Carousel
           setApi={setApi}
           className="w-full"
@@ -166,7 +166,7 @@ export default function SectionServices() {
           }}
         >
           {/* Remove default track gutters to avoid seam drift */}
-          <CarouselContent className="!ml-0 !px-0 flex items-center gap-0">
+          <CarouselContent className="!ml-0 !px-0 flex items-stretch gap-0">
             {slides.map((slide, idx) => {
               if (slide.type === "sep") {
                 return (
@@ -181,7 +181,7 @@ export default function SectionServices() {
                         initial={{ opacity: 0, scaleY: 0.8 }}
                         animate={{ opacity: 0.6, scaleY: 1 }}
                         transition={{ duration: 0.35, ease: "easeOut" }}
-                        className="w-px h-16 bg-white/30"
+                        className="w-px h-full bg-white/30"
                       />
                     </div>
                   </CarouselItem>
@@ -262,7 +262,7 @@ function ServiceCard({
       >
         <CardContent
           className={[
-            "relative p-2 text-center transition-colors",
+            "relative p-2 text-center transition-colors rounded-md",
             active
               ? "bg-white/15 shadow-lg ring-1 ring-white/20"
               : "bg-transparent hover:bg-white/5",
@@ -272,7 +272,12 @@ function ServiceCard({
             <Image src={iconSrc} alt="" width={24} height={24} className="opacity-90" />
           </div>
           <div className="text-[11px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500">
-            {title}
+            {title.split("\n").map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))}
           </div>
           <div className="mt-2 text-[11px] leading-4 text-white/70">{blurb}</div>
         </CardContent>

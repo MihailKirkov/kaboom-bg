@@ -31,11 +31,37 @@ export default function Home() {
       <SectionHero />
       <SectionServices />
       <SectionShowcase />
-      <SectionWhyUs />
-      <SectionTestimonials />
-
+      {/* <SectionWhyUs /> */}
       <div className="relative overflow-hidden">
-        {/* 🔥 Animated SVG */}
+        {/* Animated SVG */}
+        <motion.div
+          style={{ y }}
+          className="absolute bottom-0 right-0 z-10 pointer-events-none 
+                     w-[450px] h-[400px]
+                     sm:w-[550px] sm:h-[500px] 
+                     md:w-[650px] md:h-[600px]
+                     lg:w-[750px] lg:h-[700px]
+                     xl:w-[830px] xl:h-[800px]
+                     translate-x-10 sm:translate-x-16 md:translate-x-20"// xl:w-[700px] xl:h-[900px] 
+        >
+          <Image
+            src="/images/section-whyus.svg"
+            alt="Kaboom hero figure"
+            fill
+            className="object-contain"
+            priority
+          />
+        </motion.div>
+
+        {/* Sections */}
+        <SectionWhyUs />
+      </div>
+
+
+      <SectionTestimonials />
+      
+      <div className="relative overflow-hidden">
+        {/* Animated SVG */}
         <motion.div
           style={{ y }}
           className="absolute bottom-0 right-0 z-10 pointer-events-none 
