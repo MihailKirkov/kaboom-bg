@@ -1,40 +1,16 @@
-// /data/client-reviews.ts
-
 export type ClientReview = {
   id: string;
   name: string;
-  position: string;
-  company: string;
+  fullName: string;
   avatar: string; // image path from /public/images/clients/
   quote: string;
 };
 
-export const CLIENT_REVIEWS: ClientReview[] = [
-  {
-    id: "review-1",
-    name: "Магдалена Андонова",
-    position: "Маркетинг мениджър",
-    company: "ERA Недвижими Имоти",
-    avatar: "/images/clients/art-figure.svg",
-    quote:
-      "Малко обяснително текстче към този текстови блок. Малко обяснително текстче към този текстови блок.",
-  },
-  {
-    id: "review-2",
-    name: "Иван Петров",
-    position: "CEO",
-    company: "TechNova",
-    avatar: "/images/clients/ivan.png",
-    quote:
-      "Работата с Kaboom беше невероятна. Те предоставиха точно това, от което имахме нужда.",
-  },
-  {
-    id: "review-3",
-    name: "Елица Георгиева",
-    position: "Директор Маркетинг",
-    company: "FreshCorp",
-    avatar: "/images/clients/elitsa.png",
-    quote:
-      "Креативен екип с професионално отношение. Препоръчвам ги силно!",
-  },
+export const CLIENT_REVIEWS = [
+  { id: "review-1", avatar: "/images/clients/MagdalenaAndonova.webp" },
+  { id: "review-2", avatar: "/images/clients/AndonAndonov.webp" },
+  { id: "review-3", avatar: "/images/clients/MikeBeottcher.webp" },
+  { id: "review-4", avatar: "/images/clients/LauraZimmermann.webp" },
+  { id: "review-5", avatar: "/images/clients/ReginaTessmann.webp" },
+  { id: "review-6", avatar: "/images/clients/NikolaIvanov.webp" }
 ];

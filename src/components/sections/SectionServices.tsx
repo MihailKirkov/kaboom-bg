@@ -179,7 +179,7 @@ const slides = useMemo(() => {
             transition={{ duration: 0.35, ease: "easeOut" }}
             className={[
               "mx-auto h-[220px] rounded-xl overflow-hidden",
-              "shadow-[0_8px_24px_rgba(0,0,0,0.55)] ring-1 ring-white/10",
+              "shadow-[0_8px_24px_rgba(0,0,0,0.55)] ",
               "w-[var(--show-w)] bg-black/30",
             ].join(" ")}
           >
@@ -350,7 +350,7 @@ function ServiceCard({
             <Image src={iconSrc} alt="" width={24} height={24} className="opacity-90" />
           </div>
           {/* <div className="text-[11px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500"> */}
-          <div className="text-[10px] xs:text-[11px] sm:text-[12px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500">
+          <div className="text-[10px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500">
 
             {title.split("\n").map((line, i) => (
               <span key={i}>
@@ -359,7 +359,7 @@ function ServiceCard({
               </span>
             ))}
           </div>
-          <div className="mt-2 text-[10px] xs:text-[11px] sm:text-[12px] leading-4 text-white/70">{blurb}</div>
+          <div className="mt-2 text-[10px] sm:text-[11px] leading-4 text-white/70 font-legacy">{blurb}</div>
           
         </CardContent>
       </Card>

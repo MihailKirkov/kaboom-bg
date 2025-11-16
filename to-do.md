@@ -60,3 +60,4 @@
 - [ ] Get the correct favicon for Kaboom
 - [ ] fix awards.id
 - [ ] sectionServices responsiveness
+- [ ] element 11 lipsva ot Section_3_Element

@@ -58,16 +58,35 @@ export default function Home() {
       </div>
 
 
-      <SectionTestimonials />
+<motion.div
+  style={{ y }}
+  className="absolute -bottom-65 right-0 z-10 pointer-events-none
+             w-[400px] h-[400px] sm:w-[500px] sm:h-[500px]
+             md:w-[600px] md:h-[600px]
+             lg:w-[650px] lg:h-[550px]
+             translate-x-10 sm:translate-x-16 md:translate-x-20"
+>
+  <Image
+    src="/images/section-testimonial-bg.svg"
+    alt=""
+    fill
+    className="object-contain"
+    priority
+  />
+</motion.div>
+
+<SectionTestimonials />
+
+
       
       <div className="relative overflow-hidden">
         {/* Animated SVG */}
         <motion.div
           style={{ y }}
           className="absolute bottom-0 right-0 z-10 pointer-events-none 
-                     w-[300px] h-[400px] sm:w-[400px] sm:h-[500px] 
-                     md:w-[500px] md:h-[650px] lg:w-[600px] lg:h-[750px]
-                     xl:w-[700px] xl:h-[900px] translate-x-10 sm:translate-x-16 md:translate-x-20"
+                      w-[300px] h-[400px] sm:w-[400px] sm:h-[500px] 
+                      md:w-[500px] md:h-[650px] lg:w-[600px] lg:h-[750px]
+                      xl:w-[700px] xl:h-[900px] translate-x-10 sm:translate-x-16 md:translate-x-20"
         >
           <Image
             src="/images/art-figure.svg"

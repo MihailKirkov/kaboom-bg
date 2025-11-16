@@ -48,8 +48,8 @@
         "heading1": "360 МАРКЕТИНГ",
         "heading2": "НИКОЙ НЕ РАБОТИ КАТО НАС",
         "centerTitle#1": "Софийска баница",
-        "centerTitle#2": "Софийска баница2",
-        "centerTitle#3": "Софийска баница3",
+        "centerTitle#2": "Pierre Fabre",
+        "centerTitle#3": "ERA Real Estate",
         "prev": "Предишен",
         "next": "Следващ",
         "close": "Затвори",
@@ -86,6 +86,42 @@
             "cool": { "title": "ГОТИНИ ХОРА", "content": "Всичките ни достойнства не биха имали значение, ако не бяхме свежи, усмихнати и непресторени — хора, с които, ще ни се да вярваме, бихте могли да бъдете освен партньори и приятели :)" }
         }
     },
+    "SectionTestimonials": {
+        "ariaLabel": "Клиенти",
+        "heading1": "ЗАЩО KABOOM",
+        "heading2": "НЕЗАВИСИМО\nОТ БРАНША",
+        "subtext": "От недвижими имоти до козметика, индустриален сектор и здравеопазване, дори екология. Какъвто и да е Вашият бизнес, от Kaboom ще получите от качество.",
+
+        "reviewsTitle": "КЛИЕНТСКИ ОТЗИВИ",
+        "reviewsHeading": "ГЛАС КЛИЕНТСКИ,\nГЛАС БОЖИЙ",
+
+        "reviews": {
+            "review-1": {
+                "quote": "ДА РАБОТИШ С KABOOM Е КАТО ДА ИМАШ ЕКИП ОТ МАГЬОСНИЦИ – ВСИЧКО СЕ СЛУЧВА ГЛАДКО, КРАСИВО И НАВРЕМЕ.",
+                "fullName": "Магдалена Андонова,\nМаркетинг мениджър @\nERA Недвижими Имоти"
+            },
+            "review-2": {
+                "quote": "РАБОТЯТ ПО „НЕМСКИ СТАНДАРТ“, КОРЕКТНИ СА КАТО ЯПОНЦИИ И КРЕАТИВНИ НА СВЕТОВНО НИВО – ЕТО ТОВА Е KABOOM ЗА ЕРА БЪЛГАРИЯ!",
+                "fullName": "Антон Андонов,\nИзпълнителен директор\n@ ERA България АД"
+            },
+            "review-3": {
+                "quote": "НИЕ ОТ FELDBERGER HOF HOTEL СМЕ ВЪЗХИТЕНИ ОТ РАБОТАТА И ЕКИПА НА KABOOM.",
+                "fullName": "Mike Böttcher,\nHoteldirector @\nFamilotel Feldberger Hof"
+            },
+            "review-4": {
+                "quote": "КРЕАТИВНИ – ОТДАДЕНИ – БЪРЗИ. ФОКУС ВЪРХУ ПРОДУКТА И УСЛУГАТА.",
+                "fullName": "Laura Zimmermann @\nWeisse Düne Segeltouren"
+            },
+            "review-5": {
+                "quote": "КРЕАТИВНИ ИДЕИ, ЕФЕКТИВЕН ДИЗАЙН И ПРОФЕСИОНАЛНО ИЗПЪЛНЕНИЕ СА ОСНОВАТА НА KABOOM.",
+                "fullName": "Regina Tessmann @\nLAG „Stettiner Haff“"
+            },
+            "review-6": {
+                "quote": "ПРЕПОРЪЧВАМ ЕКИПА НА KABOOM ЗА ВСЯКАКВИ УСЛУГИ СВЪРЗАНИ С ИЗГОТВЯНЕТО НА ДИГИТАЛНО СЪДЪРЖАНИЕ И КРЕАТИВНИ КОНЦЕПЦИИ",
+                "fullName": "Никола Иванов, \nMarketing & E-commerce Director\n@ Pierre Fabre Group"
+            }
+        }
+    },
     "SectionAwardsAndFormats": {
         "ariaLabel": "Награди и формати",
         "awards": {
@@ -106,7 +142,9 @@
                 "5": { "title": "Creative Cuts" },
                 "6": { "title": "Client Chronicles" },
                 "7": { "title": "Motion Lab" },
-                "8": { "title": "Sound & Vision" }
+                "8": { "title": "Sound & Vision" },
+                "9": { "title": "Sound & Vision" },
+                "10": { "title": "Sound & Vision" }
             }
         }
     }
