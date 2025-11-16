@@ -16,13 +16,52 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 
-// Extend window type for YouTube API
+// -------------------- YOUTUBE TYPES -------------------------
+
+declare namespace YT {
+  interface PlayerState {
+    UNSTARTED: -1;
+    ENDED: 0;
+    PLAYING: 1;
+    PAUSED: 2;
+    BUFFERING: 3;
+    CUED: 5;
+  }
+
+  interface PlayerEvent {
+    data: number;
+    target: Player;
+  }
+
+  interface Player {
+    getPlayerState(): number;
+  }
+
+  interface PlayerOptions {
+    events?: {
+      onStateChange?: (event: PlayerEvent) => void;
+    };
+  }
+
+  interface PlayerConstructor {
+    new (
+      element: HTMLElement | string,
+      options: PlayerOptions
+    ): Player;
+  }
+}
+
 declare global {
   interface Window {
-    YT: any;
+    YT: {
+      Player: YT.PlayerConstructor;
+      PlayerState: YT.PlayerState;
+    };
     onYouTubeIframeAPIReady?: () => void;
   }
 }
+
+// ---------------------------------------------------------------------------
 
 export default function SectionAwardsAndFormats() {
   const t = useTranslations("SectionAwardsAndFormats");
@@ -30,38 +69,35 @@ export default function SectionAwardsAndFormats() {
   const heading2Lines = t("awards.heading2").split("\n");
 
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [ytReady, setYtReady] = useState(false);
 
   const autoTimer = useRef<ReturnType<typeof setInterval> | null>(null);
-  const playersRef = useRef<any[]>([]);
+
+  // now typed as YT.Player[]
+  const playersRef = useRef<YT.Player[]>([]);
   const isVideoPlayingRef = useRef(false);
 
-  //
-  // Load YouTube Player API once and track readiness
-  //
+  // ---------------------------------------------------------------------------
+  // Load YT API
+  // ---------------------------------------------------------------------------
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // If already loaded
     if (window.YT && window.YT.Player) {
       setYtReady(true);
       return;
     }
 
-    // YouTube will call this when Iframe API is ready
-    window.onYouTubeIframeAPIReady = () => {
-      setYtReady(true);
-    };
+    window.onYouTubeIframeAPIReady = () => setYtReady(true);
 
     const tag = document.createElement("script");
     tag.src = "https://www.youtube.com/iframe_api";
     document.body.appendChild(tag);
   }, []);
 
-  //
-  // Auto-scroll helpers
-  //
+  // ---------------------------------------------------------------------------
+  // Auto-scroll
+  // ---------------------------------------------------------------------------
   const stopAuto = () => {
     if (autoTimer.current) {
       clearInterval(autoTimer.current);
@@ -76,15 +112,11 @@ export default function SectionAwardsAndFormats() {
     stopAuto();
 
     autoTimer.current = setInterval(() => {
-      if (!isVideoPlayingRef.current) {
-        api.scrollNext();
-      }
+      if (!isVideoPlayingRef.current) api.scrollNext();
     }, 5000);
   };
 
-  //
-  // Main auto-scroll hook (pointer interactions)
-  //
+  // pointer interaction hooks
   useEffect(() => {
     if (!api) return;
 
@@ -92,9 +124,6 @@ export default function SectionAwardsAndFormats() {
 
     api.on("pointerDown", stopAuto);
     api.on("pointerUp", startAuto);
-    api.on("select", () => {
-      setCurrentIndex(api.selectedScrollSnap());
-    });
 
     return () => {
       stopAuto();
@@ -104,13 +133,12 @@ export default function SectionAwardsAndFormats() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api]);
 
-  //
-  // Create YouTube players once API is ready + carousel mounted
-  //
+  // ---------------------------------------------------------------------------
+  // Setup YT players once API + carousel ready
+  // ---------------------------------------------------------------------------
   useEffect(() => {
     if (!api) return;
     if (!ytReady) return;
-    if (typeof window === "undefined") return;
     if (!window.YT || !window.YT.Player) return;
 
     const iframes = document.querySelectorAll(
@@ -122,30 +150,30 @@ export default function SectionAwardsAndFormats() {
     iframes.forEach((iframe) => {
       const player = new window.YT.Player(iframe, {
         events: {
-          onStateChange: (event: any) => {
-            const playing = event.data === window.YT.PlayerState.PLAYING;
+          onStateChange: (event: YT.PlayerEvent) => {
+            const isPlaying =
+              event.data === window.YT.PlayerState.PLAYING;
 
-            if (playing) {
+            if (isPlaying) {
               isVideoPlayingRef.current = true;
               stopAuto();
-            } else {
-              // check if any other player is still playing
-              const anyStillPlaying = playersRef.current.some((p) => {
-                try {
-                  return (
-                    p.getPlayerState() === window.YT.PlayerState.PLAYING
-                  );
-                } catch {
-                  return false;
-                }
-              });
-
-              isVideoPlayingRef.current = anyStillPlaying;
-
-              if (!anyStillPlaying) {
-                startAuto();
-              }
+              return;
             }
+
+            // Check if any other player is still playing
+            const stillPlaying = playersRef.current.some((p) => {
+              try {
+                return (
+                  p.getPlayerState() === window.YT.PlayerState.PLAYING
+                );
+              } catch {
+                return false;
+              }
+            });
+
+            isVideoPlayingRef.current = stillPlaying;
+
+            if (!stillPlaying) startAuto();
           },
         },
       });
@@ -153,15 +181,19 @@ export default function SectionAwardsAndFormats() {
       playersRef.current.push(player);
     });
 
-    // no cleanup of players needed here; carousel is stable on this page
+    // No cleanup needed; players persist
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api, ytReady]);
 
-  //
+  // ---------------------------------------------------------------------------
   // Manual arrows
-  //
+  // ---------------------------------------------------------------------------
   const handlePrev = () => api?.scrollPrev();
   const handleNext = () => api?.scrollNext();
+
+  // ---------------------------------------------------------------------------
+  // RENDER
+  // ---------------------------------------------------------------------------
 
   return (
     <SectionWrapperFullWidth
@@ -205,9 +237,10 @@ export default function SectionAwardsAndFormats() {
         {t("formats.heading2")}
       </h3>
 
-      {/* LIMIT WIDTH */}
+      {/* WIDTH LIMIT */}
       <div className="w-full flex justify-center">
         <div className="w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[60vw] xl:w-[700px]">
+
           {/* ARROWS + TEXT */}
           <div className="flex justify-center items-center px-2">
             <button
@@ -270,6 +303,7 @@ export default function SectionAwardsAndFormats() {
               </CarouselContent>
             </Carousel>
           </div>
+
         </div>
       </div>
     </SectionWrapperFullWidth>
