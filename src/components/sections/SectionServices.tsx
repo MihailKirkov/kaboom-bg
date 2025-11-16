@@ -31,54 +31,108 @@ export default function SectionServices() {
   const [currentCard, setCurrentCard] = useState(0);
   const t = useTranslations("SectionServices");
 
+  const [dragOffset, setDragOffset] = useState(0);
+
+
   // Interleave: card, sep, card, sep, ...
-  const slides = useMemo(
-    () =>
-      SERVICES.flatMap((s, i) => [
-        { type: "card" as const, service: s, index: i },
-        { type: "sep" as const, key: `sep-${i}` },
-      ]),
-    []
-  );
+const slides = useMemo(() => {
+  const base = SERVICES.flatMap((s, i) => [
+    { type: "card" as const, service: s, index: i },
+    { type: "sep" as const, key: `sep-${i}` },
+  ]);
+
+  // Minimal safe duplication so the track is always longer than the viewport
+  // 3 loops is safe for any card width and any screen size
+  return [...base, ...base, ...base];
+}, []);
+
   const snapCount = slides.length; // = SERVICES.length * 2
 
   useEffect(() => {
-    if (!api) return () => {};
+    if (!api) return;
 
     const onSelect = () => {
-      const snap = api.selectedScrollSnap(); // can be odd (separator) or even (card)
-      const cardSnap = snap % 2 === 0 ? snap : snap - 1; // snap to nearest card on the left
+      const snap = api.selectedScrollSnap();
+      const cardSnap = snap % 2 === 0 ? snap : snap - 1;
       const cardIndex = (cardSnap / 2 + SERVICES.length) % SERVICES.length;
       setCurrentCard(cardIndex);
     };
 
+    const onScroll = () => {
+      // Embla returns a value 0→1→0 as you drag between snaps
+      const progress = api.scrollProgress();
+      setDragOffset(progress);
+    };
+
     api.on("select", onSelect);
+    api.on("scroll", onScroll);
+
     onSelect();
-    return () => api.off("select", onSelect);
+    return () => {
+      api.off("select", onSelect);
+      api.off("scroll", onScroll);
+    };
   }, [api]);
 
-  const scrollToCard = (i: number) => api?.scrollTo((i * 2) % snapCount);
+  useEffect(() => {
+    const handler = (e: any) => {
+      const serviceId = e.detail;
+      const index = SERVICES.findIndex((s) => s.id === serviceId);
+      if (index === -1 || !api) return;
+
+      scrollToCard(index);
+
+      // smooth scroll to the section
+      document.getElementById("section-services-anchor")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    };
+
+    window.addEventListener("jump-to-service", handler);
+    return () => window.removeEventListener("jump-to-service", handler);
+  }, [api]);
+
+
+  const scrollToCard = (i: number) => {
+    if (!api) return;
+    const baseIndex = i * 2;
+    // Find the nearest matching snap among duplicates
+    const snaps = api.scrollSnapList();
+    const target = snaps.findIndex((_, idx) => idx % (SERVICES.length * 2) === baseIndex);
+    if (target >= 0) api.scrollTo(target);
+  };
 
   return (
     <section
       aria-label={t("ariaLabel")}
       className={[
-        "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-20 md:pb-24 min-h-screen bg-black",
-        // --- CSS variables (responsive) ---
-        // Smallest screens first (works under 360px too)
-        "[--card-w:96px] [--sep-w:10px]",
-        // Slightly wider phones
-        "xs:[--card-w:108px] xs:[--sep-w:12px]",
-        // 360–639
-        "sm:[--card-w:132px] sm:[--sep-w:14px]",
-        // ≥640 (Tailwind md starts at 768; we cover 640–767 via sm above)
-        "md:[--card-w:200px] md:[--sep-w:16px]",
-        // ≥1024
-        "lg:[--card-w:210px] lg:[--sep-w:18px]",
-        // Derived: showcase = 3 * card width
-        "[--show-w:calc(var(--card-w)*3+var(--sep-w)*3)]",
-      ].join(" ")}
+  "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-20 md:pb-24 min-h-screen bg-black",
+
+  // Mobile-first — bigger cards so text fits
+  "[--card-w:140px] [--sep-w:10px]",
+
+  // ≥390px (iPhone mini–normal)
+  "xs:[--card-w:150px] xs:[--sep-w:12px]",
+
+  // ≥640px
+  "sm:[--card-w:180px] sm:[--sep-w:14px]",
+
+  // ≥768px
+  "md:[--card-w:200px] md:[--sep-w:16px]",
+
+  // ≥1024px
+  "lg:[--card-w:210px] lg:[--sep-w:18px]",
+
+  // Derived default (desktop): 3 cards wide
+  "[--show-w:calc(var(--card-w)*3+var(--sep-w)*3)]",
+
+  // Override for phones: only 2 cards wide
+  "max-sm:[--show-w:calc(var(--card-w)*2+var(--sep-w)*2)]",
+].join(" ")
+}
     >
+      <div id="section-services-anchor" className="absolute -top-0" />
       <Image
         src={ILLUSTRATION_SRC}
         alt=""
@@ -119,21 +173,45 @@ export default function SectionServices() {
         <AnimatePresence mode="wait">
           <motion.div
             key={SERVICES[currentCard]?.id ?? "placeholder"}
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
             className={[
-              "mx-auto h-[220px] rounded-xl bg-zinc-800/90 shadow-[0_8px_24px_rgba(0,0,0,0.5)] ring-1 ring-white/10 flex items-center justify-center",
-              "w-[var(--show-w)]", // exact 3× card width at *all* breakpoints
+              "mx-auto h-[220px] rounded-xl overflow-hidden",
+              "shadow-[0_8px_24px_rgba(0,0,0,0.55)] ring-1 ring-white/10",
+              "w-[var(--show-w)] bg-black/30",
             ].join(" ")}
           >
-            <span className="text-center">
-              IMAGE #{currentCard + 1}
-              <br />
-              {t(`services.${SERVICES[currentCard].id}.title`)}
-            </span>
+            <motion.div
+              // subtle parallax driven by dragOffset
+              style={{
+                x: dragOffset * -40, // tweak: -20 to -60 looks good
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 18,
+              }}
+              className="relative w-full h-full"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.35 }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={SERVICES[currentCard].previewSrc}
+                  alt={t(`services.${SERVICES[currentCard].id}.title`)}
+                  fill
+                  className="object-fit sm:object-cover"
+                />
+              </motion.div>
+            </motion.div>
           </motion.div>
+
+
         </AnimatePresence>
 
         <motion.div
@@ -198,7 +276,7 @@ export default function SectionServices() {
 
               return (
                 <CarouselItem
-                  key={s.id}
+                  key={s.id + idx}
                   // Card width is *exactly* var(--card-w)
                   className="!pl-0 !ml-0 !mr-0 p-0 m-0 basis-[var(--card-w)] grow-0 shrink-0"
                 >
@@ -271,7 +349,9 @@ function ServiceCard({
           <div className="mx-auto mb-2 flex justify-center text-white/80">
             <Image src={iconSrc} alt="" width={24} height={24} className="opacity-90" />
           </div>
-          <div className="text-[11px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500">
+          {/* <div className="text-[11px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500"> */}
+          <div className="text-[10px] xs:text-[11px] sm:text-[12px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500">
+
             {title.split("\n").map((line, i) => (
               <span key={i}>
                 {line}
@@ -279,7 +359,8 @@ function ServiceCard({
               </span>
             ))}
           </div>
-          <div className="mt-2 text-[11px] leading-4 text-white/70">{blurb}</div>
+          <div className="mt-2 text-[10px] xs:text-[11px] sm:text-[12px] leading-4 text-white/70">{blurb}</div>
+          
         </CardContent>
       </Card>
     </motion.div>

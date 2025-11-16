@@ -15,13 +15,13 @@ export default function SectionHero() {
         <>
           <video
             className="absolute inset-0 w-full h-full object-cover"
-            src="/videos/section-hero.mp4"
+            src="/videos/Hero_Video.mp4"
             autoPlay
             loop
             muted
             playsInline
           />
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-black/70" />
         </>
       }
     >

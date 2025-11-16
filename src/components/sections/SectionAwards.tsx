@@ -46,7 +46,7 @@ export default function SectionAwardsAndFormats() {
             key={award.id}
             src={award.logo}
             alt={award.name}
-            width={140}
+            width={100}
             height={80}
             className="object-contain max-h-24"
           />
