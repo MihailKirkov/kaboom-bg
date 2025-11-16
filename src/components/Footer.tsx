@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Phone, Mail } from 'lucide-react';
 import clsx from 'clsx';
 import { RefObject } from 'react';
 import Image from 'next/image';
