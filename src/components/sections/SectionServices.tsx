@@ -46,8 +46,6 @@ const slides = useMemo(() => {
   return [...base, ...base, ...base];
 }, []);
 
-  const snapCount = slides.length; // = SERVICES.length * 2
-
   useEffect(() => {
     if (!api) return;
 
