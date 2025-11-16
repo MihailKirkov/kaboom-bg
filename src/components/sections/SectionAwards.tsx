@@ -8,7 +8,7 @@ import { FORMATS } from "@/data/formats";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 
-// Embla-based carousel
+// Embla carousel
 import {
   Carousel,
   CarouselContent,
@@ -18,44 +18,45 @@ import {
 
 // -------------------- YOUTUBE TYPES -------------------------
 
-declare namespace YT {
-  interface PlayerState {
-    UNSTARTED: -1;
-    ENDED: 0;
-    PLAYING: 1;
-    PAUSED: 2;
-    BUFFERING: 3;
-    CUED: 5;
-  }
-
-  interface PlayerEvent {
-    data: number;
-    target: Player;
-  }
-
-  interface Player {
-    getPlayerState(): number;
-  }
-
-  interface PlayerOptions {
-    events?: {
-      onStateChange?: (event: PlayerEvent) => void;
-    };
-  }
-
-  interface PlayerConstructor {
-    new (
-      element: HTMLElement | string,
-      options: PlayerOptions
-    ): Player;
-  }
+// Player state enum
+export interface YTPlayerState {
+  UNSTARTED: -1;
+  ENDED: 0;
+  PLAYING: 1;
+  PAUSED: 2;
+  BUFFERING: 3;
+  CUED: 5;
 }
 
+// Event delivered to state change callback
+export interface YTPlayerEvent {
+  data: number;
+  target: YTPlayer;
+}
+
+// Player instance
+export interface YTPlayer {
+  getPlayerState(): number;
+}
+
+// Player constructor
+export interface YTPlayerConstructor {
+  new (
+    element: HTMLElement | string,
+    options?: {
+      events?: {
+        onStateChange?: (event: YTPlayerEvent) => void;
+      };
+    }
+  ): YTPlayer;
+}
+
+// Extend window with YT API
 declare global {
   interface Window {
-    YT: {
-      Player: YT.PlayerConstructor;
-      PlayerState: YT.PlayerState;
+    YT?: {
+      Player: YTPlayerConstructor;
+      PlayerState: YTPlayerState;
     };
     onYouTubeIframeAPIReady?: () => void;
   }
@@ -73,12 +74,12 @@ export default function SectionAwardsAndFormats() {
 
   const autoTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // now typed as YT.Player[]
-  const playersRef = useRef<YT.Player[]>([]);
+  // Typed as YTPlayer[]
+  const playersRef = useRef<YTPlayer[]>([]);
   const isVideoPlayingRef = useRef(false);
 
   // ---------------------------------------------------------------------------
-  // Load YT API
+  // Load YouTube API
   // ---------------------------------------------------------------------------
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -96,7 +97,7 @@ export default function SectionAwardsAndFormats() {
   }, []);
 
   // ---------------------------------------------------------------------------
-  // Auto-scroll
+  // Auto-scroll logic
   // ---------------------------------------------------------------------------
   const stopAuto = () => {
     if (autoTimer.current) {
@@ -116,7 +117,6 @@ export default function SectionAwardsAndFormats() {
     }, 5000);
   };
 
-  // pointer interaction hooks
   useEffect(() => {
     if (!api) return;
 
@@ -134,7 +134,7 @@ export default function SectionAwardsAndFormats() {
   }, [api]);
 
   // ---------------------------------------------------------------------------
-  // Setup YT players once API + carousel ready
+  // Create YouTube players after API + carousel ready
   // ---------------------------------------------------------------------------
   useEffect(() => {
     if (!api) return;
@@ -148,11 +148,11 @@ export default function SectionAwardsAndFormats() {
     playersRef.current = [];
 
     iframes.forEach((iframe) => {
-      const player = new window.YT.Player(iframe, {
+      const player = new window.YT!.Player(iframe, {
         events: {
-          onStateChange: (event: YT.PlayerEvent) => {
+          onStateChange: (event: YTPlayerEvent) => {
             const isPlaying =
-              event.data === window.YT.PlayerState.PLAYING;
+              event.data === window.YT!.PlayerState.PLAYING;
 
             if (isPlaying) {
               isVideoPlayingRef.current = true;
@@ -160,11 +160,11 @@ export default function SectionAwardsAndFormats() {
               return;
             }
 
-            // Check if any other player is still playing
+            // check if any player still plays
             const stillPlaying = playersRef.current.some((p) => {
               try {
                 return (
-                  p.getPlayerState() === window.YT.PlayerState.PLAYING
+                  p.getPlayerState() === window.YT!.PlayerState.PLAYING
                 );
               } catch {
                 return false;
@@ -172,7 +172,6 @@ export default function SectionAwardsAndFormats() {
             });
 
             isVideoPlayingRef.current = stillPlaying;
-
             if (!stillPlaying) startAuto();
           },
         },
@@ -180,13 +179,10 @@ export default function SectionAwardsAndFormats() {
 
       playersRef.current.push(player);
     });
-
-    // No cleanup needed; players persist
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api, ytReady]);
 
   // ---------------------------------------------------------------------------
-  // Manual arrows
+  // Arrows
   // ---------------------------------------------------------------------------
   const handlePrev = () => api?.scrollPrev();
   const handleNext = () => api?.scrollNext();
@@ -237,11 +233,11 @@ export default function SectionAwardsAndFormats() {
         {t("formats.heading2")}
       </h3>
 
-      {/* WIDTH LIMIT */}
+      {/* Width limiter */}
       <div className="w-full flex justify-center">
         <div className="w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[60vw] xl:w-[700px]">
 
-          {/* ARROWS + TEXT */}
+          {/* Arrows + text */}
           <div className="flex justify-center items-center px-2">
             <button
               onClick={handlePrev}
@@ -264,7 +260,7 @@ export default function SectionAwardsAndFormats() {
             </button>
           </div>
 
-          {/* CAROUSEL */}
+          {/* Carousel */}
           <div className="overflow-hidden w-full py-10">
             <Carousel
               setApi={setApi}
@@ -303,7 +299,6 @@ export default function SectionAwardsAndFormats() {
               </CarouselContent>
             </Carousel>
           </div>
-
         </div>
       </div>
     </SectionWrapperFullWidth>
