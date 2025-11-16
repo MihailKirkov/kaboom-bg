@@ -9,7 +9,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import PaginationDots from "../shared/pagination-dots";
 import { SERVICES } from "@/data/services";
 import { useTranslations } from "next-intl";
@@ -72,15 +72,24 @@ const slides = useMemo(() => {
     };
   }, [api]);
 
+  const scrollToCard = useCallback((i: number) => {
+    if (!api) return;
+    const baseIndex = i * 2;
+    const snaps = api.scrollSnapList();
+    const target = snaps.findIndex((_, idx) => idx % (SERVICES.length * 2) === baseIndex);
+    if (target >= 0) api.scrollTo(target);
+  }, [api]);
+
   useEffect(() => {
-    const handler = (e: any) => {
-      const serviceId = e.detail;
+    const handler = (e: Event) => {
+      const custom = e as CustomEvent<string>;
+      const serviceId = custom.detail;
       const index = SERVICES.findIndex((s) => s.id === serviceId);
+
       if (index === -1 || !api) return;
 
       scrollToCard(index);
 
-      // smooth scroll to the section
       document.getElementById("section-services-anchor")?.scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -89,17 +98,11 @@ const slides = useMemo(() => {
 
     window.addEventListener("jump-to-service", handler);
     return () => window.removeEventListener("jump-to-service", handler);
-  }, [api]);
+  }, [api, scrollToCard]);
 
 
-  const scrollToCard = (i: number) => {
-    if (!api) return;
-    const baseIndex = i * 2;
-    // Find the nearest matching snap among duplicates
-    const snaps = api.scrollSnapList();
-    const target = snaps.findIndex((_, idx) => idx % (SERVICES.length * 2) === baseIndex);
-    if (target >= 0) api.scrollTo(target);
-  };
+
+
 
   return (
     <section
