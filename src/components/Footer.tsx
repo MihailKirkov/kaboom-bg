@@ -1,16 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Phone, Mail } from 'lucide-react';
 import clsx from 'clsx';
 import { RefObject } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 type FooterProps = {
     scrollToRef?: RefObject<HTMLElement | null>;
 };
 
 export default function Footer({ scrollToRef }: FooterProps) {
+    const tOthers = useTranslations('Others');
     const [atBottom, setAtBottom] = useState(false);
 
     useEffect(() => {
@@ -58,7 +59,7 @@ export default function Footer({ scrollToRef }: FooterProps) {
                             height={20}
                             className="w-5 h-5"
                         />
-                        <span className="hidden md:inline-block text-xs font-montserrat px-2">ОБАДЕТЕ СЕ</span>
+                        <span className="hidden md:inline-block text-xs font-montserrat px-2">{tOthers('callUs')}</span>
                     </a>
 
                     <a
@@ -73,7 +74,7 @@ export default function Footer({ scrollToRef }: FooterProps) {
                             height={20}
                             className="w-5 h-5"
                         />
-                        <span className="hidden md:inline-block text-xs font-montserrat px-2">ПИШЕТЕ НИ</span>
+                        <span className="hidden md:inline-block text-xs font-montserrat px-2">{tOthers('emailUs')}</span>
                     </a>
                 </div>
             </div>

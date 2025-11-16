@@ -11,10 +11,8 @@ import {
 import { SHOWCASE_ITEMS, ShowcaseItem } from '@/data/showcase';
 import Image from 'next/image';
 import SectionWrapper from '@/components/layout/section-wrapper';
-import ShowcaseCard from '@/components/cards/showcase-card';
 import PaginationDots from '@/components/shared/pagination-dots';
 import { motion, AnimatePresence } from 'framer-motion';
-import SafeImage from '@/components/shared/safe-image';
 import { useTranslations } from 'next-intl';
 
 function chunkArray<T>(arr: T[], size: number): T[][] {
@@ -131,7 +129,7 @@ export default function SectionShowcase() {
 
   return (
     <SectionWrapper
-      className="bg-gradient-to-b from-red-600/50 to-black/20 via-red-600/30 relative"
+      className="bg-gradient-to-b from-red-700 to-black/99 relative"
       innerClassName="h-full"
       aria-label={t('ariaLabel')}
       background={
@@ -251,11 +249,13 @@ function ShowcaseDialog({ selectedItem, onClose, t }: ShowcaseDialogProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-full h-[75%] relative">
-              <SafeImage
-                src={selectedItem.imageSrc}
-                alt={t(`items.${selectedItem.id}.title`)}
-                fill
-                className="object-cover rounded"
+              <video
+                src={selectedItem.videoSrc}
+                className="absolute inset-0 w-full h-full object-fill rounded"
+                autoPlay
+                playsInline
+                loop
+                muted
               />
             </div>
 
@@ -279,3 +279,61 @@ function ShowcaseDialog({ selectedItem, onClose, t }: ShowcaseDialogProps) {
     </AnimatePresence>
   );
 }
+
+
+type ShowcaseCardProps = {
+  item: typeof SHOWCASE_ITEMS[number] & {
+    title: string;
+    description?: string;
+  };
+  onOpen: () => void;
+  index?: number;
+};
+
+function ShowcaseCard({ item, onOpen, index = 0 }: ShowcaseCardProps) {
+  const animationDelay = index * 0.08;
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.button
+      onClick={onOpen}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      initial={{ opacity: 0, y: 20, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      whileHover={{
+        scale: 1.01,
+        borderColor: 'rgba(239, 68, 68, 1)',
+        transition: { delay: 0 },
+      }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: 'spring', stiffness: 120, damping: 16, delay: animationDelay }}
+      className="h-full bg-black/90 border border-white/50 rounded-xl flex flex-col items-center justify-start gap-2 p-2 text-center"
+    >
+      <div className="w-full h-40 relative rounded overflow-hidden">
+        {!hovered ? (
+          <Image
+            src={item.previewSrc}
+            alt={item.title}
+            fill
+            className="object-fit"
+          />
+        ) : (
+          <video
+            src={item.videoSrc}
+            className="absolute inset-0 w-full h-full object-fill"
+            autoPlay
+            playsInline
+            loop
+            muted
+          />
+        )}
+      </div>
+
+      <div className="text-md leading-5 px-2 text-white font-medium">
+        {item.title}
+      </div>
+    </motion.button>
+  );
+}
+

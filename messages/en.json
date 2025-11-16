@@ -10,35 +10,35 @@
         "angleText": "360°",
         "services": {
             "strategy": {
-                "title": "Marketing Strategy",
+                "title": "Marketing\nStrategy",
                 "blurb": "We will construct a clear, intelligent action plan, unfolding in scale over time."
             },
             "ai": {
-                "title": "Masterful AI (Artificial Intelligence)",
+                "title": "Masterful AI\n(Artificial Intelligence)",
                 "blurb": "AI is a tool. Оur careful and experienced hands turn it into a powerful weapon!"
             },
             "targeting": {
-                "title": "Targeted Ad Campaigns",
+                "title": "Targeted AD\nCampaigns",
                 "blurb": "We carefully and purposefully curate your message: its vision, tone, and content."
             },
             "email": {
-                "title": "Effective Email Marketing",
+                "title": "Effective Email\nMarketing",
                 "blurb": "We don’t just send emails – we open doors. Campaigns that speak before they’re even read."
             },
             "google": {
-                "title": "Google Ads (Search, YouTube, Display)",
+                "title": "Google Ads\n(Search, YouTube, Display)",
                 "blurb": "Be everywhere your clients are. We know how to find them – and how to win them over."
             },
             "design": {
-                "title": "World-Class Graphic and Web Design",
+                "title": "World-Class Graphic\nand Web Design",
                 "blurb": "Not just design – a visual language that sticks. From the first pixel to the last line, every detail counts."
             },
             "tv": {
-                "title": "TV, Radio, OOH and BTL Campaigns",
+                "title": "TV, Radio, OOH\nand BTL Campaigns",
                 "blurb": "From screens to streets – we make ideas live everywhere. Big formats, bigger impact."
             },
             "awards": {
-                "title": "International Video Awards",
+                "title": "International\nVideo Awards",
                 "blurb": "Kaboom is an award winner at international design and video festivals and has been nominated for numerous others."
             }
         }
@@ -48,7 +48,9 @@
         "ariaLabel": "Showcase",
         "heading1": "360 MARKETING",
         "heading2": "NOBODY DOES IT QUITE LIKE US",
-        "centerTitle": "Sofiiska Banitsa",
+        "centerTitle#1": "Sofiiska Banitsa",
+        "centerTitle#2": "Pierre Fabre",
+        "centerTitle#3": "ERA Real Estate",
         "prev": "Previous",
         "next": "Next",
         "close": "Close",
@@ -59,12 +61,14 @@
             "04": { "title": "Ad campaigns and social media content", "description": "We started showing people, not just products. Because people can say “it’s delicious” – pies can’t." },
             "05": { "title": "Packaging, vehicle branding", "description": "We designed their packaging and entire fleet – from supermarket shelves to the streets, everything speaks with one voice." },
             "06": { "title": "Developing their first digital marketing strategy", "description": "We created their first-ever digital strategy – a plan that works and delivers measurable results." },
+            
             "07": { "title": "Box Design", "description": "We create dozens of promotional box designs, each with its own personality and style." },
             "08": { "title": "TVC Adaptation", "description": "We animate, voice, and adapt TV spots for all their brands – Avene, Elgydium, Eludril, and more." },
             "09": { "title": "Video Production for Social Media and TV", "description": "Direction, planning, models, shots – everything to make products and brands shine." },
             "10": { "title": "3D Animation", "description": "We create 3D models and animations of products that then come alive in social media and TV spots." },
             "11": { "title": "Adaptation of All Video Materials", "description": "No matter the complexity – we adapt everything for Avene, Ducray, Elgydium, Eludril, Rene Furterer, Klorane, and more." },
             "12": { "title": "Creating BTL Campaigns", "description": "Concept, planning, execution – their BTL campaigns are designed to make noise on very modest budgets." },
+            
             "13": { "title": "Direction of Clips for National TV", "description": "We created concepts and directed clips for bTV that engage and impress." },
             "14": { "title": "Creating Engaging Formats", "description": "Clips in studios, offices, outdoors – formats that unite teams and audiences." },
             "15": { "title": "OOH, Windows, and Vehicles", "description": "ERA takes pride in Kaboom’s designs, whether it’s posters, shop windows, or vehicles." },
@@ -83,6 +87,42 @@
             "kaizen": { "title": "KAIZEN", "content": "Every day at Kaboom, we strive for the maximum — higher quality and better service. Spot a weakness — we fix it. See an opportunity for improvement — we seize it." },
             "heart": { "title": "WORKING WITH HEART", "content": "We do what we do because we love our work. Ever since we were children, we have been drawing, writing, creating. We experience our clients’ successes as our own. We work with heart — and it shows!" },
             "cool": { "title": "COOL PEOPLE", "content": "All our strengths would mean nothing if we weren’t fresh, smiling, and genuine — people who, we like to believe, could be not only your partners but also your friends :)" }
+        }
+    },
+    "SectionTestimonials": {
+        "ariaLabel": "Clients",
+        "heading1": "WHY KABOOM",
+        "heading2": "REGARDLESS\nOF THE FIELD",
+        "subtext": "From real estate to cosmetics, industrial sector and healthcare, even ecology. Whatever your business, at Kaboom you will receive quality.",
+
+        "reviewsTitle": "WHY KABOOM",
+        "reviewsHeading": "CLIENT\nVOICES",
+
+        "reviews": {
+            "review-1": {
+                "quote": "WORKING WITH KABOOM IS LIKE HAVING A TEAM OF WIZARDS – EVERYTHING HAPPENS SMOOTHLY, BEAUTIFULLY AND ON TIME.",
+                "fullName": "Magdalena Andonova,\nMarketing Manager @\nERA Real Estate Bulgaria"
+            },
+            "review-2": {
+                "quote": "THEY WORK ACCORDING TO ”GERMAN STANDARDS”, ARE AS PRECISE AS THE JAPANESE, AND CREATIVE ON A GLOBAL LEVEL – THAT’S KABOOM FOR ERA BULGARIA!",
+                "fullName": "Anton Andonov,\nCEO @ ERA Real Estate Bulgaria"
+            },
+            "review-3": {
+                "quote": "WE AT FELDBERGER HOF HOTEL ARE ECSTATIC ABOUT KABOOM’S WORK AND CREW.",
+                "fullName": "Mike Böttcher,\nHoteldirector @\nFamilotel Feldberger Hof"
+            },
+            "review-4": {
+                "quote": "CREATIVE – COMMITTED – FAST. VERY DEDICATED WORK THAT FOCUSES NOT ONLY ON THE PRODUCT BUT ALSO ON THE SERVICE.",
+                "fullName": "Laura Zimmermann @\nWeisse Düne Segeltouren"
+            },
+            "review-5": {
+                "quote": "THE STAPLE OF KABOOM’S WORK ARE THE CREATIVE IDEAS, EFFECTIVE DESIGN AND A PROFESSIONAL IMPLEMENTATION.",
+                "fullName": "Regina Tessmann @\nLAG „Stettiner Haff“"
+            },
+            "review-6": {
+                "quote": "KABOOM'S TEAM EARNS MY HIGHEST RECOMMENDATION NOT ONLY FOR DIGITAL CONTENT PRODUCTION BUT ALSO FOR CREATIVE IDEAS.",
+                "fullName": "Nikola Ivanov,\nMarketing & E-commerce Director\n@ Pierre Fabre Group"
+            }
         }
     },
     "SectionAwardsAndFormats": {
@@ -105,8 +145,18 @@
                 "5": { "title": "Creative Cuts" },
                 "6": { "title": "Client Chronicles" },
                 "7": { "title": "Motion Lab" },
-                "8": { "title": "Sound & Vision" }
+                "8": { "title": "Sound & Vision" },
+                "9": { "title": "Sound & Vision" },
+                "10": { "title": "Sound & Vision" }
             }
         }
+    },
+    "SectionContactUs": {
+        "reachOut": "Reach Out",
+        "address": "CHERKOVNA 79, OBORISHTE, SOFIA"
+    },
+    "Others": {
+        "callUs" : "CALL US",
+        "emailUs" : "EMAIL US"
     }
 }

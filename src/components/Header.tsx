@@ -92,10 +92,20 @@ export default function Header({ currentLocale }: { currentLocale: Locale }) {
                     {SERVICES.map((service, id) => (
                       <div key={service.id} className="group flex flex-col items-center justify-end">
                         <button
-                          key={service.id}
-                          className="group flex items-center justify-between px-4 py-3 rounded-md
-                                      transition-all hover:bg-zinc-200/80 w-full text-left"
-                        >
+  key={service.id}
+  onClick={() => {
+    setMenuOpen(false);
+
+    window.dispatchEvent(
+      new CustomEvent("jump-to-service", {
+        detail: service.id,
+      })
+    );
+  }}
+  className="group flex items-center justify-between px-4 py-3 rounded-md
+              transition-all hover:bg-zinc-200/80 w-full text-left"
+>
+
                           <div className="flex items-center gap-3">
                             <Image
                               src={service.iconRedSrc}

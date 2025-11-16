@@ -4,12 +4,27 @@ export type FormatItem = {
 };
 
 export const FORMATS: FormatItem[] = [
-  { id: '1', youtubeId: 'dQw4w9WgXcQ' },
-  { id: '2', youtubeId: '3JZ_D3ELwOQ' },
-  { id: '3', youtubeId: 'M7FIvfx5J10' },
-  { id: '4', youtubeId: '6_b7RDuLwcI' },
-  { id: '5', youtubeId: 'C0DPdy98e4c' },
-  { id: '6', youtubeId: 'wZZ7oFKsKzY' },
-  { id: '7', youtubeId: 'YbJOTdZBX1g' },
-  { id: '8', youtubeId: 'hY7m5jjJ9mM' },
+  { id: "1", youtubeId: "-LKl_F9BGes" },
+  { id: "2", youtubeId: "8JBQ24pHkdg" },
+  { id: "3", youtubeId: "qsxo2fjfEg4" },
+  { id: "4", youtubeId: "Qun5IFeR3K0" },
+  { id: "5", youtubeId: "D3pQMacwH_E" },
+  { id: "6", youtubeId: "3-Pp6r_0hDQ" },
+  { id: "7", youtubeId: "AtfCBzHQVXA" },
+  { id: "8", youtubeId: "qkpAK05akvg" },
+  { id: "9", youtubeId: "BtOEFVV24pw" },
+  { id: "10", youtubeId: "5GMrsqyX3EI" },
 ];
+
+
+// https://www.youtube.com/shorts/-LKl_F9BGes
+// https://www.youtube.com/shorts/8JBQ24pHkdg
+// https://www.youtube.com/shorts/qsxo2fjfEg4
+// https://www.youtube.com/shorts/Qun5IFeR3K0
+// https://www.youtube.com/shorts/D3pQMacwH_E
+// https://www.youtube.com/shorts/3-Pp6r_0hDQ
+// https://www.youtube.com/shorts/AtfCBzHQVXA
+// https://www.youtube.com/shorts/qkpAK05akvg
+// https://www.youtube.com/shorts/BtOEFVV24pw
+// https://www.youtube.com/shorts/5GMrsqyX3EI
+

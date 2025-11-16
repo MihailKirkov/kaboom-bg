@@ -1,87 +1,127 @@
 {
     "SectionHero": {
-        "nooneWorksLikeUs": "NIEMAND ARBEITET WIE WIR",
+        "nooneWorksLikeUs": "NIEMAND MACHT ES WIE WIR",
         "weDare": "WE DARE",
-        "textBlock": "Bei Kaboom sind wir nicht stark in leeren Worten —\nwir lassen unsere Ergebnisse für sich sprechen.\nBereit zu starten?"
+        "textBlock": "Wir machen es auf unsere Art – mutig,\nanders und wirkungsvoll. Wir liefern für\ngroße und kleine Kunden gleichermaßen.\nBereit für wirklich anders?"
     },
     "SectionServices": {
         "ariaLabel": "Dienstleistungen",
-        "servicesTitle": "Dienstleistungen",
+        "servicesTitle": "DIENSTLEISTUNGEN",
         "angleText": "360°",
         "services": {
             "strategy": {
-                "title": "MAR KETINGSTRATEGIE",
-                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+                "title": "MARKETING-\nSTRATEGIE",
+                "blurb": "Wir werden einen klaren, intelligenten Aktionsplan erstellen, der sich über die Zeit entfaltet."
             },
             "ai": {
-                "title": "MEISTERHAFTE KI (KÜNSTLICHE INTELLIGENZ)",
-                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+                "title": "MEISTERHAFTER\nEINSATZ VON AI",
+                "blurb": "KI ist ein Werkzeug. In unseren umsichtigen und erfahrenen Händen – eine mächtige Waffe!"
             },
             "targeting": {
-                "title": "ZIELGERICHTETE WERBEKAMPAGNEN",
-                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+                "title": "GEZIELTE\nWERBEKAMPAGNEN",
+                "blurb": "Wir kuratieren Ihre Botschaft gezielt und sorgfältig: Vision, Tonfall und Inhalt."
             },
             "email": {
-                "title": "EFFIZIENTES E-MAIL-MARKETING",
-                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+                "title": "EFFIZIENTES\nE-MAIL-MARKETING",
+                "blurb": "Wir versenden keine E-Mails – wir öffnen Türen. Kampagnen, die sprechen, bevor sie gelesen werden."
             },
             "google": {
-                "title": "WERBUNG AUF GOOGLE (SEARCH, YOUTUBE, DISPLAY)",
-                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+                "title": "GOOGLE-WERBUNG\n(SEARCH, YOUTUBE, DISPLAY)",
+                "blurb": "Seien Sie überall, wo Ihre Kunden sind. Wir wissen, wie man sie findet – und überzeugt."
             },
             "design": {
-                "title": "GRAFIK- UND WEBDESIGN AUF WELTNIVEAU",
-                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+                "title": "GRAFIK- UND WEBDESIGN\nAUF WELTNIVEAU",
+                "blurb": "Nicht nur Design – eine visuelle Sprache, die im Gedächtnis bleibt. Vom ersten Pixel bis zum letzten Buchstaben zählt jedes Detail."
             },
             "tv": {
-                "title": "TV-, RADIO-, OOH- UND BTL-KAMPAGNEN",
-                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+                "title": "TV-, RADIO-, OOH-\nUND BTL-KAMPAGNEN",
+                "blurb": "Vom Bildschirm bis zur Straße – wir lassen Ideen überall lebendig werden. Große Formate, große Wirkung."
             },
             "awards": {
-                "title": "INTERNATIONALE VIDEOAUSZEICHNUNGEN",
-                "blurb": "Ein kurzer erklärender Text für diesen Block. Ein wenig Kontext zur Beschreibung."
+                "title": "INTERNATIONALE\nVIDEOAUSZEICHNUNGEN",
+                "blurb": "Kaboom ist Preisträger bei internationalen Design- und Videofestivals und wurde für zahlreiche weitere nominiert."
             }
         }
     },
     "SectionShowcase": {
         "ariaLabel": "Showcase",
         "heading1": "360 MARKETING",
-        "heading2": "NIEMAND ARBEITET WIE WIR",
-        "centerTitle": "Sofia Banitsa",
+        "heading2": "NIEMAND MACHT ES WIE WIR",
+        "centerTitle#1": "Sofiiska Banitsa",
+        "centerTitle#2": "Pierre Fabre",
+        "centerTitle#3": "ERA Real Estate",
         "prev": "Zurück",
         "next": "Weiter",
         "close": "Schließen",
         "items": {
             "01": { "title": "Fotografie, Styling, Produktanimation", "description": "Produktfotografie, Styling und Animation" },
-            "02": { "title": "Sofia Banitsa Live, Meer aus Banitsa, Lügendetektor", "description": "Sofia Banitsa Live, Meer aus Banitsa, Lügendetektor" },
-            "03": { "title": "Komplettes Branding und Design, inklusive Innenakzente", "description": "Komplettes Branding und Design, inklusive Innenakzente" },
-            "04": { "title": "Werbekampagnen und Social-Media-Inhalte", "description": "Werbekampagnen und Inhalte für soziale Medien" },
+            "02": { "title": "„Sofiyska Banitsa Live“, Lügendetektor...", "description": "Sofia Banitsa Live, Meer aus Banitsa, Lügendetektor" },
+            "03": { "title": "Ganzheitliche Markenidentität und Design", "description": "Komplettes Branding und Design, inklusive Innenakzente" },
+            "04": { "title": "Werbekampagnen und Social Media Content", "description": "Werbekampagnen und Inhalte für soziale Medien" },
             "05": { "title": "Verpackungen, Fahrzeugbranding", "description": "Verpackungsdesign und Fahrzeugbranding" },
-            "06": { "title": "Digitale Marketingstrategie entwickeln", "description": "Entwicklung der ersten digitalen Marketingstrategie des Unternehmens" },
-            "07": { "title": "Videoclips", "description": "Kreativkonzept, Drehbuch und Produktion" },
-            "08": { "title": "Fotoshootings", "description": "Produkt- und Lifestylefotografie" },
-            "09": { "title": "Events", "description": "Organisation und Berichterstattung" },
-            "10": { "title": "UI/UX", "description": "Konzept, Prototyping und Designsysteme" },
-            "11": { "title": "Outdoor", "description": "Plakatwände und Stadtbranding" },
-            "12": { "title": "PR und Medien", "description": "Planung und Verteilung" },
-            "13": { "title": "Animationen", "description": "2D/3D Motion für Kampagnen" },
-            "14": { "title": "Copywriting", "description": "Tonfall, Botschaften und Slogans" },
-            "15": { "title": "Brand Audit", "description": "Analyse und Empfehlungen für Marken" },
-            "16": { "title": "E-Mail-Marketing", "description": "Segmentierung, Automatisierungen, A/B-Tests" },
-            "17": { "title": "SEO/Content", "description": "Optimierung und Inhalte" },
-            "18": { "title": "PPC", "description": "Search-, Display- und Videokampagnen" }
+            "06": { "title": "Entwicklung der ersten digitalen Marketingstrategie", "description": "Entwicklung der ersten digitalen Marketingstrategie des Unternehmens" },
+            
+            "07": { "title": "Design von Verpackungen", "description": "Kreativkonzept, Drehbuch und Produktion" },
+            "08": { "title": "TV-\nWerbeanpassung", "description": "Produkt- und Lifestylefotografie" },
+            "09": { "title": "Videoproduktion für Social Media und TV", "description": "Organisation und Berichterstattung" },
+            "10": { "title": "3D-Animation", "description": "Konzept, Prototyping und Designsysteme" },
+            "11": { "title": "Adaptation of All Video Materials", "description": "Plakatwände und Stadtbranding" },
+            "12": { "title": "Creating BTL Campaigns", "description": "Planung und Verteilung" },
+            
+            "13": { "title": "Direction of Clips for National TV", "description": "2D/3D Motion für Kampagnen" },
+            "14": { "title": "Creating Engaging Formats", "description": "Tonfall, Botschaften und Slogans" },
+            "15": { "title": "OOH, Windows, and Vehicles", "description": "Analyse und Empfehlungen für Marken" },
+            "16": { "title": "Social Media Content", "description": "Segmentierung, Automatisierungen, A/B-Tests" },
+            "17": { "title": "Creating Engaging Campaigns", "description": "Optimierung und Inhalte" },
+            "18": { "title": "Creating BTL Campaigns", "description": "Search-, Display- und Videokampagnen" }
         }
     },
     "SectionWhyUs": {
-        "ariaLabel": "Warum wir",
+        "ariaLabel": "Warum Wir",
         "heading1": "WARUM KABOOM",
-        "heading2": "WIE ERZIELEN WIR\nERGEBNISSE?",
+        "heading2": "WIE WIR\nRESULTATE LIEFERN?",
         "items": {
-            "competence": { "title": "KOMPETENZ", "content": "Ein kurzer erklärender Text für diesen Abschnitt. Eine kurze Beschreibung zur Erläuterung des Blocks. Noch eine Zeile kurzer Erklärung." },
-            "qa": { "title": "QUALITÄTSSICHERUNG", "content": "Ein kurzer erklärender Text für diesen Block. Etwas Kontext zur Verdeutlichung." },
-            "kaizen": { "title": "KAIZEN", "content": "Ein kurzer erklärender Text für diesen Block. Etwas Kontext zur Verdeutlichung." },
-            "heart": { "title": "MIT HERZ ARBEITEN", "content": "Ein kurzer erklärender Text für diesen Block. Etwas Kontext zur Verdeutlichung." },
-            "cool": { "title": "COOLE LEUTE", "content": "Ein kurzer erklärender Text für diesen Block. Etwas Kontext zur Verdeutlichung." }
+            "competence": { "title": "KOMPETENZ", "content": "Kaboom wird von Prinzipien geleitet, die wir von einer führenden deutschen Werbeagentur übernommen haben. Marketing, Design, Typografie, Regie: das ist, was wir gelernt haben! Deshalb wissen wir, was wir tun, und überlassen nichts dem Zufall." },
+            "qa": { "title": "QUALITÄTSSICHERUNG", "content": "Wir haben eine unheilbare Fixierung auf Qualität – wir versuchen, einen Service anzubieten, der die Wahrnehmung unserer Kunden davon, wie gut ihr Marketing sein könnte, vollständig verändert." },
+            "kaizen": { "title": "KAIZEN", "content": "Jeden Tag bei Kaboom streben wir nach dem Maximum – höhere Qualität und besseren Service. Eine Schwäche erkennen – wir korrigieren sie. Eine Verbesserungschance sehen – wir nutzen sie." },
+            "heart": { "title": "WIR ARBEITEN MIT HERZ", "content": "Wir tun, was wir tun, weil wir unsere Arbeit lieben. Schon als Kinder haben wir gezeichnet, geschrieben, erschaffen. Die Erfolge unserer Kunden erleben wir wie unsere eigenen. Wir arbeiten mit Herz – und das sieht man!" },
+            "cool": { "title": "COOLE MENSCHEN", "content": "All unsere Stärken würden nichts bedeuten, wenn wir nicht frisch, lächelnd und authentisch wären – Menschen, von denen wir gerne glauben, dass Sie mit ihnen nicht nur Partner, sondern auch Freunde sein könnten :)" }
+        }
+    },
+    "SectionTestimonials": {
+        "ariaLabel": "Clients",
+        "heading1": "WARUM KABOOM",
+        "heading2": "UNABHÄNGIG\nVOM BEREICH",
+        "subtext": "Von Immobilien über Kosmetik, den Industriesektor und das Gesundheitswesen bis hin zur Ökologie. Ganz gleich, in welchem Bereich Ihr Unternehmen tätig ist – bei Kaboom erhalten Sie Qualität.",
+
+        "reviewsTitle": "Warum KABOOM",
+        "reviewsHeading": "KUNDEN-\nSTIMMEN",
+
+        "reviews": {
+            "review-1": {
+                "quote": "MIT KABOOM ZU ARBEITEN IST, ALS HÄTTE MAN EIN TEAM VON ZAUBERERN – ALLES LÄUFT REIBUNGSLOS, SCHÖN UND PÜNKTLICH AB.",
+                "fullName": "Magdalena Andonova,\nMarketing Manager @\nERA Real Estate Bulgaria"
+            },
+            "review-2": {
+                "quote": "THEY WORK ACCORDING TO ”GERMAN STANDARDS”, ARE AS PRECISE AS THE JAPANESE, AND CREATIVE ON A GLOBAL LEVEL – THAT’S KABOOM FOR ERA BULGARIA!",
+                "fullName": "Anton Andonov,\nCEO @ ERA Real Estate Bulgaria"
+            },
+            "review-3": {
+                "quote": "WE AT FELDBERGER HOF HOTEL ARE ECSTATIC ABOUT KABOOM’S WORK AND CREW.",
+                "fullName": "Mike Böttcher,\nHoteldirector @\nFamilotel Feldberger Hof"
+            },
+            "review-4": {
+                "quote": "CREATIVE – COMMITTED – FAST. VERY DEDICATED WORK THAT FOCUSES NOT ONLY ON THE PRODUCT BUT ALSO ON THE SERVICE.",
+                "fullName": "Laura Zimmermann @\nWeisse Düne Segeltouren"
+            },
+            "review-5": {
+                "quote": "THE STAPLE OF KABOOM’S WORK ARE THE CREATIVE IDEAS, EFFECTIVE DESIGN AND A PROFESSIONAL IMPLEMENTATION.",
+                "fullName": "Regina Tessmann @\nLAG „Stettiner Haff“"
+            },
+            "review-6": {
+                "quote": "KABOOM'S TEAM EARNS MY HIGHEST RECOMMENDATION NOT ONLY FOR DIGITAL CONTENT PRODUCTION BUT ALSO FOR CREATIVE IDEAS.",
+                "fullName": "Nikola Ivanov,\nMarketing & E-commerce Director\n@ Pierre Fabre Group"
+            }
         }
     },
     "SectionAwardsAndFormats": {
@@ -104,8 +144,18 @@
                 "5": { "title": "Creative Cuts" },
                 "6": { "title": "Client Chronicles" },
                 "7": { "title": "Motion Lab" },
-                "8": { "title": "Sound & Vision" }
+                "8": { "title": "Sound & Vision" },
+                "9": { "title": "Sound & Vision" },
+                "10": { "title": "Sound & Vision" }
             }
         }
+    },
+    "SectionContactUs": {
+        "reachOut": "Reach Out",
+        "address": "ЧЕРКОВНА 79, ОБОРИЩЕ, СОФИЯ"
+    },
+    "Others": {
+        "callUs" : "Обадете се",
+        "emailUs" : "Пишете ни"
     }
 }
