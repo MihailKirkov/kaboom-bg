@@ -2,8 +2,12 @@
 
 import Image from 'next/image';
 import SectionWrapper from '@/components/layout/section-wrapper';
+import { useTranslations } from 'next-intl';
 
 export default function SectionContactUs() {
+  const tOthers = useTranslations("Others");
+  const t = useTranslations("SectionContactUs");
+  
   return (
     <SectionWrapper
       className="bg-black text-white"
@@ -11,7 +15,7 @@ export default function SectionContactUs() {
     >
       <div className="flex flex-col items-center text-center gap-6">
         <h2 className="uppercase tracking-[0.4em] text-muted text-xs font-bold font-display">
-          Свържете се с нас
+          {t('reachOut')}
         </h2>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-extrabold">
@@ -29,7 +33,7 @@ export default function SectionContactUs() {
         <div className="text-sm leading-relaxed mt-2 space-y-1 text-white/80 font-display font-thin">
           <p>OFFICE@KABOOM.BG</p>
           <p>+359 877 199 199</p>
-          <p>ЧЕРКОВНА 79, ОБОРИЩЕ, СОФИЯ</p>
+          <p>{t('address')}</p>
         </div>
 
         <div className="mt-6 flex gap-4 flex-wrap justify-center">
@@ -45,7 +49,7 @@ export default function SectionContactUs() {
               width={24}
               height={24}
             />
-            ОБАДЕТЕ СЕ
+            {tOthers('callUs')}
           </a>
           <a
             href="mailto:office@kaboom.bg"
@@ -59,7 +63,7 @@ export default function SectionContactUs() {
               width={24}
               height={24}
             />
-            ПИШЕТЕ НИ
+            {tOthers('emailUs')}
           </a>
         </div>
       </div>

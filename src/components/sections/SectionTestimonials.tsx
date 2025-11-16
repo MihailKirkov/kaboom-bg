@@ -24,9 +24,7 @@ export default function SectionTestimonials() {
 
   const logos = [...CLIENTS, ...CLIENTS];
 
-  // -----------------------------
-  // FIX: Stable quote height
-  // -----------------------------
+  // ---------- FIX: Stable height for quotes ----------
   const measureRef = useRef<HTMLDivElement>(null);
   const [quoteHeight, setQuoteHeight] = useState<number | null>(null);
 
@@ -36,11 +34,14 @@ export default function SectionTestimonials() {
     const blocks = measureRef.current.querySelectorAll(".measure-quote");
     if (!blocks.length) return;
 
-    const heights = Array.from(blocks).map((el) => (el as HTMLElement).scrollHeight);
-    setQuoteHeight(Math.max(...heights));
-  }, [t]); // recalc on language change
+    const heights = Array.from(blocks).map(
+      (el) => (el as HTMLElement).scrollHeight
+    );
 
-  // marquee speed
+    setQuoteHeight(Math.max(...heights));
+  }, [t]);
+
+  // ---------- Marquee speed control ----------
   useEffect(() => {
     const baseDuration = 25;
     const duration = speedUp ? baseDuration / 3 : baseDuration;
@@ -52,34 +53,32 @@ export default function SectionTestimonials() {
           repeat: Infinity,
           repeatType: "loop",
           ease: "linear",
-          duration
-        }
-      }
+          duration,
+        },
+      },
     });
   }, [speedUp, controls]);
 
-  //
-  // Animations
-  //
+  // ---------- Animation Variants ----------
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -20 },
-    transition: { duration: 0.4, ease: "easeOut" }
+    transition: { duration: 0.4, ease: "easeOut" },
   };
 
   const fadeScale = {
     initial: { opacity: 0, scale: 0.85 },
     animate: { opacity: 1, scale: 1 },
     exit: { opacity: 0, scale: 0.85 },
-    transition: { duration: 0.35, ease: "easeOut" }
+    transition: { duration: 0.35, ease: "easeOut" },
   };
 
   const fade = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
     exit: { opacity: 0 },
-    transition: { duration: 0.35 }
+    transition: { duration: 0.35 },
   };
 
   return (
@@ -87,7 +86,7 @@ export default function SectionTestimonials() {
       aria-label={t("ariaLabel")}
       className="relative w-full min-h-screen bg-gradient-to-b from-zinc-900 to-red-600 via-black/70 flex flex-col overflow-visible"
     >
-      {/* Main content */}
+      {/* Main Content */}
       <div className="flex-1 flex flex-col items-center text-center px-4 pt-20 md:pt-24 pb-48 relative">
 
         {/* Header */}
@@ -159,38 +158,42 @@ export default function SectionTestimonials() {
           {t("reviewsHeading")}
         </motion.h3>
 
-        {/* Quote + arrows (now fixed height!) */}
+        {/* ---------- FIXED HEIGHT QUOTE SECTION ---------- */}
         <div
-          className="relative mt-10 flex items-center justify-center gap-6 sm:gap-10 md:gap-12 w-full max-w-[900px] px-4"
-          style={quoteHeight ? { minHeight: quoteHeight } : {}}
+          className="relative mt-10 w-full max-w-[900px] px-4 flex justify-center"
+          style={quoteHeight ? { height: quoteHeight } : {}}
         >
-          <button
-            onClick={() => setCurrent((p) => (p - 1 + total) % total)}
-            className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
-          >
-            <Image src="/icons/arrow-left.svg" alt="" width={20} height={20} />
-          </button>
+          <div className="absolute inset-0 flex items-center justify-center gap-6 sm:gap-10 md:gap-12">
 
-          <motion.p
-            key={review.id}
-            variants={fadeInUp}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="text-white text-xs sm:text-sm md:text-md uppercase font-display font-thin tracking-wider leading-relaxed max-w-sm whitespace-pre-line"
-          >
-            {quote}
-          </motion.p>
+            <button
+              onClick={() => setCurrent((p) => (p - 1 + total) % total)}
+              className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
+            >
+              <Image src="/icons/arrow-left.svg" alt="" width={20} height={20} />
+            </button>
 
-          <button
-            onClick={() => setCurrent((p) => (p + 1) % total)}
-            className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
-          >
-            <Image src="/icons/arrow-right.svg" alt="" width={20} height={20} />
-          </button>
+            <motion.p
+              key={review.id}
+              variants={fadeInUp}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="text-white text-xs sm:text-sm md:text-md uppercase font-display font-thin tracking-wider leading-relaxed max-w-sm whitespace-pre-line text-center"
+            >
+              {quote}
+            </motion.p>
+
+            <button
+              onClick={() => setCurrent((p) => (p + 1) % total)}
+              className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
+            >
+              <Image src="/icons/arrow-right.svg" alt="" width={20} height={20} />
+            </button>
+
+          </div>
         </div>
 
-        {/* Hidden block to measure height */}
+        {/* Hidden Block Used for Measurement */}
         <div ref={measureRef} className="absolute opacity-0 -z-50 pointer-events-none">
           {CLIENT_REVIEWS.map((rev) => (
             <div
@@ -201,6 +204,7 @@ export default function SectionTestimonials() {
             </div>
           ))}
         </div>
+
       </div>
 
       {/* Avatar */}
@@ -212,26 +216,18 @@ export default function SectionTestimonials() {
         animate="animate"
         exit="exit"
       >
-        <Image
-          src={review.avatar}
-          alt=""
-          fill
-          className="object-contain pointer-events-none"
-        />
+        <Image src={review.avatar} alt="" fill className="object-contain pointer-events-none" />
       </motion.div>
 
-      {/* Full name */}
+      {/* Full Name */}
       <motion.div
         key={"name-" + review.id}
         className="
-          absolute
-          text-black font-legacy font-thin whitespace-pre-line text-center
-
+          absolute text-black font-legacy font-thin whitespace-pre-line text-center
           bottom-[125px] sm:bottom-[75px] md:bottom-[85px]
           left-1/2 -translate-x-1/2
           sm:-translate-x-[calc(50%+170px)]
           md:-translate-x-[calc(50%+190px)]
-
           text-xs sm:text-sm md:text-base
         "
         variants={fade}

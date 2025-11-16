@@ -58,6 +58,7 @@ export default function Home() {
       </div>
 
 
+      <div className="relative">
 <motion.div
   style={{ y }}
   className="absolute -bottom-65 right-0 z-10 pointer-events-none
@@ -77,6 +78,7 @@ export default function Home() {
 
 <SectionTestimonials />
 
+      </div>
 
       
       <div className="relative overflow-hidden">
