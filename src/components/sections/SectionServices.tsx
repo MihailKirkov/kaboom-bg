@@ -9,10 +9,11 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import PaginationDots from "../shared/pagination-dots";
 import { SERVICES } from "@/data/services";
 import { useTranslations } from "next-intl";
+import { useInView } from "framer-motion";
 
 const ILLUSTRATION_SRC = "/images/section-services.svg";
 
@@ -27,6 +28,9 @@ const ILLUSTRATION_SRC = "/images/section-services.svg";
  */
 
 export default function SectionServices() {
+  const [seen, setSeen] = useState<Record<string, boolean>>({});
+  const showcaseRef = useRef(null);
+  const inView = useInView(showcaseRef, { once: true, margin: "-20%" });
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [currentCard, setCurrentCard] = useState(0);
   const t = useTranslations("SectionServices");
@@ -35,16 +39,26 @@ export default function SectionServices() {
 
 
   // Interleave: card, sep, card, sep, ...
-const slides = useMemo(() => {
-  const base = SERVICES.flatMap((s, i) => [
-    { type: "card" as const, service: s, index: i },
-    { type: "sep" as const, key: `sep-${i}` },
-  ]);
+  const slides = useMemo(() => {
+    const base = SERVICES.flatMap((s, i) => [
+      { type: "card" as const, service: s, index: i },
+      { type: "sep" as const, key: `sep-${i}` },
+    ]);
 
-  // Minimal safe duplication so the track is always longer than the viewport
-  // 3 loops is safe for any card width and any screen size
-  return [...base, ...base, ...base];
-}, []);
+    // Minimal safe duplication so the track is always longer than the viewport
+    // 3 loops is safe for any card width and any screen size
+    return [...base, ...base, ...base];
+  }, []);
+
+useEffect(() => {
+  if (!inView) return;
+
+  const id = SERVICES[currentCard]?.id;
+  if (id && !seen[id]) {
+    setSeen((s) => ({ ...s, [id]: true }));
+  }
+}, [inView, currentCard, seen]);
+
 
   useEffect(() => {
     if (!api) return;
@@ -108,7 +122,7 @@ const slides = useMemo(() => {
     <section
       aria-label={t("ariaLabel")}
       className={[
-  "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-20 md:pb-24 min-h-screen bg-black",
+  "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-4 md:pb-6 lg:pb-8  bg-black",
 
   // Mobile-first — bigger cards so text fits
   "[--card-w:140px] [--sep-w:10px]",
@@ -152,7 +166,7 @@ const slides = useMemo(() => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.h1
-          className="text-lg text-white/60 font-bold tracking-[0.375rem] uppercase font-display"
+          className="text-xs text-[#4c4c4c] font-bold tracking-[0.375rem] uppercase font-display"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -170,68 +184,97 @@ const slides = useMemo(() => {
       </motion.div>
 
       {/* Showcase: width = 3 × card width, always */}
-      <div className="relative z-10 mt-6 md:mt-4">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={SERVICES[currentCard]?.id ?? "placeholder"}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className={[
-              "mx-auto h-[220px] rounded-xl overflow-hidden",
-              "shadow-[0_8px_24px_rgba(0,0,0,0.55)] ",
-              "w-[var(--show-w)] bg-black/30",
-            ].join(" ")}
-          >
-            <motion.div
-              // subtle parallax driven by dragOffset
-              style={{
-                x: dragOffset * -40, // tweak: -20 to -60 looks good
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 120,
-                damping: 18,
-              }}
-              className="relative w-full h-full"
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.35 }}
-                className="absolute inset-0"
-              >
-                <Image
-                  src={SERVICES[currentCard].previewSrc}
-                  alt={t(`services.${SERVICES[currentCard].id}.title`)}
-                  fill
-                  className="object-fit sm:object-cover"
-                />
-              </motion.div>
-            </motion.div>
-          </motion.div>
+<div ref={showcaseRef} className="relative z-10 mt-6 md:mt-4">
+  <AnimatePresence mode="wait">
+    {inView && (
+      <motion.div
+        key={SERVICES[currentCard].id}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="mx-auto h-[220px] rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.55)] w-[var(--show-w)] bg-black/30 relative"
+      >
 
-
-        </AnimatePresence>
-
-        <motion.div
-          className="absolute left-1/2 -translate-x-1/2 -bottom-4 flex items-center justify-center pointer-events-none"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
+        {/* STATIC PLACEHOLDER — prevents layout shift */}
+        <div className="absolute inset-0">
           <Image
-            src="/icons-red/arrow-down.svg"
+            src={SERVICES[currentCard].previewSrc}
             alt=""
-            width={60}
-            height={60}
-            className="object-contain max-h-24"
+            fill
+            className="object-fit sm:object-cover opacity-0"
           />
+        </div>
+
+        {/* drag offset layer */}
+        <motion.div
+          style={{ x: dragOffset * -40 }}
+          transition={{ type: "spring", stiffness: 120, damping: 18 }}
+          className="absolute inset-0"
+        >
+
+          {/* showoff animation */}
+          <motion.div
+            initial={
+              seen[SERVICES[currentCard].id]
+                ? false
+                : {
+                    opacity: 0,
+                    scale: 1.4,
+                    rotate: -8,
+                    filter: "blur(12px) brightness(0.4)",
+                    y: 60,
+                  }
+            }
+            animate={{
+              opacity: 1,
+              scale: seen[SERVICES[currentCard].id] ? 1 : [1.4, 0.95, 1],
+              rotate: seen[SERVICES[currentCard].id] ? 0 : [-8, 2, 0],
+              filter: "blur(0px) brightness(1)",
+              y: seen[SERVICES[currentCard].id] ? 0 : [60, -10, 0],
+            }}
+            transition={{
+              duration: seen[SERVICES[currentCard].id] ? 0.35 : 0.9,
+              ease: "easeOut",
+            }}
+            className="absolute inset-0"
+          >
+
+            {/* inner image fade layer */}
+            <motion.div
+              initial={
+                seen[SERVICES[currentCard].id]
+                  ? { opacity: 0, scale: 1.05 }
+                  : { scale: 1 }
+              }
+              animate={
+                seen[SERVICES[currentCard].id]
+                  ? { opacity: 1, scale: 1 }
+                  : { scale: 1 }
+              }
+              transition={{ duration: 0.35 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={SERVICES[currentCard].previewSrc}
+                alt={t(`services.${SERVICES[currentCard].id}.title`)}
+                fill
+                className="object-fit sm:object-cover"
+              />
+            </motion.div>
+
+          </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+</div>
+
+
+
 
       {/* Carousel */}
-      <div className="relative z-10 mt-16 w-full px-[2vw]">
+      <div className="relative z-10 mt-8 w-full px-[2vw]">
         <Carousel
           setApi={setApi}
           className="w-full"
@@ -351,7 +394,7 @@ function ServiceCard({
             <Image src={iconSrc} alt="" width={24} height={24} className="opacity-90" />
           </div>
           {/* <div className="text-[11px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500"> */}
-          <div className="text-[10px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500">
+          <div className="text-[10px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500" style={{lineHeight:'1.125'}}>
 
             {title.split("\n").map((line, i) => (
               <span key={i}>
@@ -360,7 +403,7 @@ function ServiceCard({
               </span>
             ))}
           </div>
-          <div className="mt-2 text-[10px] sm:text-[11px] leading-4 text-white/70 font-legacy">{blurb}</div>
+          <div className="mt-2 text-[10px] sm:text-[11px] leading-4 text-white font-legacy">{blurb}</div>
           
         </CardContent>
       </Card>

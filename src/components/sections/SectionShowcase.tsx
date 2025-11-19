@@ -145,10 +145,10 @@ export default function SectionShowcase() {
       footerClassName="pointer-events-none"
     >
       <div className="text-center space-y-6 mt-6">
-        <h1 className="text-sm uppercase tracking-[0.4em] text-muted font-semibold">
+        <h1 className="text-sm uppercase tracking-[0.4em] text-[#4c4c4c] font-semibold font-display">
           {t('heading1')}
         </h1>
-        <h2 className="text-2xl md:text-4xl font-extrabold text-black">
+        <h2 className="text-2xl md:text-2xl font-extrabold text-black font-display">
           {t('heading2')}
         </h2>
 
@@ -169,7 +169,7 @@ export default function SectionShowcase() {
             />
           </button>
 
-          <h3 className="text-xl sm:text-3xl md:text-5xl font-display text-white tracking-[0.375rem] font-thin text-center">
+          <h3 className="text-xl sm:text-3xl md:text-5xl font-display text-white tracking-[0.375rem]  text-center">
             {pageTitles[logicalGroupIndex] || ''}
           </h3>
 

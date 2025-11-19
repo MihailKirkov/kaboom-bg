@@ -58,27 +58,34 @@ export default function Home() {
       </div>
 
 
-      <div className="relative">
-<motion.div
-  style={{ y }}
-  className="absolute -bottom-65 right-0 z-10 pointer-events-none
-             w-[400px] h-[400px] sm:w-[500px] sm:h-[500px]
-             md:w-[600px] md:h-[600px]
-             lg:w-[650px] lg:h-[550px]
-             translate-x-10 sm:translate-x-16 md:translate-x-20"
->
-  <Image
-    src="/images/section-testimonial-bg.svg"
-    alt=""
-    fill
-    className="object-contain"
-    priority
-  />
-</motion.div>
+<div className="relative">
+  {/* SVG stays clipped */}
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <motion.div
+      style={{ y }}
+      className="absolute -bottom-65 right-0 z-10 pointer-events-none
+                w-[400px] h-[400px] sm:w-[500px] sm:h-[500px]
+                md:w-[600px] md:h-[600px]
+                lg:w-[650px] lg:h-[550px]
+                translate-x-10 sm:translate-x-16 md:translate-x-20"
+    >
+      <Image
+        src="/images/section-testimonial-bg.svg"
+        alt=""
+        fill
+        className="object-contain"
+        priority
+      />
+    </motion.div>
+  </div>
 
-<SectionTestimonials />
+  {/* Content is allowed to overflow */}
+  <div className="relative overflow-visible">
+    <SectionTestimonials />
+  </div>
+</div>
 
-      </div>
+
 
       
       <div className="relative overflow-hidden">

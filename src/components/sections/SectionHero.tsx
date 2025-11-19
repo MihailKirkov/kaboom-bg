@@ -21,7 +21,7 @@ export default function SectionHero() {
             muted
             playsInline
           />
-          <div className="absolute inset-0 bg-black/70" />
+          <div className="absolute inset-0" />
         </>
       }
     >
@@ -35,7 +35,7 @@ export default function SectionHero() {
           viewport={{ once: false, amount: 0.3 }}
         >
           <motion.h1
-            className="font-display text-muted text-sm tracking-wider"
+            className="font-display text-[#4c4c4c] text-xs tracking-wider"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}

@@ -24,9 +24,9 @@ export default function SectionWhyUs() {
       //   />
       // }
     >
-      <div className="text-center mb-12">
+      <div className="text-center mb-12 mt-4">
         <motion.h3
-          className="text-md sm:text-lg text-white/60 font-bold tracking-[0.375rem] uppercase"
+          className="text-xs text-[#4c4c4c] font-display font-bold tracking-[0.375rem] uppercase"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -72,22 +72,24 @@ export default function SectionWhyUs() {
                   <Image
                     src={isOpen ? "/icons/minus.svg" : "/icons/plus.svg"}
                     alt={isOpen ? "Close Icon" : "Open Icon"}
-                    width={10}
-                    height={10}
+                    width={12}
+                    height={12}
                   />
                 </div>
               </button>
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div
-                    key="content"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden"
+                  key="content"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
                   >
-                    <div className="pt-4 pb-2 text-sm text-white/80 leading-relaxed font-legacy">
+                    
+                    <div className="separator mx-auto w-[80%] h-[2px] bg-white/10 mt-4" />
+                    <div className="pt-4 pb-2  text-white text-[10px] sm:text-[11px] md:text-[12px] leading-relaxed font-legacy">
                       {t(`items.${item.id}.content`)}
                     </div>
                   </motion.div>
