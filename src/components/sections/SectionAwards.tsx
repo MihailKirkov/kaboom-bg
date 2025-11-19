@@ -197,7 +197,7 @@ export default function SectionAwardsAndFormats() {
       aria-label={t("ariaLabel")}
     >
       {/* Awards Header */}
-      <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2 font-display">
+      <h2 className="text-white/30 uppercase tracking-[0.4rem] text-sm font-bold mb-2 font-display">
         {t("awards.heading1")}
       </h2>
 

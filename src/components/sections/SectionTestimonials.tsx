@@ -85,6 +85,7 @@ export default function SectionTestimonials() {
     <section
       aria-label={t("ariaLabel")}
       className="relative w-full min-h-screen bg-gradient-to-b from-zinc-900 to-red-600 via-black/70 flex flex-col overflow-visible"
+      
     >
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center text-center px-4 pt-20 md:pt-24 pb-48 relative">
@@ -105,7 +106,7 @@ export default function SectionTestimonials() {
             {t("heading2")}
           </h2>
 
-          <p className="text-white/80 text-xs sm:text-sm max-w-[22rem] mx-auto leading-relaxed font-legacy">
+          <p className="text-white text-[10px] sm:text-[11px] md:text-[12px] max-w-[22rem] mx-auto leading-relaxed font-legacy">
             {t("subtext")}
           </p>
         </motion.div>
@@ -144,7 +145,7 @@ export default function SectionTestimonials() {
           variants={fadeInUp}
           initial="initial"
           animate="animate"
-          className="text-xs uppercase tracking-[0.3em] text-red-500 font-semibold mb-1 font-display"
+          className="mt-4 sm:mt-6 md:mt-8 lg:mt-12 text-xs uppercase tracking-[0.3em] text-red-500 font-semibold mb-1 font-display"
         >
           {t("reviewsTitle")}
         </motion.h2>
