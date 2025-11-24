@@ -7,6 +7,7 @@ import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
 import PaginationDots from "@/components/shared/pagination-dots";
 import { useTranslations } from "next-intl";
+import InfiniteScroller from "../shared/infinite-scroller";
 
 export default function SectionTestimonials() {
   const t = useTranslations("SectionTestimonials");
@@ -122,22 +123,19 @@ export default function SectionTestimonials() {
         >
           <div className="absolute inset-0 pointer-events-none z-10 bg-gradient-to-r from-black via-transparent to-black" />
 
-          <motion.div
-            className="flex gap-8 md:gap-12 px-6 py-4 w-max items-center"
-            animate={controls}
-          >
-            {logos.map((client, i) => (
-              <div key={`${client.id}-${i}`} className="flex-shrink-0">
-                <Image
-                  src={client.logo}
-                  alt={client.name}
-                  width={80}
-                  height={40}
-                  className="object-contain max-h-[50px] md:max-h-[60px] grayscale hover:grayscale-0 transition"
-                />
-              </div>
-            ))}
-          </motion.div>
+          <InfiniteScroller
+            items={CLIENTS.map(c => ({
+              id: c.id,
+              src: c.logo,
+              alt: c.name,
+            }))}
+            baseSpeed={40}
+            accelSpeed={140}
+            gap={32}
+            height={60}
+          />
+
+
         </div>
 
         {/* Reviews Title */}
@@ -154,7 +152,7 @@ export default function SectionTestimonials() {
           variants={fadeInUp}
           initial="initial"
           animate="animate"
-          className="text-xl sm:text-2xl md:text-3xl font-display text-white font-extrabold mt-1 whitespace-pre-line"
+          className="text-xl sm:text-2xl md:text-3xl font-display text-white font-extrabold mt-4 whitespace-pre-line"
         >
           {t("reviewsHeading")}
         </motion.h3>

@@ -5,12 +5,14 @@ export type Client = {
 };
 
 export const CLIENTS: Client[] = [
-    { id: "logo1", name: "Клиент 1", logo: "/logos/placeholder.svg" },
-    { id: "logo2", name: "Клиент 2", logo: "/logos/placeholder.svg" },
-    { id: "logo3", name: "Клиент 3", logo: "/logos/placeholder.svg" },
-    { id: "logo4", name: "Клиент 4", logo: "/logos/placeholder.svg" },
-    { id: "logo5", name: "Клиент 5", logo: "/logos/placeholder.svg" },
-    { id: "logo6", name: "Клиент 6", logo: "/logos/placeholder.svg" },
-    { id: "logo7", name: "Клиент 7", logo: "/logos/placeholder.svg" },
-    { id: "logo8", name: "Клиент 8", logo: "/logos/placeholder.svg" },
+    { id: "logo1", name: "Avene", logo: "/logos/avene.svg" },
+    { id: "logo2", name: "Era", logo: "/logos/era.svg" },
+    { id: "logo3", name: "Greenpeace", logo: "/logos/greenpeace.svg" },
+    { id: "logo4", name: "Sofiiska Banitsa", logo: "/logos/sofiiska-banitsa.svg" },
+    { id: "logo5", name: "Furterer", logo: "/logos/furterer.svg" },
+    { id: "logo6", name: "LR Health & Beauty", logo: "/logos/LR.svg" },
+    { id: "logo7", name: "Trastena", logo: "/logos/trastena.svg" },
+    { id: "logo8", name: "Hill Clinic", logo: "/logos/hill-clinic.svg" },
+    { id: "logo9", name: "Ducray", logo: "/logos/ducray.svg" },
+    { id: "logo10", name: "Creditera.BG", logo: "/logos/creditera.svg" },
 ];
