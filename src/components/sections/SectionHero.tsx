@@ -11,6 +11,7 @@ export default function SectionHero() {
 
   return (
     <SectionWrapper
+    className='!min-h-[90vh] sm:min-h-screen'
       background={
         <>
           <video
@@ -66,7 +67,7 @@ export default function SectionHero() {
           {textLines.map((line, index) => (
             <span key={index}>
               {line}
-              {index !== textLines.length - 1 && <br />}
+              {index !== textLines.length - 1 && <br className='hidden sm:block'/>}
             </span>
           ))}
         </motion.div>

@@ -330,7 +330,7 @@ function ShowcaseCard({ item, onOpen, index = 0 }: ShowcaseCardProps) {
         )}
       </div>
 
-      <div className="text-md leading-5 px-2 text-white font-medium">
+      <div className="text-md leading-5 px-2 text-white font-medium flex-1 flex items-center justify-center">
         {item.title}
       </div>
     </motion.button>

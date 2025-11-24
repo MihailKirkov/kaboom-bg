@@ -15,6 +15,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import InfiniteScroller from "../shared/infinite-scroller";
 
 // -------------------- YOUTUBE TYPES -------------------------
 
@@ -193,7 +194,7 @@ export default function SectionAwardsAndFormats() {
 
   return (
     <SectionWrapperFullWidth
-      className="bg-black text-white text-center py-20"
+      className="bg-black text-white text-center pt-12"
       aria-label={t("ariaLabel")}
     >
       {/* Awards Header */}
@@ -211,93 +212,96 @@ export default function SectionAwardsAndFormats() {
       </h3>
 
       {/* Awards Logos */}
-      <div className="flex flex-wrap justify-center gap-10 items-center mb-20 px-6">
-        {AWARDS.map((award) => (
-          <Image
-            key={award.id}
-            src={award.logo}
-            alt={award.name}
-            width={100}
-            height={80}
-            className="object-contain max-h-24"
-          />
-        ))}
+      <div className="flex flex-wrap justify-center gap-10 items-center mb-12 px-6">
+        <InfiniteScroller
+          items={AWARDS.map(a => ({
+            id: a.id,
+            src: a.logo,
+            alt: a.name,
+          }))}
+          baseSpeed={40}
+          accelSpeed={140}
+          gap={32}
+          height={60}
+        />
       </div>
+      
+      <div className="bg-gradient-to-b from-zinc-900 to-black pt-4 sm:pt-6 md:pt-8">
+{/* Formats Header */}
+        <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2 font-display">
+          {t("formats.heading1")}
+        </h2>
 
-      {/* Formats Header */}
-      <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2 font-display">
-        {t("formats.heading1")}
-      </h2>
+        <h3 className="text-3xl font-display text-red-600 font-bold mb-4">
+          {t("formats.heading2")}
+        </h3>
 
-      <h3 className="text-4xl font-display text-red-600 font-extrabold mb-4">
-        {t("formats.heading2")}
-      </h3>
+        {/* Width limiter */}
+        <div className="w-full flex justify-center">
+          <div className="w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[60vw] xl:w-[700px]">
 
-      {/* Width limiter */}
-      <div className="w-full flex justify-center">
-        <div className="w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[60vw] xl:w-[700px]">
+            {/* Arrows + text */}
+            <div className="flex justify-center items-center px-2">
+              <button
+                onClick={handlePrev}
+                aria-label={t("formats.prev")}
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition"
+              >
+                <Image src="/icons/arrow-left.svg" alt="" width={24} height={24} />
+              </button>
 
-          {/* Arrows + text */}
-          <div className="flex justify-center items-center px-2">
-            <button
-              onClick={handlePrev}
-              aria-label={t("formats.prev")}
-              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition"
-            >
-              <Image src="/icons/arrow-left.svg" alt="" width={24} height={24} />
-            </button>
+              <p className="text-white text-default max-w-sm mx-auto text-balance">
+                {t("formats.description")}
+              </p>
 
-            <p className="text-white/80 text-sm max-w-sm mx-auto text-balance">
-              {t("formats.description")}
-            </p>
+              <button
+                onClick={handleNext}
+                aria-label={t("formats.next")}
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition"
+              >
+                <Image src="/icons/arrow-right.svg" alt="" width={24} height={24} />
+              </button>
+            </div>
 
-            <button
-              onClick={handleNext}
-              aria-label={t("formats.next")}
-              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition"
-            >
-              <Image src="/icons/arrow-right.svg" alt="" width={24} height={24} />
-            </button>
-          </div>
-
-          {/* Carousel */}
-          <div className="overflow-hidden w-full py-10">
-            <Carousel
-              setApi={setApi}
-              className="w-full"
-              opts={{
-                align: "start",
-                loop: true,
-                dragFree: false,
-                skipSnaps: false,
-                containScroll: false,
-              }}
-            >
-              <CarouselContent className="flex gap-4 px-2">
-                {FORMATS.map((item) => (
-                  <CarouselItem
-                    key={item.id}
-                    className="min-w-[240px] sm:min-w-[260px] basis-auto py-10"
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{ duration: 0.4 }}
-                      className="aspect-[9/16] rounded-xl overflow-hidden bg-black/40 border border-white/10 shadow-lg pointer-events-auto"
+            {/* Carousel */}
+            <div className="overflow-hidden w-full py-10">
+              <Carousel
+                setApi={setApi}
+                className="w-full"
+                opts={{
+                  align: "start",
+                  loop: true,
+                  dragFree: false,
+                  skipSnaps: false,
+                  containScroll: false,
+                }}
+              >
+                <CarouselContent className="flex gap-4 px-2">
+                  {FORMATS.map((item) => (
+                    <CarouselItem
+                      key={item.id}
+                      className="min-w-[240px] sm:min-w-[260px] basis-auto py-10"
                     >
-                      <iframe
-                        data-format-video
-                        src={`https://www.youtube.com/embed/${item.youtubeId}?mute=1&playsinline=1`}
-                        title={t(`formats.items.${item.id}.title`)}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                        className="w-full h-full"
-                      />
-                    </motion.div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+                      <motion.div
+                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ duration: 0.4 }}
+                        className="aspect-[9/16] rounded-xl overflow-hidden bg-black/40 border border-white/10 shadow-lg pointer-events-auto"
+                      >
+                        <iframe
+                          data-format-video
+                          src={`https://www.youtube.com/embed/${item.youtubeId}?mute=1&playsinline=1`}
+                          title={t(`formats.items.${item.id}.title`)}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          className="w-full h-full"
+                        />
+                      </motion.div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
           </div>
         </div>
       </div>

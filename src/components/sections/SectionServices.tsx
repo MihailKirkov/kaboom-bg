@@ -140,10 +140,10 @@ useEffect(() => {
   "lg:[--card-w:210px] lg:[--sep-w:18px]",
 
   // Derived default (desktop): 3 cards wide
-  "[--show-w:calc(var(--card-w)*3+var(--sep-w)*3)]",
+  "sm:[--show-w:calc(var(--card-w)*3+var(--sep-w)*3)]",
 
-  // Override for phones: only 2 cards wide
-  "max-sm:[--show-w:calc(var(--card-w)*2+var(--sep-w)*2)]",
+  // For phones: only 2 cards wide
+  "[--show-w:calc(var(--card-w)*2.5+var(--sep-w)*2.5)]",
 ].join(" ")
 }
     >
@@ -184,91 +184,104 @@ useEffect(() => {
       </motion.div>
 
       {/* Showcase: width = 3 × card width, always */}
-<div ref={showcaseRef} className="relative z-10 mt-6 md:mt-4">
-  <AnimatePresence mode="wait">
-    {inView && (
-      <motion.div
-        key={SERVICES[currentCard].id}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
-        className="mx-auto h-[220px] rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.55)] w-[var(--show-w)] bg-black/30 relative"
-      >
-
-        {/* STATIC PLACEHOLDER — prevents layout shift */}
-        <div className="absolute inset-0">
-          <Image
-            src={SERVICES[currentCard].previewSrc}
-            alt=""
-            fill
-            className="object-fit sm:object-cover opacity-0"
-          />
-        </div>
-
-        {/* drag offset layer */}
-        <motion.div
-          style={{ x: dragOffset * -40 }}
-          transition={{ type: "spring", stiffness: 120, damping: 18 }}
-          className="absolute inset-0"
-        >
-
-          {/* showoff animation */}
-          <motion.div
-            initial={
-              seen[SERVICES[currentCard].id]
-                ? false
-                : {
-                    opacity: 0,
-                    scale: 1.4,
-                    rotate: -8,
-                    filter: "blur(12px) brightness(0.4)",
-                    y: 60,
-                  }
-            }
-            animate={{
-              opacity: 1,
-              scale: seen[SERVICES[currentCard].id] ? 1 : [1.4, 0.95, 1],
-              rotate: seen[SERVICES[currentCard].id] ? 0 : [-8, 2, 0],
-              filter: "blur(0px) brightness(1)",
-              y: seen[SERVICES[currentCard].id] ? 0 : [60, -10, 0],
-            }}
-            transition={{
-              duration: seen[SERVICES[currentCard].id] ? 0.35 : 0.9,
-              ease: "easeOut",
-            }}
-            className="absolute inset-0"
-          >
-
-            {/* inner image fade layer */}
+      <div ref={showcaseRef} className="relative z-10 mt-6 md:mt-4">
+        <AnimatePresence mode="wait">
+          {inView && (
             <motion.div
-              initial={
-                seen[SERVICES[currentCard].id]
-                  ? { opacity: 0, scale: 1.05 }
-                  : { scale: 1 }
-              }
-              animate={
-                seen[SERVICES[currentCard].id]
-                  ? { opacity: 1, scale: 1 }
-                  : { scale: 1 }
-              }
-              transition={{ duration: 0.35 }}
-              className="absolute inset-0"
+              key={SERVICES[currentCard].id}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="mx-auto h-[200px] sm:h-[220px] rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.55)] w-[var(--show-w)] bg-black/30 relative"
             >
-              <Image
-                src={SERVICES[currentCard].previewSrc}
-                alt={t(`services.${SERVICES[currentCard].id}.title`)}
-                fill
-                className="object-fit sm:object-cover"
-              />
-            </motion.div>
 
-          </motion.div>
+              {/* STATIC PLACEHOLDER — prevents layout shift */}
+              <div className="absolute inset-0">
+                <Image
+                  src={SERVICES[currentCard].previewSrc}
+                  alt=""
+                  fill
+                  className="object-fit sm:object-cover opacity-0"
+                />
+              </div>
+
+              {/* drag offset layer */}
+              <motion.div
+                style={{ x: dragOffset * -40 }}
+                transition={{ type: "spring", stiffness: 120, damping: 18 }}
+                className="absolute inset-0"
+              >
+
+                {/* showoff animation */}
+                <motion.div
+                  initial={
+                    seen[SERVICES[currentCard].id]
+                      ? false
+                      : {
+                          opacity: 0,
+                          scale: 1.4,
+                          rotate: -8,
+                          filter: "blur(12px) brightness(0.4)",
+                          y: 60,
+                        }
+                  }
+                  animate={{
+                    opacity: 1,
+                    scale: seen[SERVICES[currentCard].id] ? 1 : [1.4, 0.95, 1],
+                    rotate: seen[SERVICES[currentCard].id] ? 0 : [-8, 2, 0],
+                    filter: "blur(0px) brightness(1)",
+                    y: seen[SERVICES[currentCard].id] ? 0 : [60, -10, 0],
+                  }}
+                  transition={{
+                    duration: seen[SERVICES[currentCard].id] ? 0.35 : 0.9,
+                    ease: "easeOut",
+                  }}
+                  className="absolute inset-0"
+                >
+
+                  {/* inner image fade layer */}
+                  <motion.div
+                    initial={
+                      seen[SERVICES[currentCard].id]
+                        ? { opacity: 0, scale: 1.05 }
+                        : { scale: 1 }
+                    }
+                    animate={
+                      seen[SERVICES[currentCard].id]
+                        ? { opacity: 1, scale: 1 }
+                        : { scale: 1 }
+                    }
+                    transition={{ duration: 0.35 }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={SERVICES[currentCard].previewSrc}
+                      alt={t(`services.${SERVICES[currentCard].id}.title`)}
+                      fill
+                      className="object-fit sm:object-cover"
+                    />
+                  </motion.div>
+
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+          <motion.div
+          className="absolute left-1/2 -translate-x-1/2 -bottom-6 flex items-center justify-center pointer-events-none"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <Image
+            src="/icons-red/arrow-down.svg"
+            alt=""
+            width={60}
+            height={60}
+            className="object-contain max-h-24"
+          />
         </motion.div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-</div>
+      </div>
 
 
 
@@ -403,7 +416,7 @@ function ServiceCard({
               </span>
             ))}
           </div>
-          <div className="mt-2 text-[10px] sm:text-[11px] leading-4 text-white font-legacy">{blurb}</div>
+          <div className="mt-2 text-default leading-4 text-white font-legacy">{blurb}</div>
           
         </CardContent>
       </Card>
