@@ -119,7 +119,7 @@ export default function SectionTestimonials() {
           onMouseLeave={() => setSpeedUp(false)}
           onTouchStart={() => setSpeedUp(true)}
           onTouchEnd={() => setSpeedUp(false)}
-          className="relative w-full overflow-hidden py-6 md:py-8"
+          className="relative w-[100vw] overflow-hidden py-6 md:py-8"
         >
           <div className="absolute inset-0 pointer-events-none z-10 bg-gradient-to-r from-black via-transparent to-black" />
 
@@ -177,7 +177,7 @@ export default function SectionTestimonials() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="text-white text-xs sm:text-sm md:text-md uppercase font-display font-thin tracking-wider leading-relaxed max-w-sm whitespace-pre-line text-center"
+              className="text-white text-default uppercase font-display font-thin tracking-wider leading-relaxed max-w-sm whitespace-pre-line text-center"
             >
               {quote}
             </motion.p>
@@ -223,11 +223,11 @@ export default function SectionTestimonials() {
         key={"name-" + review.id}
         className="
           absolute text-black font-legacy font-thin whitespace-pre-line text-center
-          bottom-[125px] sm:bottom-[75px] md:bottom-[85px]
+          bottom-[120px] sm:bottom-[75px] md:bottom-[85px]
           left-1/2 -translate-x-1/2
           sm:-translate-x-[calc(50%+170px)]
           md:-translate-x-[calc(50%+190px)]
-          text-xs sm:text-sm md:text-base
+          text-default
         "
         variants={fade}
         initial="initial"

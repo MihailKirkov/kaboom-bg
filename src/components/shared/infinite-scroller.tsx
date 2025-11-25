@@ -100,7 +100,7 @@ export default function InfiniteScroller({
   return (
     <div
       ref={containerRef}
-      className="relative w-full overflow-hidden select-none"
+      className="relative w-[100vw] overflow-hidden select-none"
       style={{ userSelect: "none", touchAction: "pan-y" }}
     >
       <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-black via-transparent to-black" />

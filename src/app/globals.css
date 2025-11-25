@@ -136,6 +136,12 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .text-default {
+    font-size: 13px;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
