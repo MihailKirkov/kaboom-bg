@@ -191,7 +191,7 @@ export default function SectionShowcase() {
         </div>
       </div>
 
-      <div className="relative mt-12 w-[min(80dvw,300px)] sm:w-[max(55dvw,_400px)] lg:w-[max(30dvw,_550px)] mx-auto"> // here
+      <div className="relative mt-12 w-[min(80dvw,300px)] sm:w-[max(55dvw,_400px)] lg:w-[max(30dvw,_550px)] mx-auto">
         <motion.div
           ref={gridRef}
           layout
