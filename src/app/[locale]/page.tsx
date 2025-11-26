@@ -46,7 +46,7 @@ export default function Home() {
         >
           <Image
             src="/images/section-whyus.svg"
-            alt="Kaboom hero figure"
+            alt="Kaboom figure"
             fill
             className="object-contain"
             priority
@@ -64,9 +64,9 @@ export default function Home() {
     <motion.div
       style={{ y }}
       className="absolute -bottom-65 right-0 z-10 pointer-events-none
-                w-[400px] h-[400px] sm:w-[500px] sm:h-[500px]
+                w-[200px] h-[500px] sm:w-[500px] sm:h-[500px]
                 md:w-[600px] md:h-[600px]
-                lg:w-[650px] lg:h-[550px]
+                lg:w-[850px] lg:h-[750px]
                 translate-x-10 sm:translate-x-16 md:translate-x-20"
     >
       <Image

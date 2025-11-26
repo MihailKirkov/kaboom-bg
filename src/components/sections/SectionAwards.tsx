@@ -212,19 +212,19 @@ export default function SectionAwardsAndFormats() {
       </h3>
 
       {/* Awards Logos */}
-      <div className="flex flex-wrap justify-center gap-10 items-center mb-12 px-6">
-        <InfiniteScroller
-          items={AWARDS.map(a => ({
-            id: a.id,
-            src: a.logo,
-            alt: a.name,
-          }))}
-          baseSpeed={40}
-          accelSpeed={140}
-          gap={32}
-          height={60}
-        />
-      </div>
+<div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden mb-12">
+  <InfiniteScroller
+    items={AWARDS.map(a => ({
+      id: a.id,
+      src: a.logo,
+      alt: a.name,
+    }))}
+    baseSpeed={40}
+    accelSpeed={140}
+    gap={32}
+    height={60}
+  />
+</div>
       
       <div className="bg-gradient-to-b from-zinc-900 to-black pt-4 sm:pt-6 md:pt-8">
 {/* Formats Header */}

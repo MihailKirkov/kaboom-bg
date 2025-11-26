@@ -84,9 +84,10 @@ export default function SectionTestimonials() {
 
   return (
     <section
-      aria-label={t("ariaLabel")}
-      className="relative w-full min-h-screen bg-gradient-to-b from-zinc-900 to-red-600 via-black/70 flex flex-col overflow-visible"
-      
+      aria-label={t("ariaLabel")}className="relative w-full min-h-screen
+  bg-[linear-gradient(to_bottom,_#18181b_0%,_#18181b_10%,_#000000_50%,_#ff0000_65%,_#ff0000_100%)]
+  flex flex-col overflow-visible"
+
     >
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center text-center px-4 pt-20 md:pt-24 pb-48 relative">
@@ -113,18 +114,9 @@ export default function SectionTestimonials() {
         </motion.div>
 
         {/* Marquee */}
-        <div
-          ref={containerRef}
-          onMouseEnter={() => setSpeedUp(true)}
-          onMouseLeave={() => setSpeedUp(false)}
-          onTouchStart={() => setSpeedUp(true)}
-          onTouchEnd={() => setSpeedUp(false)}
-          className="relative w-[100vw] overflow-hidden py-6 md:py-8"
-        >
-          <div className="absolute inset-0 pointer-events-none z-10 bg-gradient-to-r from-black via-transparent to-black" />
-
+        <div className="relative w-full overflow-hidden py-6 md:py-8 mb-8 md:mb-14">
           <InfiniteScroller
-            items={CLIENTS.map(c => ({
+            items={CLIENTS.map((c) => ({
               id: c.id,
               src: c.logo,
               alt: c.name,
@@ -133,9 +125,8 @@ export default function SectionTestimonials() {
             accelSpeed={140}
             gap={32}
             height={60}
+            className="pointer-events-none absolute inset-0 z-10 "
           />
-
-
         </div>
 
         {/* Reviews Title */}

@@ -34,7 +34,7 @@ export default function SectionShowcase() {
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
-      if (w < 640) setCardsPerPage(3);
+      if (w < 640) setCardsPerPage(2);
       else if (w < 1024) setCardsPerPage(6);
       else setCardsPerPage(6);
     };
@@ -97,7 +97,7 @@ export default function SectionShowcase() {
         card.className =
           'bg-black/90 border border-white/50 rounded-xl flex flex-col items-center justify-start gap-2 p-2 text-center';
         const img = document.createElement('div');
-        img.style.height = '160px';
+        // img.style.height = '140px';
         img.className = 'bg-white/10 rounded';
         const text = document.createElement('div');
         text.textContent = t(`items.${item.id}.title`);
@@ -129,7 +129,7 @@ export default function SectionShowcase() {
 
   return (
     <SectionWrapper
-      className="bg-gradient-to-b from-red-700 to-black/99 relative"
+      className="bg-gradient-to-b from-[#ff0000] to-black/99 relative"
       innerClassName="h-full"
       aria-label={t('ariaLabel')}
       background={
@@ -148,11 +148,11 @@ export default function SectionShowcase() {
         <h1 className="text-sm uppercase tracking-[0.4em] text-[#4c4c4c] font-semibold font-display">
           {t('heading1')}
         </h1>
-        <h2 className="text-2xl md:text-2xl font-extrabold text-black font-display">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-black font-display">
           {t('heading2')}
         </h2>
 
-        <div className="mt-2 w-full flex items-center justify-between max-w-4xl mx-auto px-4 md:px-0">
+        <div className="mt-2 w-full flex items-center justify-between max-w-4xl mx-auto px-0 sm:px-2 md:px-4">
           <button
             onClick={() =>
               handlePageChange((currentPage - 1 + totalPages) % totalPages)
@@ -169,7 +169,7 @@ export default function SectionShowcase() {
             />
           </button>
 
-          <h3 className="text-xl sm:text-3xl md:text-5xl font-display text-white tracking-[0.375rem]  text-center">
+          <h3 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display text-white tracking-[0.375rem]  text-center">
             {pageTitles[logicalGroupIndex] || ''}
           </h3>
 
@@ -191,7 +191,7 @@ export default function SectionShowcase() {
         </div>
       </div>
 
-      <div className="relative mt-12 w-[80dvw] sm:w-[65dvw] lg:w-[max(40dvw,_550px)] mx-auto">
+      <div className="relative mt-12 w-[min(80dvw,300px)] sm:w-[max(55dvw,_400px)] lg:w-[max(30dvw,_550px)] mx-auto"> // here
         <motion.div
           ref={gridRef}
           layout
@@ -199,7 +199,7 @@ export default function SectionShowcase() {
           style={{
             minHeight: stableHeight ? `${stableHeight}px` : undefined,
           }}
-          className="grid gap-6 px-2 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr mb-6 lg:mb-4"
+          className="grid gap-6 px-2 md:px-12 lg:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr mb-6 lg:mb-4"
         >
           {currentItems.map((item, i) => (
             <ShowcaseCard
@@ -259,10 +259,10 @@ function ShowcaseDialog({ selectedItem, onClose, t }: ShowcaseDialogProps) {
               />
             </div>
 
-            <h4 className="text-xl md:text-lg font-bold mb-3 text-center text-red-600 uppercase">
+            <h4 className="text-default font-monsterrat font-extrabold mb-0 lg:mb-2 text-center text-[#ff0000] uppercase">
               {t(`items.${selectedItem.id}.title`)}
             </h4>
-            <p className="max-w-prose text-center text-white/90 font-legacy font-thin">
+            <p className="max-w-prose text-center text-white text-default font-legacy">
               {t(`items.${selectedItem.id}.description`)}
             </p>
 
@@ -308,9 +308,10 @@ function ShowcaseCard({ item, onOpen, index = 0 }: ShowcaseCardProps) {
       }}
       whileTap={{ scale: 0.97 }}
       transition={{ type: 'spring', stiffness: 120, damping: 16, delay: animationDelay }}
-      className="h-full bg-black/90 border border-white/50 rounded-xl flex flex-col items-center justify-start gap-2 p-2 text-center"
+      className="bg-black/90 border border-white/50 rounded-xl flex flex-col items-center justify-start gap-2 pt-2 px-2 text-center height-[260px] sm:height-[220px] lg:height-[250px]"
     >
-      <div className="w-full h-40 relative rounded overflow-hidden">
+      {/* Fixed image height — matches your mock measurement */}
+      <div className="w-full h-[130px] sm:h-[110px] lg:h-[160px] relative rounded overflow-hidden">
         {!hovered ? (
           <Image
             src={item.previewSrc}
@@ -330,10 +331,11 @@ function ShowcaseCard({ item, onOpen, index = 0 }: ShowcaseCardProps) {
         )}
       </div>
 
-      <div className="text-md leading-5 px-2 text-white font-medium flex-1 flex items-center justify-center">
+      <div className="text-default leading-3 sm:leading-4 md:leading-5 lg:px-2 text-white flex-1 flex items-center justify-center text-balance">
         {item.title}
       </div>
     </motion.button>
   );
 }
+
 

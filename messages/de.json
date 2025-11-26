@@ -44,7 +44,7 @@
         }
     },
     "SectionShowcase": {
-        "ariaLabel": "Showcase",
+        "ariaLabel": "Präsentation",
         "heading1": "360 MARKETING",
         "heading2": "NIEMAND MACHT ES WIE WIR",
         "centerTitle#1": "Sofiiska Banitsa",
@@ -54,26 +54,26 @@
         "next": "Weiter",
         "close": "Schließen",
         "items": {
-            "01": { "title": "Fotografie, Styling, Produktanimation", "description": "Produktfotografie, Styling und Animation" },
-            "02": { "title": "„Sofiyska Banitsa Live“, Lügendetektor...", "description": "Sofia Banitsa Live, Meer aus Banitsa, Lügendetektor" },
-            "03": { "title": "Ganzheitliche Markenidentität und Design", "description": "Komplettes Branding und Design, inklusive Innenakzente" },
-            "04": { "title": "Werbekampagnen und Social Media Content", "description": "Werbekampagnen und Inhalte für soziale Medien" },
-            "05": { "title": "Verpackungen, Fahrzeugbranding", "description": "Verpackungsdesign und Fahrzeugbranding" },
-            "06": { "title": "Entwicklung der ersten digitalen Marketingstrategie", "description": "Entwicklung der ersten digitalen Marketingstrategie des Unternehmens" },
+            "01": { "title": "Fotografie, Styling, Produktanimation", "description": "Wir haben ihre Gebäcke so aufgenommen, dass der Duft fast durch den Bildschirm spürbar ist. Jedes Detail appetitlich, jedes Bild köstlich." },
+            "02": { "title": "„Sofiyska Banitsa Live“, Lügendetektor...", "description": "Nur Kaboom kann eine Kampagne mit Lügendetektor und Gebäck umsetzen. Echte Menschen, echte Reaktionen, echte Magie." },
+            "03": { "title": "Ganzheitliche Markenidentität und Design", "description": "Wir haben eine komplette visuelle Welt geschaffen – Farben, Schriften, Grafiken. Konsistent, einprägsam, geschmackvoll. Einschließlich der Innen- und Außenbereiche jeder Bäckerei." },
+            "04": { "title": "Werbekampagnen und Social Media Content", "description": "Wir zeigen Menschen, nicht nur Produkte. Denn Menschen können „lecker“ sagen – Gebäck nicht." },
+            "05": { "title": "Verpackungen, Fahrzeugbranding", "description": "Wir haben ihre Verpackungen und die gesamte Flotte gestaltet – vom Supermarktregal bis zur Straße, alles spricht mit einer Stimme." },
+            "06": { "title": "Entwicklung der ersten digitalen Marketingstrategie", "description": "Wir haben ihre allererste digitale Strategie entwickelt – ein Plan, der funktioniert und messbare Ergebnisse liefert." },
             
-            "07": { "title": "Design von Verpackungen", "description": "Kreativkonzept, Drehbuch und Produktion" },
-            "08": { "title": "TV-\nWerbeanpassung", "description": "Produkt- und Lifestylefotografie" },
-            "09": { "title": "Videoproduktion für Social Media und TV", "description": "Organisation und Berichterstattung" },
-            "10": { "title": "3D-Animation", "description": "Konzept, Prototyping und Designsysteme" },
-            "11": { "title": "Adaptation of All Video Materials", "description": "Plakatwände und Stadtbranding" },
-            "12": { "title": "Creating BTL Campaigns", "description": "Planung und Verteilung" },
+            "07": { "title": "Design von Verpackungen", "description": "Wir gestalten Dutzende von Werbeverpackungen, jede mit eigener Persönlichkeit und Stil." },
+            "08": { "title": "TV-\nWerbeanpassung", "description": "Wir animieren, vertonen und passen TV-Spots für alle ihre Marken an – Avene, Elgydium, Eludril und mehr." },
+            "09": { "title": "Videoproduktion für Social Media und TV", "description": "Regie, Planung, Models, Aufnahmen – alles, um Produkte und Marken zum Strahlen zu bringen." },
+            "10": { "title": "3D-Animation", "description": "Wir erstellen 3D-Modelle und Animationen der Produkte, die dann in Social Media und TV-Clips zum Leben erwachen." },
+            "11": { "title": "Anpassung aller Videomaterialien", "description": "Egal wie komplex – wir passen alles für Avene, Ducray, Elgydium, Eludril, Rene Furterer, Klorane und mehr an." },
+            "12": { "title": "Erstellung von BTL-Kampagnen", "description": "Konzeption, Planung, Umsetzung – ihre BTL-Kampagnen sind darauf ausgelegt, mit sehr bescheidenen Budgets Aufsehen zu erregen." },
             
-            "13": { "title": "Direction of Clips for National TV", "description": "2D/3D Motion für Kampagnen" },
-            "14": { "title": "Creating Engaging Formats", "description": "Tonfall, Botschaften und Slogans" },
-            "15": { "title": "OOH, Windows, and Vehicles", "description": "Analyse und Empfehlungen für Marken" },
-            "16": { "title": "Social Media Content", "description": "Segmentierung, Automatisierungen, A/B-Tests" },
-            "17": { "title": "Creating Engaging Campaigns", "description": "Optimierung und Inhalte" },
-            "18": { "title": "Creating BTL Campaigns", "description": "Search-, Display- und Videokampagnen" }
+            "13": { "title": "Regie von Clips für nationales Fernsehen", "description": "Wir entwickelten Konzepte und führten Regie für Clips auf bTV, die begeistern und fesseln." },
+            "14": { "title": "Erstellung ansprechender Formate", "description": "Clips im Studio, Büro, draußen – Formate, die Teams und Publikum verbinden." },
+            "15": { "title": "OOH, Schaufenster und Fahrzeuge", "description": "ERA ist stolz auf die Designs von Kaboom, egal ob es sich um Plakate, Schaufenster oder Fahrzeuge handelt." },
+            "16": { "title": "Inhalte für Social Media", "description": "Wir reisen, um das Geschehen aus dem Epizentrum der Veranstaltung festzuhalten — egal, um welches ihrer 44 Büros im ganzen Land es sich handelt" },
+            "17": { "title": "Erstellung ansprechender Kampagnen", "description": "Zum Beispiel die Kampagne „20 Jahre Nur nach oben!“ mit Volleyballteams, bei der wir ein ganzes Team filmen, das wir anschließend in zentrale Visuals für Kalender, Posts und Schaufenster verwandeln." },
+            "18": { "title": "Erstellung von BTL-Kampagnen", "description": "Zum Beispiel ein Podcast—sogar in einem fahrenden Auto, ein Glücksrad, ein Maklerwettkampf…" }
         }
     },
     "SectionWhyUs": {
@@ -89,7 +89,7 @@
         }
     },
     "SectionTestimonials": {
-        "ariaLabel": "Clients",
+        "ariaLabel": "Kunden",
         "heading1": "WARUM KABOOM",
         "heading2": "UNABHÄNGIG\nVOM BEREICH",
         "subtext": "Von Immobilien über Kosmetik, den Industriesektor und das Gesundheitswesen bis hin zur Ökologie. Ganz gleich, in welchem Bereich Ihr Unternehmen tätig ist – bei Kaboom erhalten Sie Qualität.",
@@ -103,23 +103,23 @@
                 "fullName": "Magdalena Andonova,\nMarketing Manager @\nERA Real Estate Bulgaria"
             },
             "review-2": {
-                "quote": "THEY WORK ACCORDING TO ”GERMAN STANDARDS”, ARE AS PRECISE AS THE JAPANESE, AND CREATIVE ON A GLOBAL LEVEL – THAT’S KABOOM FOR ERA BULGARIA!",
+                "quote": "SIE ARBEITEN NACH „DEUTSCHEM STANDARD“, SIND KORREKT WIE JAPANER UND KREATIV AUF WELTNIVEAU – DAS IST KABOOM FÜR ERA BULGARIEN!",
                 "fullName": "Anton Andonov,\nCEO @ ERA Real Estate Bulgaria"
             },
             "review-3": {
-                "quote": "WE AT FELDBERGER HOF HOTEL ARE ECSTATIC ABOUT KABOOM’S WORK AND CREW.",
+                "quote": "WIR VOM FELDBERGER HOF HOTEL SIND BEGEISTERT VON DER ARBEIT UND DEM TEAM VON KABOOM.",
                 "fullName": "Mike Böttcher,\nHoteldirector @\nFamilotel Feldberger Hof"
             },
             "review-4": {
-                "quote": "CREATIVE – COMMITTED – FAST. VERY DEDICATED WORK THAT FOCUSES NOT ONLY ON THE PRODUCT BUT ALSO ON THE SERVICE.",
+                "quote": "KREATIV – ENGAGIERT – SCHNELL. SEHR ENGAGIERTE ARBEIT, DIE SICH NICHT NUR AUF DAS PRODUKT, SONDERN AUCH AUF DEN SERVICE KONZENTRIERT.",
                 "fullName": "Laura Zimmermann @\nWeisse Düne Segeltouren"
             },
             "review-5": {
-                "quote": "THE STAPLE OF KABOOM’S WORK ARE THE CREATIVE IDEAS, EFFECTIVE DESIGN AND A PROFESSIONAL IMPLEMENTATION.",
+                "quote": "DIE BASIS DER ARBEIT VON KABOOM SIND KREATIVE IDEEN, EFFEKTIVES DESIGN UND PROFESSIONELLE UMSETZUNG.",
                 "fullName": "Regina Tessmann @\nLAG „Stettiner Haff“"
             },
             "review-6": {
-                "quote": "KABOOM'S TEAM EARNS MY HIGHEST RECOMMENDATION NOT ONLY FOR DIGITAL CONTENT PRODUCTION BUT ALSO FOR CREATIVE IDEAS.",
+                "quote": "ICH EMPFEHLE DAS KABOOM-TEAM FÜR ALLE DIENSTLEISTUNGEN IM BEREICH DER ERSTELLUNG VON DIGITALEN INHALTEN UND KREATIVEN KONZEPTEN.",
                 "fullName": "Nikola Ivanov,\nMarketing & E-commerce Director\n@ Pierre Fabre Group"
             }
         }
@@ -151,11 +151,11 @@
         }
     },
     "SectionContactUs": {
-        "reachOut": "Reach Out",
-        "address": "ЧЕРКОВНА 79, ОБОРИЩЕ, СОФИЯ"
+        "reachOut": "KONTAKTIEREN SIE UNS",
+        "address": "CHERKOVNA 79, OBORISHTE, SOFIA"
     },
     "Others": {
-        "callUs" : "Обадете се",
-        "emailUs" : "Пишете ни"
+        "callUs" : "RUFEN SIE AN",
+        "emailUs" : "EMAIL"
     }
 }
