@@ -392,7 +392,7 @@ function ServiceCard({
       className="w-full h-full"
     >
       <Card
-        className="h-full cursor-pointer border-0 relative overflow-visible bg-transparent py-2"
+        className="h-[180px] md:h-[190px] lg:h-[200px] cursor-pointer border-0 relative overflow-visible bg-transparent py-2"
         onClick={onClick}
       >
         <CardContent
