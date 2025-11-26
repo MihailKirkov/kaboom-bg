@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import { motion, useMotionValue } from "framer-motion";
 
@@ -16,6 +16,8 @@ type Props = {
   accelSpeed?: number;
   gap?: number;
   height?: number;
+  itemWidth?: number; // approximate rendered width of each item in px (default 100)
+  className?: string;
 };
 
 export default function InfiniteScroller({
@@ -23,11 +25,44 @@ export default function InfiniteScroller({
   baseSpeed = 40,
   gap = 32,
   height = 60,
+  itemWidth = 100,
+  className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-black via-transparent to-black"
 }: Props) {
   const x = useMotionValue(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const doubled = [...items, ...items];
+  // Build repeated array so total content width >= 2 * viewport width
+  const repeated = useMemo(() => {
+    if (!items || items.length === 0) return [];
+
+    // conservative per-item width (image width + gap)
+    const perItem = itemWidth + gap;
+    const itemsCount = items.length;
+
+    // viewport width (fallback to 1200 if not available)
+    const vw = typeof window !== "undefined" ? window.innerWidth : 1200;
+
+    // target total width we want (2x viewport)
+    const targetWidth = vw * 2;
+
+    // how many items needed to reach targetWidth
+    const neededItems = Math.max(
+      itemsCount * 2, // at least double
+      Math.ceil(targetWidth / perItem)
+    );
+
+    // compute repetitions
+    const repeats = Math.ceil(neededItems / itemsCount);
+
+    // generate repeated array
+    const arr: Item[] = [];
+    for (let r = 0; r < repeats; r++) {
+      arr.push(...items);
+    }
+
+    return arr;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, gap, itemWidth]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -53,10 +88,8 @@ export default function InfiniteScroller({
       lastX = e.clientX;
 
       const current = x.get();
-      const itemWidth = el.scrollWidth / 2;
-
-      // dragging direction is natural
-      const next = (current + dx) % itemWidth;
+      const itemWidthTotal = el.scrollWidth / 2;
+      const next = (current + dx) % itemWidthTotal;
       x.set(next);
     };
 
@@ -79,8 +112,8 @@ export default function InfiniteScroller({
       if (running) {
         const dist = baseSpeed * dt;
         const current = x.get();
-        const itemWidth = el.scrollWidth / 2;
-        const next = (current - dist) % itemWidth;
+        const itemWidthTotal = el.scrollWidth / 2;
+        const next = (current - dist) % itemWidthTotal;
         x.set(next);
       }
 
@@ -103,19 +136,19 @@ export default function InfiniteScroller({
       className="relative w-full overflow-hidden select-none"
       style={{ userSelect: "none", touchAction: "pan-y" }}
     >
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-black via-transparent to-black" />
+      <div className={className} />
 
       <motion.div style={{ x }} className="flex items-center w-max">
-        {doubled.map((item, i) => (
+        {repeated.map((item, i) => (
           <div
-            key={item.id + "-" + i}
+            key={`${item.id}-${i}`}
             className="flex-shrink-0 pointer-events-none"
             style={{ marginRight: gap }}
           >
             <Image
               src={item.src}
               alt={item.alt}
-              width={100}
+              width={itemWidth}
               height={height}
               draggable={false}
               className="object-contain grayscale hover:grayscale-0 transition pointer-events-none"

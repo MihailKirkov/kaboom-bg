@@ -39,7 +39,7 @@ export default function SectionContactUs() {
         <div className="mt-6 flex gap-4 flex-wrap justify-center">
           <a
             href="tel:+359877199199"
-            className="whitespace-nowrap flex items-center gap-2 bg-[rgb(30,30,30)] rounded-md px-4 py-1 border border-[rgb(30,30,30)]
+            className="whitespace-nowrap flex items-center justify-center gap-2 bg-[rgb(30,30,30)] rounded-md px-4 py-1 border border-[rgb(30,30,30)]
             text-xs font-thin font-montserrat text-red-600 tracking-wide hover:border-red-600 transition min-w-[160px]"
           >
             <Image src="/icons/phone.svg" alt="Phone" width={24} height={24} className="w-6 h-6" />
@@ -48,7 +48,7 @@ export default function SectionContactUs() {
 
           <a
             href="mailto:office@kaboom.bg"
-            className="whitespace-nowrap flex items-center gap-2 bg-[rgb(30,30,30)] rounded-md px-4 py-1 border border-[rgb(30,30,30)]
+            className="whitespace-nowrap flex items-center justify-center gap-2 bg-[rgb(30,30,30)] rounded-md px-4 py-1 border border-[rgb(30,30,30)]
             text-xs font-thin font-montserrat text-red-600 tracking-wide hover:border-red-600 transition min-w-[160px]"
           >
             <Image src="/icons/mail.svg" alt="Mail" width={24} height={24} className="w-6 h-6" />

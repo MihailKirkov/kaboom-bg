@@ -125,25 +125,25 @@ useEffect(() => {
   "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-4 md:pb-6 lg:pb-8  bg-black",
 
   // Mobile-first — bigger cards so text fits
-  "[--card-w:140px] [--sep-w:10px]",
+  "[--card-w:170px] [--sep-w:10px]",
 
   // ≥390px (iPhone mini–normal)
-  "xs:[--card-w:150px] xs:[--sep-w:12px]",
+  "xs:[--card-w:160px] xs:[--sep-w:12px]",
 
   // ≥640px
-  "sm:[--card-w:180px] sm:[--sep-w:14px]",
+  "sm:[--card-w:190px] sm:[--sep-w:14px]",
 
   // ≥768px
-  "md:[--card-w:200px] md:[--sep-w:16px]",
+  "md:[--card-w:210px] md:[--sep-w:16px]",
 
   // ≥1024px
-  "lg:[--card-w:210px] lg:[--sep-w:18px]",
+  "lg:[--card-w:230px] lg:[--sep-w:18px]",
 
   // Derived default (desktop): 3 cards wide
   "sm:[--show-w:calc(var(--card-w)*3+var(--sep-w)*3)]",
 
   // For phones: only 2 cards wide
-  "[--show-w:calc(var(--card-w)*2.5+var(--sep-w)*2.5)]",
+  "[--show-w:calc(var(--card-w)*2+var(--sep-w)*2)]",
 ].join(" ")
 }
     >
@@ -301,7 +301,7 @@ useEffect(() => {
           }}
         >
           {/* Remove default track gutters to avoid seam drift */}
-          <CarouselContent className="!ml-0 !px-0 flex items-stretch gap-0">
+          <CarouselContent className="!ml-0 !px-0 flex items-stretch gap-0" style={{height:'190px !important'}}>
             {slides.map((slide, idx) => {
               if (slide.type === "sep") {
                 return (
@@ -335,7 +335,7 @@ useEffect(() => {
                 <CarouselItem
                   key={s.id + idx}
                   // Card width is *exactly* var(--card-w)
-                  className="!pl-0 !ml-0 !mr-0 p-0 m-0 basis-[var(--card-w)] grow-0 shrink-0"
+                  className="!pl-0 !ml-0 !mr-0 p-0 m-0 basis-[var(--card-w)] grow-0 shrink-0 h-full"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -345,7 +345,7 @@ useEffect(() => {
                       duration: 0.5,
                       ease: "easeOut",
                     }}
-                    className="relative flex justify-center"
+                    className="relative flex justify-center h-full"
                   >
                     <ServiceCard
                       title={t(`services.${s.id}.title`)}
@@ -389,15 +389,15 @@ function ServiceCard({
     <motion.div
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="w-full"
+      className="w-full h-full"
     >
       <Card
-        className="h-full cursor-pointer border-0 relative overflow-visible bg-transparent"
+        className="h-full cursor-pointer border-0 relative overflow-visible bg-transparent py-2"
         onClick={onClick}
       >
         <CardContent
           className={[
-            "relative p-2 text-center transition-colors rounded-md",
+            "relative p-2 text-center transition-colors rounded-md h-full",
             active
               ? "bg-white/15 shadow-lg ring-1 ring-white/20"
               : "bg-transparent hover:bg-white/5",
@@ -407,7 +407,7 @@ function ServiceCard({
             <Image src={iconSrc} alt="" width={24} height={24} className="opacity-90" />
           </div>
           {/* <div className="text-[11px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500"> */}
-          <div className="text-[10px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500" style={{lineHeight:'1.125'}}>
+          <div className="leading-4 font-extrabold font-montserrat text-default uppercase tracking-tight text-[#FF0000]" style={{lineHeight:'1.125'}}>
 
             {title.split("\n").map((line, i) => (
               <span key={i}>
