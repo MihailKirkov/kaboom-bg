@@ -172,7 +172,11 @@ export default function SectionShowcase() {
       </div>
 
       <SectionWrapper
-        className="relative bg-[linear-gradient(to_bottom,_#ff0000_0%,_#ff0000_30%,_rgba(0,0,0,0.5)_50%,_#000000_100%)]"
+          className="relative bg-gradient-to-b from-[#800000] to-black"
+
+
+        
+        // className="bg-gradient-to-b from-[#ff0000]/50 to-black/100 relative"
         innerClassName="h-full"
         aria-label={t('ariaLabel')}
         background={
