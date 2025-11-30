@@ -21,21 +21,27 @@ function chunkArray<T>(arr: T[], size: number): T[][] {
   return chunks;
 }
 
+const GRID_WIDTH_CLASSES =
+  "w-[min(70dvw,300px)] sm:w-[max(55dvw,_400px)] lg:w-[max(30dvw,_550px)]";
+
 export default function SectionShowcase() {
   const t = useTranslations('SectionShowcase');
+
   const [currentPage, setCurrentPage] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(6);
   const [selectedItem, setSelectedItem] =
     useState<typeof SHOWCASE_ITEMS[number] | null>(null);
 
+  const [cardHeight, setCardHeight] = useState<number>(0);
+
   const gridRef = useRef<HTMLDivElement>(null);
   const [stableHeight, setStableHeight] = useState<number>(0);
 
+  // Responsive cardsPerPage
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
       if (w < 640) setCardsPerPage(2);
-      else if (w < 1024) setCardsPerPage(6);
       else setCardsPerPage(6);
     };
     handleResize();
@@ -47,17 +53,17 @@ export default function SectionShowcase() {
     () => chunkArray(SHOWCASE_ITEMS, cardsPerPage),
     [cardsPerPage]
   );
+
   const LOGICAL_GROUP_SIZE = 6;
+
   const pageTitles = useMemo(
     () => [t('centerTitle#1'), t('centerTitle#2'), t('centerTitle#3')],
     [t]
   );
 
-  // Logical group index is consistent across screen sizes
   const logicalGroupIndex = useMemo(() => {
     return Math.floor((currentPage * cardsPerPage) / LOGICAL_GROUP_SIZE);
   }, [currentPage, cardsPerPage]);
-
 
   const totalPages = pages.length;
   const currentItems = pages[currentPage] || [];
@@ -75,6 +81,7 @@ export default function SectionShowcase() {
     setSelectedItem(null);
   };
 
+  // Measure container height for each page
   useLayoutEffect(() => {
     const pagesArr = chunkArray(SHOWCASE_ITEMS, cardsPerPage);
     const tempHeights: number[] = [];
@@ -91,14 +98,14 @@ export default function SectionShowcase() {
     pagesArr.forEach((page) => {
       const grid = document.createElement('div');
       grid.className =
-        'grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-2 md:px-0 w-[80dvw] sm:w-[65dvw] lg:w-[max(40dvw,_550px)]';
+        `grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-2 md:px-0 ${GRID_WIDTH_CLASSES}`;
+
       page.forEach((item) => {
         const card = document.createElement('div');
         card.className =
           'bg-black/90 border border-white/50 rounded-xl flex flex-col items-center justify-start gap-2 p-2 text-center';
         const img = document.createElement('div');
-        // img.style.height = '140px';
-        img.className = 'bg-white/10 rounded';
+        img.className = 'bg-white/10 rounded h-[130px] sm:h-[110px] lg:h-[130px]';
         const text = document.createElement('div');
         text.textContent = t(`items.${item.id}.title`);
         text.className = 'text-md leading-5 px-2 text-white font-medium';
@@ -115,6 +122,22 @@ export default function SectionShowcase() {
     measureWrapper.remove();
   }, [cardsPerPage, t]);
 
+  // MEASURE ALL CARDS EXACTLY (correct solution)
+  useLayoutEffect(() => {
+    const measure = document.getElementById("showcase-measure");
+    if (!measure) return;
+
+    let max = 0;
+
+    const cards = measure.querySelectorAll(".showcase-measure-card");
+    cards.forEach((node) => {
+      const h = (node as HTMLElement).offsetHeight;
+      if (h > max) max = h;
+    });
+
+    setCardHeight(max);
+  }, [t]);
+
   const pagination = (
     <div className="pointer-events-auto">
       <PaginationDots
@@ -128,97 +151,118 @@ export default function SectionShowcase() {
   );
 
   return (
-    <SectionWrapper
-      className="bg-gradient-to-b from-[#ff0000] to-black/99 relative"
-      innerClassName="h-full"
-      aria-label={t('ariaLabel')}
-      background={
-        <Image
-          src="/images/section-showcase.svg"
-          alt=""
-          fill
-          priority
-          className="object-cover opacity-60"
-        />
-      }
-      footerContent={pagination}
-      footerClassName="pointer-events-none"
-    >
-      <div className="text-center space-y-6 mt-6">
-        <h1 className="text-sm uppercase tracking-[0.4em] text-[#4c4c4c] font-semibold font-display">
-          {t('heading1')}
-        </h1>
-        <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-black font-display">
-          {t('heading2')}
-        </h2>
-
-        <div className="mt-2 w-full flex items-center justify-between max-w-4xl mx-auto px-0 sm:px-2 md:px-4">
-          <button
-            onClick={() =>
-              handlePageChange((currentPage - 1 + totalPages) % totalPages)
-            }
-            aria-label={t('prev')}
-            className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:-translate-x-2 hover:scale-115 transition cursor-pointer"
-          >
-            <Image
-              src="/icons/arrow-left.svg"
-              alt=""
-              width={30}
-              height={50}
-              className="object-contain max-h-24"
-            />
-          </button>
-
-          <h3 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display text-white tracking-[0.375rem]  text-center">
-            {pageTitles[logicalGroupIndex] || ''}
-          </h3>
-
-          <button
-            onClick={() =>
-              handlePageChange((currentPage + 1) % totalPages)
-            }
-            aria-label={t('next')}
-            className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:translate-x-2 hover:scale-115 transition cursor-pointer"
-          >
-            <Image
-              src="/icons/arrow-right.svg"
-              alt=""
-              width={30}
-              height={50}
-              className="object-contain max-h-24"
-            />
-          </button>
-        </div>
-      </div>
-
-      <div className="relative mt-12 w-[min(80dvw,300px)] sm:w-[max(55dvw,_400px)] lg:w-[max(30dvw,_550px)] mx-auto">
-        <motion.div
-          ref={gridRef}
-          layout
-          transition={{ duration: 0.25, ease: 'easeOut' }}
-          style={{
-            minHeight: stableHeight ? `${stableHeight}px` : undefined,
-          }}
-          className="grid gap-6 px-2 md:px-12 lg:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr mb-6 lg:mb-4"
-        >
-          {currentItems.map((item, i) => (
+    <>
+      {/* Hidden measurement cards */}
+      <div
+        id="showcase-measure"
+        className="fixed top-0 left-0 opacity-0 pointer-events-none z-[-1]"
+      >
+        <div className={`grid gap-6 ${GRID_WIDTH_CLASSES} grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`}>
+          {SHOWCASE_ITEMS.map((item) => (
             <ShowcaseCard
               key={item.id}
               item={{
                 ...item,
                 title: t(`items.${item.id}.title`),
-                description: t(`items.${item.id}.description`),
-              } as ShowcaseItem & { title: string; description: string }}
-              index={i}
-              onOpen={() => setSelectedItem(item)}
+              }}
+              measurementMode
             />
-
           ))}
-        </motion.div>
-
-        <ShowcaseDialog selectedItem={selectedItem} onClose={close} t={t} />
+        </div>
       </div>
-    </SectionWrapper>
+
+      <SectionWrapper
+        className="relative bg-[linear-gradient(to_bottom,_#ff0000_0%,_#ff0000_30%,_rgba(0,0,0,0.5)_50%,_#000000_100%)]"
+        innerClassName="h-full"
+        aria-label={t('ariaLabel')}
+        background={
+          <Image
+            src="/images/section-showcase.svg"
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-60"
+          />
+        }
+        footerContent={pagination}
+        footerClassName="pointer-events-none"
+      >
+        <div className="text-center space-y-8 mt-8">
+          <h1 className="text-sm uppercase tracking-[0.4em] text-[#4c4c4c] font-semibold font-display">
+            {t('heading1')}
+          </h1>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-black font-display">
+            {t('heading2')}
+          </h2>
+
+          <div className="mt-2 w-full flex items-center justify-between max-w-4xl mx-auto px-0 sm:px-2 md:px-4">
+            <button
+              onClick={() =>
+                handlePageChange((currentPage - 1 + totalPages) % totalPages)
+              }
+              aria-label={t('prev')}
+              className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:-translate-x-2 hover:scale-115 transition cursor-pointer"
+            >
+              <Image
+                src="/icons/arrow-left.svg"
+                alt=""
+                width={30}
+                height={50}
+                className="object-contain max-h-24"
+              />
+            </button>
+
+            <h3 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display font-light text-white tracking-[0.25rem] text-center">
+              {pageTitles[logicalGroupIndex] || ''}
+            </h3>
+
+            <button
+              onClick={() =>
+                handlePageChange((currentPage + 1) % totalPages)
+              }
+              aria-label={t('next')}
+              className="w-10 h-10 flex items-center justify-center rounded-full text-white hover:translate-x-2 hover:scale-115 transition cursor-pointer"
+            >
+              <Image
+                src="/icons/arrow-right.svg"
+                alt=""
+                width={30}
+                height={50}
+                className="object-contain max-h-24"
+              />
+            </button>
+          </div>
+        </div>
+
+        <div className={`relative mt-12 mx-auto ${GRID_WIDTH_CLASSES}`}>
+          <motion.div
+            ref={gridRef}
+            layout
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            style={{
+              minHeight: stableHeight ? `${stableHeight}px` : undefined,
+            }}
+            className="grid gap-6 px-2 md:px-12 lg:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr mb-6 lg:mb-4"
+          >
+            {currentItems.map((item, i) => (
+              <ShowcaseCard
+                key={item.id}
+                item={{
+                  ...item,
+                  title: t(`items.${item.id}.title`),
+                  description: t(`items.${item.id}.description`),
+                }}
+                index={i}
+                onOpen={() => setSelectedItem(item)}
+                cardHeight={cardHeight}
+              />
+            ))}
+          </motion.div>
+
+          <ShowcaseDialog selectedItem={selectedItem} onClose={close} t={t} />
+        </div>
+      </SectionWrapper>
+    </>
   );
 }
 
@@ -245,10 +289,10 @@ function ShowcaseDialog({ selectedItem, onClose, t }: ShowcaseDialogProps) {
         >
           <div className="absolute inset-0 bg-black backdrop-blur-sm rounded-xl" />
           <div
-            className="relative z-10 h-full w-full p-4 md:p-6 flex flex-col items-center justify-start gap-4 text-white border-1 border-white/50 rounded-xl"
+            className="relative z-10 h-full w-full p-1 md:p-2 flex flex-col items-center justify-start gap-4 text-white border-1 border-white/50 rounded-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-full h-[75%] relative">
+            <div className="w-full h-[50%] md:h-[60%] lg:h-[72.5%] relative">
               <video
                 src={selectedItem.videoSrc}
                 className="absolute inset-0 w-full h-full object-fill rounded"
@@ -259,17 +303,19 @@ function ShowcaseDialog({ selectedItem, onClose, t }: ShowcaseDialogProps) {
               />
             </div>
 
-            <h4 className="text-default font-monsterrat font-extrabold mb-0 lg:mb-2 text-center text-[#ff0000] uppercase">
-              {t(`items.${selectedItem.id}.title`)}
-            </h4>
-            <p className="max-w-prose text-center text-white text-default font-legacy">
-              {t(`items.${selectedItem.id}.description`)}
-            </p>
+            <div className='flex flex-col justify-start items-center gap-4 px-2 w-full h-auto'>
+              <h4 className="text-default font-montserrat font-extrabold text-center text-[#ff0000] uppercase">
+                {t(`items.${selectedItem.id}.title`)}
+              </h4>
+              <p className="max-w-prose text-center text-white text-default font-verdana">
+                {t(`items.${selectedItem.id}.description`)}
+              </p>
+            </div>
 
             <button
               onClick={onClose}
               aria-label={t('close')}
-              className="absolute bottom-0 -translate-x-1/2 left-1/2 translate-y-4 h-8 w-8 rounded-full bg-black border-1 border-white/50 text-white grid place-items-center hover:bg-red-500 font-display font-extrabold text-xl transition"
+              className="absolute bottom-0 -translate-x-1/2 left-1/2 translate-y-4 h-8 w-8 rounded-full bg-black border-1 border-white/50 text-white grid place-items-center hover:bg-[#ff0000] hover:border-red-600 font-display font-extrabold text-xl transition"
             >
               X
             </button>
@@ -280,20 +326,42 @@ function ShowcaseDialog({ selectedItem, onClose, t }: ShowcaseDialogProps) {
   );
 }
 
-
 type ShowcaseCardProps = {
   item: typeof SHOWCASE_ITEMS[number] & {
     title: string;
     description?: string;
   };
-  onOpen: () => void;
+  onOpen?: () => void;
   index?: number;
+  cardHeight?: number;
+  measurementMode?: boolean;
 };
 
-function ShowcaseCard({ item, onOpen, index = 0 }: ShowcaseCardProps) {
+function ShowcaseCard({
+  item,
+  onOpen,
+  index = 0,
+  cardHeight,
+  measurementMode = false,
+}: ShowcaseCardProps) {
   const animationDelay = index * 0.08;
   const [hovered, setHovered] = useState(false);
 
+  // --- MEASUREMENT MODE (static, simplified) ---
+  if (measurementMode) {
+    return (
+      <div
+        className="showcase-measure-card bg-black/90 border border-white/50 rounded-xl flex flex-col items-center justify-start gap-2 pt-2 px-2 text-center"
+      >
+        <div className="w-full h-[130px] sm:h-[110px] lg:h-[130px] rounded bg-white/10" />
+        <div className="text-default leading-3 sm:leading-4 md:leading-5 text-white flex-1 flex items-center justify-center px-2 text-balance">
+          {item.title}
+        </div>
+      </div>
+    );
+  }
+
+  // --- REAL CARD ---
   return (
     <motion.button
       onClick={onOpen}
@@ -308,10 +376,12 @@ function ShowcaseCard({ item, onOpen, index = 0 }: ShowcaseCardProps) {
       }}
       whileTap={{ scale: 0.97 }}
       transition={{ type: 'spring', stiffness: 120, damping: 16, delay: animationDelay }}
-      className="bg-black/90 border border-white/50 rounded-xl flex flex-col items-center justify-start gap-2 pt-2 px-2 text-center height-[260px] sm:height-[220px] lg:height-[250px]"
+      className="bg-black/90 border border-white/50 rounded-xl flex flex-col items-center justify-start gap-2 pt-2 px-2 text-center"
+      style={{
+        minHeight: cardHeight ? `${cardHeight}px` : undefined,
+      }}
     >
-      {/* Fixed image height — matches your mock measurement */}
-      <div className="w-full h-[130px] sm:h-[110px] lg:h-[160px] relative rounded overflow-hidden">
+      <div className="w-full h-[130px] sm:h-[110px] lg:h-[130px] relative rounded overflow-hidden">
         {!hovered ? (
           <Image
             src={item.previewSrc}
@@ -331,11 +401,9 @@ function ShowcaseCard({ item, onOpen, index = 0 }: ShowcaseCardProps) {
         )}
       </div>
 
-      <div className="text-default leading-3 sm:leading-4 md:leading-5 lg:px-2 text-white flex-1 flex items-center justify-center text-balance">
+      <div className="text-default leading-3 sm:leading-4 md:leading-5 px-2 text-white flex-1 flex items-center justify-center text-balance">
         {item.title}
       </div>
     </motion.button>
   );
 }
-
-

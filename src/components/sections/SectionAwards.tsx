@@ -198,7 +198,7 @@ export default function SectionAwardsAndFormats() {
       aria-label={t("ariaLabel")}
     >
       {/* Awards Header */}
-      <h2 className="text-white/30 uppercase tracking-[0.4rem] text-sm font-bold mb-2 font-display">
+      <h2 className="text-[#4c4c4c] uppercase tracking-[0.425rem] text-xs font-bold mb-2 font-display">
         {t("awards.heading1")}
       </h2>
 
@@ -222,30 +222,30 @@ export default function SectionAwardsAndFormats() {
     baseSpeed={40}
     accelSpeed={140}
     gap={32}
-    height={60}
+    height={120}
   />
 </div>
       
-      <div className="bg-gradient-to-b from-zinc-900 to-black pt-4 sm:pt-6 md:pt-8">
+      <div className="bg-gradient-to-b from-zinc-900 to-black pt-6 md:pt-8">
 {/* Formats Header */}
-        <h2 className="text-muted uppercase tracking-[0.3em] text-sm font-bold mb-2 font-display">
+        <h2 className="text-[#4c4c4c] uppercase tracking-[0.425rem] text-xs font-bold mb-2 font-display">
           {t("formats.heading1")}
         </h2>
 
-        <h3 className="text-3xl font-display text-red-600 font-bold mb-4">
+        <h3 className="text-3xl font-display text-[#ff0000] font-extrabold mb-4 tracking-[0.125rem]">
           {t("formats.heading2")}
         </h3>
 
         {/* Width limiter */}
         <div className="w-full flex justify-center">
-          <div className="w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[60vw] xl:w-[700px]">
+          <div className="w-[70vw] sm:w-[80vw] md:w-[70vw] lg:w-[65vw] xl:w-[75vw]">
 
             {/* Arrows + text */}
-            <div className="flex justify-center items-center px-2">
+            <div className="flex justify-center items-center md:px-4 lg:px-16 xl:px-32">
               <button
                 onClick={handlePrev}
                 aria-label={t("formats.prev")}
-                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition"
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition cursor-pointer"
               >
                 <Image src="/icons/arrow-left.svg" alt="" width={24} height={24} />
               </button>
@@ -257,14 +257,14 @@ export default function SectionAwardsAndFormats() {
               <button
                 onClick={handleNext}
                 aria-label={t("formats.next")}
-                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition"
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition cursor-pointer"
               >
                 <Image src="/icons/arrow-right.svg" alt="" width={24} height={24} />
               </button>
             </div>
 
             {/* Carousel */}
-            <div className="overflow-hidden w-full py-10">
+            <div className="overflow-hidden w-full py-2 sm:py-4 md:py-8 lg:py-10">
               <Carousel
                 setApi={setApi}
                 className="w-full"
@@ -280,7 +280,8 @@ export default function SectionAwardsAndFormats() {
                   {FORMATS.map((item) => (
                     <CarouselItem
                       key={item.id}
-                      className="min-w-[240px] sm:min-w-[260px] basis-auto py-10"
+                      className="basis-[100%] sm:basis-[50%] lg:basis-[33%] xl:basis-[20%] flex-shrink-0 px-2 py-10"
+
                     >
                       <motion.div
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}

@@ -26,14 +26,14 @@ export default function SectionWhyUs() {
     >
       <div className="text-center mb-12 mt-4">
         <motion.h3
-          className="text-xs text-[#4c4c4c] font-display font-bold tracking-[0.375rem] uppercase"
+          className="text-xs text-[#4c4c4c] font-display font-bold tracking-[0.45rem] uppercase"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {t("heading1")}
         </motion.h3>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-red-600 font-display mt-2">
+        <h2 className="text-3xl sm:text-2xl md:text-4xl font-extrabold text-red-600 font-display mt-2 lg:mt-4">
           {heading2Lines.map((line, i) => (
             <span key={i}>
               {line}
@@ -43,7 +43,7 @@ export default function SectionWhyUs() {
         </h2>
       </div>
 
-      <div className="space-y-3 w-full max-w-xl mx-auto">
+      <div className="space-y-3 w-full max-w-lg mx-auto">
         {WHY_US_ITEMS.map((item) => {
           const isOpen = openId === item.id;
 
@@ -52,7 +52,7 @@ export default function SectionWhyUs() {
               key={item.id}
               initial={false}
               animate={{
-                backgroundColor: isOpen ? "#111" : "#222",
+                backgroundColor: isOpen ? "#000000" : "#222",
                 borderColor: isOpen ? "#f00" : "#222",
               }}
               className="rounded-md overflow-hidden px-2 py-2 transition-all relative border"
@@ -89,7 +89,7 @@ export default function SectionWhyUs() {
                   >
                     
                     <div className="separator mx-auto w-[80%] h-[2px] bg-white/10 mt-4" />
-                    <div className="pt-4 pb-2  text-white text-[10px] sm:text-[11px] md:text-[12px] leading-relaxed font-legacy">
+                    <div className="pt-4 pb-2 px-2 text-white text-[10px] sm:text-[11px] md:text-[12px] leading-relaxed font-verdana text-balance">
                       {t(`items.${item.id}.content`)}
                     </div>
                   </motion.div>

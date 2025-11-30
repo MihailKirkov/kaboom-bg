@@ -6,7 +6,7 @@ import {routing} from '@/i18n/routing';
 import type {Locale as I18nLocale} from '@/i18n'; // your existing Locale type
 import Header from '@/components/Header';
 import '@/app/globals.css';
-import {kaboomDisplay, kaboomSans, kaboomLegacy, montserrat} from '@/app/fonts';
+import {kaboomDisplay, kaboomSans, kaboomLegacy, montserrat, verdana} from '@/app/fonts';
 
 export const metadata: Metadata = {
   title: 'Kaboom.bg',
@@ -35,7 +35,7 @@ export default async function LocaleLayout({children, params}: Props) {
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${kaboomDisplay.variable} ${kaboomSans.variable} ${kaboomLegacy.variable} ${montserrat.variable}`}
+      className={`${kaboomDisplay.variable} ${kaboomSans.variable} ${kaboomLegacy.variable} ${montserrat.variable} ${verdana.variable}`}
     >
       <body className="antialiased bg-zinc-900 text-white" suppressHydrationWarning>
         {/* Messages are provided via src/i18n/request.ts through the plugin */}

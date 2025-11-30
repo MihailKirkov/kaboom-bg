@@ -42,7 +42,7 @@ export default function Footer({ scrollToRef }: FooterProps) {
             <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-6 h-full"
                 onClick={scrollToLastSection}
             >
-                <span className="text-2xl sm:text-3xl md:text-4xl tracking-wider font-display font-extrabold cursor-pointer" >
+                <span className="text-xl sm:text-3xl md:text-4xl tracking-wider font-display font-extrabold cursor-pointer" >
                     LET’S GO!
                 </span>
 

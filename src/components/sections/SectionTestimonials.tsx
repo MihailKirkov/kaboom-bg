@@ -85,12 +85,12 @@ export default function SectionTestimonials() {
   return (
     <section
       aria-label={t("ariaLabel")}className="relative w-full min-h-screen
-  bg-[linear-gradient(to_bottom,_#18181b_0%,_#18181b_10%,_#000000_50%,_#ff0000_65%,_#ff0000_100%)]
+  bg-[linear-gradient(to_bottom,_#18181b_0%,_#18181b_10%,_#000000_50%,_#ff0000_80%,_#ff0000_100%)]
   flex flex-col overflow-visible"
 
     >
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center text-center px-4 pt-20 md:pt-24 pb-48 relative">
+      <div className="flex-1 flex flex-col items-center text-center px-4 pt-16 md:pt-20 pb-60 relative">
 
         {/* Header */}
         <motion.div
@@ -104,17 +104,17 @@ export default function SectionTestimonials() {
             {t("heading1")}
           </h1>
 
-          <h2 className="text-red-600 font-display text-3xl sm:text-4xl md:text-5xl font-thin leading-tight whitespace-pre-line">
+          <h2 className="text-red-600 font-display text-3xl sm:text-4xl md:text-5xl font-light leading-tighter whitespace-pre-line">
             {t("heading2")}
           </h2>
 
-          <p className="text-white text-[10px] sm:text-[11px] md:text-[12px] max-w-[22rem] mx-auto leading-relaxed font-legacy">
+          <p className="text-white text-default max-w-[22rem] mx-auto leading-relaxed font-verdana">
             {t("subtext")}
           </p>
         </motion.div>
 
         {/* Marquee */}
-        <div className="relative w-full overflow-hidden py-6 md:py-8 mb-8 md:mb-14">
+        <div className="relative w-full overflow-hidden mb-8 md:mb-14">
           <InfiniteScroller
             items={CLIENTS.map((c) => ({
               id: c.id,
@@ -124,7 +124,7 @@ export default function SectionTestimonials() {
             baseSpeed={40}
             accelSpeed={140}
             gap={32}
-            height={60}
+            height={120}
             className="pointer-events-none absolute inset-0 z-10 "
           />
         </div>
@@ -134,7 +134,7 @@ export default function SectionTestimonials() {
           variants={fadeInUp}
           initial="initial"
           animate="animate"
-          className="mt-4 sm:mt-6 md:mt-8 lg:mt-12 text-xs uppercase tracking-[0.3em] text-red-500 font-semibold mb-1 font-display"
+          className="mt-4 sm:mt-6 md:mt-8 lg:mt-12 text-sm uppercase tracking-[0.3em] text-red-500 font-semibold mb-1 font-display"
         >
           {t("reviewsTitle")}
         </motion.h2>
@@ -157,7 +157,7 @@ export default function SectionTestimonials() {
 
             <button
               onClick={() => setCurrent((p) => (p - 1 + total) % total)}
-              className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
+              className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white hover:bg-white/20 transition cursor-pointer"
             >
               <Image src="/icons/arrow-left.svg" alt="" width={20} height={20} />
             </button>
@@ -168,14 +168,14 @@ export default function SectionTestimonials() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="text-white text-default uppercase font-display font-thin tracking-wider leading-relaxed max-w-sm whitespace-pre-line text-center"
+              className="text-white text-default uppercase font-display font-light tracking-wider leading-relaxed max-w-sm whitespace-pre-line text-center"
             >
               {quote}
             </motion.p>
 
             <button
               onClick={() => setCurrent((p) => (p + 1) % total)}
-              className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition"
+              className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white hover:bg-white/20 transition cursor-pointer"
             >
               <Image src="/icons/arrow-right.svg" alt="" width={20} height={20} />
             </button>
@@ -200,7 +200,7 @@ export default function SectionTestimonials() {
       {/* Avatar */}
       <motion.div
         key={"avatar-" + review.id}
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30 h-[120px] w-[120px] sm:h-[150px] sm:w-[150px] md:h-[170px] md:w-[170px]"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30 h-[135px] w-[135px] sm:h-[150px] sm:w-[150px] md:h-[170px] md:w-[170px]"
         variants={fadeScale}
         initial="initial"
         animate="animate"
@@ -213,8 +213,8 @@ export default function SectionTestimonials() {
       <motion.div
         key={"name-" + review.id}
         className="
-          absolute text-black font-legacy font-thin whitespace-pre-line text-center
-          bottom-[120px] sm:bottom-[75px] md:bottom-[85px]
+          absolute text-black font-verdana font-thin whitespace-pre-line text-center
+          bottom-[150px] sm:bottom-[75px] md:bottom-[85px]
           left-1/2 -translate-x-1/2
           sm:-translate-x-[calc(50%+170px)]
           md:-translate-x-[calc(50%+190px)]

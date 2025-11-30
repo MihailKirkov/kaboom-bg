@@ -36,6 +36,9 @@ export default function SectionServices() {
   const t = useTranslations("SectionServices");
 
   const [dragOffset, setDragOffset] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
+
 
 
   // Interleave: card, sep, card, sep, ...
@@ -50,14 +53,26 @@ export default function SectionServices() {
     return [...base, ...base, ...base];
   }, []);
 
-useEffect(() => {
-  if (!inView) return;
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      // Normalize mouse position to -1…1 range
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = (e.clientY / window.innerHeight) * 2 - 1;
+      setMousePos({ x, y });
+    };
 
-  const id = SERVICES[currentCard]?.id;
-  if (id && !seen[id]) {
-    setSeen((s) => ({ ...s, [id]: true }));
-  }
-}, [inView, currentCard, seen]);
+    window.addEventListener("mousemove", handler);
+    return () => window.removeEventListener("mousemove", handler);
+  }, []);
+
+  useEffect(() => {
+    if (!inView) return;
+
+    const id = SERVICES[currentCard]?.id;
+    if (id && !seen[id]) {
+      setSeen((s) => ({ ...s, [id]: true }));
+    }
+  }, [inView, currentCard, seen]);
 
 
   useEffect(() => {
@@ -71,20 +86,36 @@ useEffect(() => {
     };
 
     const onScroll = () => {
-      // Embla returns a value 0→1→0 as you drag between snaps
       const progress = api.scrollProgress();
       setDragOffset(progress);
+    };
+
+    const onPointerDown = () => {
+      setIsUserInteracting(true);
+    };
+
+    const onPointerUp = () => {
+      // slight delay so the drag finishes cleanly
+      setTimeout(() => setIsUserInteracting(false), 300);
     };
 
     api.on("select", onSelect);
     api.on("scroll", onScroll);
 
+    api.on("pointerDown", onPointerDown);
+    api.on("pointerUp", onPointerUp);
+
     onSelect();
+
     return () => {
       api.off("select", onSelect);
       api.off("scroll", onScroll);
+
+      api.off("pointerDown", onPointerDown);
+      api.off("pointerUp", onPointerUp);
     };
   }, [api]);
+
 
   const scrollToCard = useCallback((i: number) => {
     if (!api) return;
@@ -114,6 +145,19 @@ useEffect(() => {
     return () => window.removeEventListener("jump-to-service", handler);
   }, [api, scrollToCard]);
 
+  useEffect(() => {
+    if (!api) return;
+
+    const interval = setInterval(() => {
+      if (!isUserInteracting) {
+        const next = (currentCard + 1) % SERVICES.length;
+        scrollToCard(next);
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [api, isUserInteracting, currentCard, scrollToCard]);
+
 
 
 
@@ -121,41 +165,53 @@ useEffect(() => {
   return (
     <section
       aria-label={t("ariaLabel")}
-      className={[
-  "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-4 md:pb-6 lg:pb-8  bg-black",
+  className={[
+    "relative overflow-hidden flex flex-col items-center justify-start pt-24 md:pt-28 pb-4 md:pb-6 lg:pb-8  bg-[linear-gradient(to_bottom,_#18181b_0%,_#18181b_10%,_#000000_70%,_#000000_100%)]",
 
-  // Mobile-first — bigger cards so text fits
-  "[--card-w:170px] [--sep-w:10px]",
+    // Mobile-first — bigger cards so text fits
+    "[--card-w:170px] [--sep-w:10px]",
 
-  // ≥390px (iPhone mini–normal)
-  "xs:[--card-w:160px] xs:[--sep-w:12px]",
+    // ≥390px (custom xs)
+    "xs:[--card-w:160px] xs:[--sep-w:12px]",
 
-  // ≥640px
-  "sm:[--card-w:190px] sm:[--sep-w:14px]",
+    // ≥640px
+    "sm:[--card-w:190px] sm:[--sep-w:14px]",
 
-  // ≥768px
-  "md:[--card-w:210px] md:[--sep-w:16px]",
+    // ≥768px
+    "md:[--card-w:210px] md:[--sep-w:16px]",
 
-  // ≥1024px
-  "lg:[--card-w:230px] lg:[--sep-w:18px]",
+    // ≥1024px
+    "lg:[--card-w:235px] lg:[--sep-w:18px]",
 
-  // Derived default (desktop): 3 cards wide
-  "sm:[--show-w:calc(var(--card-w)*3+var(--sep-w)*3)]",
+    // default: <425px
+    "[--show-w:calc(var(--card-w)*1.75+var(--sep-w)*1.75)]",
 
-  // For phones: only 2 cards wide
-  "[--show-w:calc(var(--card-w)*2+var(--sep-w)*2)]",
-].join(" ")
-}
+    // ≥425px and <640px
+    "min-[425px]:[--show-w:calc(var(--card-w)*2+var(--sep-w)*2)]",
+
+    // ≥640px (sm breakpoint)
+    "sm:[--show-w:calc(var(--card-w)*3+var(--sep-w)*3)]",
+  ].join(" ")}
+
     >
       <div id="section-services-anchor" className="absolute -top-0" />
-      <Image
-        src={ILLUSTRATION_SRC}
-        alt=""
-        width={500}
-        height={500}
-        priority
-        className="pointer-events-none select-none absolute right-[8%] top-1/3 -translate-y-1/2 opacity-90 max-h-[50%] w-auto hidden md:block"
-      />
+<motion.img
+  src={ILLUSTRATION_SRC}
+  alt=""
+  width={500}
+  height={500}
+  className="pointer-events-none select-none absolute right-[10%] top-2/5 -translate-y-1/2 opacity-90 max-h-[55%] w-auto hidden md:block"
+  style={{
+    x: mousePos.x * 7, // adjust strength
+    y: mousePos.y * 4,
+  }}
+  transition={{
+    type: "spring",
+    stiffness: 60,
+    damping: 12,
+  }}
+/>
+
 
       {/* Headings */}
       <motion.div
@@ -301,7 +357,7 @@ useEffect(() => {
           }}
         >
           {/* Remove default track gutters to avoid seam drift */}
-          <CarouselContent className="!ml-0 !px-0 flex items-stretch gap-0" style={{height:'190px !important'}}>
+          <CarouselContent className="!ml-0 !px-0 flex items-stretch gap-0" style={{height:'210px !important'}}>
             {slides.map((slide, idx) => {
               if (slide.type === "sep") {
                 return (
@@ -366,7 +422,7 @@ useEffect(() => {
         total={SERVICES.length}
         current={currentCard}
         onChange={scrollToCard}
-        className="mt-6"
+        className="mt-6 mb-4 sm:mb-0"
       />
     </section>
   );
@@ -392,12 +448,12 @@ function ServiceCard({
       className="w-full h-full"
     >
       <Card
-        className="h-[180px] md:h-[190px] lg:h-[200px] cursor-pointer border-0 relative overflow-visible bg-transparent py-2"
+        className="h-[220px] md:h-[220px] lg:h-[210px] cursor-pointer border-0 relative overflow-visible bg-transparent py-2"
         onClick={onClick}
       >
         <CardContent
           className={[
-            "relative p-2 text-center transition-colors rounded-md h-full",
+            "relative px-3 py-4 text-center transition-colors rounded-md h-full",
             active
               ? "bg-white/15 shadow-lg ring-1 ring-white/20"
               : "bg-transparent hover:bg-white/5",
@@ -407,7 +463,7 @@ function ServiceCard({
             <Image src={iconSrc} alt="" width={24} height={24} className="opacity-90" />
           </div>
           {/* <div className="text-[11px] leading-4 font-extrabold font-display uppercase tracking-tight text-red-500"> */}
-          <div className="leading-4 font-extrabold font-montserrat text-default uppercase tracking-tight text-[#FF0000]" style={{lineHeight:'1.125'}}>
+          <div className="leading-4 font-extrabold font-montserrat text-default lg:!text-[12px] uppercase tracking-tight text-[#FF0000]" style={{lineHeight:'1.125'}}>
 
             {title.split("\n").map((line, i) => (
               <span key={i}>
@@ -416,7 +472,7 @@ function ServiceCard({
               </span>
             ))}
           </div>
-          <div className="mt-2 text-default leading-4 text-white font-legacy">{blurb}</div>
+          <div className="mt-2 text-default leading-4 text-white font-verdana text-pretty">{blurb}</div>
           
         </CardContent>
       </Card>

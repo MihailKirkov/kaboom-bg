@@ -32,37 +32,18 @@ export default function InfiniteScroller({
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Build repeated array so total content width >= 2 * viewport width
-  const repeated = useMemo(() => {
-    if (!items || items.length === 0) return [];
+const repeated = useMemo(() => {
+  if (!items || items.length === 0) return [];
 
-    // conservative per-item width (image width + gap)
-    const perItem = itemWidth + gap;
-    const itemsCount = items.length;
+  // Always repeat at least 4–6 times.
+  // Enough to cover any viewport once motion starts.
+  const repeats = 6;
 
-    // viewport width (fallback to 1200 if not available)
-    const vw = typeof window !== "undefined" ? window.innerWidth : 1200;
+  const arr: Item[] = [];
+  for (let r = 0; r < repeats; r++) arr.push(...items);
 
-    // target total width we want (2x viewport)
-    const targetWidth = vw * 2;
-
-    // how many items needed to reach targetWidth
-    const neededItems = Math.max(
-      itemsCount * 2, // at least double
-      Math.ceil(targetWidth / perItem)
-    );
-
-    // compute repetitions
-    const repeats = Math.ceil(neededItems / itemsCount);
-
-    // generate repeated array
-    const arr: Item[] = [];
-    for (let r = 0; r < repeats; r++) {
-      arr.push(...items);
-    }
-
-    return arr;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items, gap, itemWidth]);
+  return arr;
+}, [items]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -138,7 +119,7 @@ export default function InfiniteScroller({
     >
       <div className={className} />
 
-      <motion.div style={{ x }} className="flex items-center w-max">
+      <motion.div style={{ x }} className="flex items-center justify-center w-max">
         {repeated.map((item, i) => (
           <div
             key={`${item.id}-${i}`}
