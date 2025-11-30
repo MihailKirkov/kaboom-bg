@@ -21,7 +21,7 @@ export default function SectionWrapperFullWidth({
         <section
             {...rest}
             className={clsx(
-                "relative w-full overflow min-h-screen flex flex-col justify-center text-center",
+                "relative w-full overflow flex flex-col justify-center text-center",
                 className
             )}
         >

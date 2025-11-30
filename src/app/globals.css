@@ -13,6 +13,7 @@
   --font-sans: var(--font-sans);          /* body text */
   --font-display: var(--font-display);    /* headings / hero */
   --font-legacy: var(--font-legacy);
+  --font-verdana: var(--font-verdana);
   --font-montserrat: var(--font-montserrat);
 
   --color-sidebar-ring: var(--sidebar-ring);
@@ -124,22 +125,29 @@
   font-size: 10px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 480px) { /* xs */
+
+}
+
+@media (min-width: 640px) { /* sm */
   .text-default {
     font-size: 11px;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) { /* md */
   .text-default {
     font-size: 12px;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) { /* lg */
   .text-default {
-    font-size: 13px;
+    font-size: 14px;
   }
+}
+
+@media (min-width: 1280px) { /* xl */
 }
 
 @layer base {

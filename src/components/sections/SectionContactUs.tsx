@@ -10,15 +10,15 @@ export default function SectionContactUs() {
   
   return (
     <SectionWrapper
-      className="bg-black text-white"
+      className="bg-black text-white !min-h-[85vh]"
       aria-label="Свържете се с нас"
     >
+      <h2 className="uppercase tracking-[0.4em] text-xs font-bold font-display text-[#4c4c4c]">
+        {t('reachOut')}
+      </h2>
       <div className="flex flex-col items-center text-center gap-6">
-        <h2 className="uppercase tracking-[0.4em] text-xs font-bold font-display text-[#4c4c4c]">
-          {t('reachOut')}
-        </h2>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-extrabold">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-extrabold mt-4 sm:mt-2 md:mt-0">
           LET’S GO!
         </h1>
 
@@ -30,7 +30,7 @@ export default function SectionContactUs() {
           className="text-red-600"
         />
 
-        <div className="text-sm leading-relaxed tracking-wider mt-2 space-y-1 text-white font-display font-thin">
+        <div className="text-sm leading-relaxed tracking-[.125rem] mt-2 space-y-1 text-white font-display font-light">
           <p>OFFICE@KABOOM.BG</p>
           <p>+359 877 199 199</p>
           <p>{t('address')}</p>
@@ -42,7 +42,7 @@ export default function SectionContactUs() {
             className="whitespace-nowrap flex items-center justify-center gap-2 bg-[rgb(30,30,30)] rounded-md px-4 py-1 border border-[rgb(30,30,30)]
             text-xs font-thin font-montserrat text-red-600 tracking-wide hover:border-red-600 transition min-w-[160px]"
           >
-            <Image src="/icons/phone.svg" alt="Phone" width={24} height={24} className="w-6 h-6" />
+            <Image src="/icons/phone.svg" alt="Phone" width={24} height={24} className="w-8 h-8 md:w-6 md:h-6" />
             {tOthers('callUs')}
           </a>
 
@@ -51,7 +51,7 @@ export default function SectionContactUs() {
             className="whitespace-nowrap flex items-center justify-center gap-2 bg-[rgb(30,30,30)] rounded-md px-4 py-1 border border-[rgb(30,30,30)]
             text-xs font-thin font-montserrat text-red-600 tracking-wide hover:border-red-600 transition min-w-[160px]"
           >
-            <Image src="/icons/mail.svg" alt="Mail" width={24} height={24} className="w-6 h-6" />
+            <Image src="/icons/mail.svg" alt="Mail" width={24} height={24} className="w-8 h-8 md:w-6 md:h-6" />
             {tOthers('emailUs')}
           </a>
         </div>

@@ -26,13 +26,23 @@ export const kaboomSans = localFont({
     fallback: ["system-ui", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"]
 });
 
-// Optional: a “legacy” set you can target if design needs it
+// Optional: a “legacy”
 export const kaboomLegacy = localFont({
     src: [
         { path: "../../public/fonts/verdana.ttf",  weight: "400", style: "normal" },
         { path: "../../public/fonts/verdanab.ttf", weight: "700", style: "normal" }
     ],
-    variable: "--font-legacy",
+    variable: "--font-verdana",
+    display: "swap",
+    preload: false
+});
+
+export const verdana = localFont({
+    src: [
+        { path: "../../public/fonts/verdana.ttf",  weight: "400", style: "normal" },
+        { path: "../../public/fonts/verdanab.ttf", weight: "700", style: "normal" }
+    ],
+    variable: "--font-verdana",
     display: "swap",
     preload: false
 });

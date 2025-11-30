@@ -39,7 +39,7 @@ export default function Header({ currentLocale }: { currentLocale: Locale }) {
         !scrolled && "py-2"
       }`}
     >
-      <div className="mx-auto w-[80dvw] md:w-[min(900px,75dvw)] lg:w-[min(900px,40dvw)] px-4 md:px-6 h-14 flex items-center justify-between">
+      <div className="relative mx-auto w-full md:w-[min(900px,75dvw)] lg:w-[min(900px,40dvw)] px-4 md:px-6 h-14 flex items-center justify-between">
         {/* LEFT: Menu button */}
         <div className="relative" id="kaboom-menu">
           <Button
@@ -60,23 +60,39 @@ export default function Header({ currentLocale }: { currentLocale: Locale }) {
           {/* MENU PANEL */}
           <AnimatePresence>
             {menuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  marginTop: scrolled ? 8 : 16, // <— animate this like CSS mt-2 (8px) ↔ mt-4 (16px)
-                }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="absolute z-0 left-0 top-full w-[80dvw] md:w-[min(900px,75dvw)] lg:w-[min(900px,40dvw)] 
-                            rounded-b-xl bg-white text-black shadow-xl border border-zinc-200 pb-12"
-              >
+                  <motion.div
+      layout
+      initial={{ opacity: 0, y: -16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{
+        duration: 0.22,
+        ease: "easeOut",
+        layout: {
+          type: "spring",
+          stiffness: 320,
+          damping: 32,
+        },
+      }}
+      className={`
+        fixed
+        left-0 right-0 top-[56px]
+        md:absolute md:left-0 md:right-auto md:top-full
+        w-screen max-w-none
+        md:w-[min(900px,75dvw)]
+        lg:w-[min(900px,40dvw)]
+        ${scrolled ? "mt-0 md:mt-2" : "mt-4 md:mt-4"}
+        rounded-b-xl bg-white text-black shadow-xl border border-zinc-200 pb-12
+        z-40 
+      `}
+    >
                 <div className="absolute inset-0 z-[-1] opacity-25 flex items-center justify-center overflow-hidden">
-                  <div className="relative max-w-none 
+                  <div
+                    className="relative max-w-none 
                     w-[100%] h-[100%] top-[25%] -right-[0%]
                     md:w-[100%] md:h-[100%] md:top-[25%] md:-right-[0%]
-                    lg:w-[150%] lg:h-[150%] lg:top-[25%] lg:-right-[0%]">
+                    lg:w-[150%] lg:h-[150%] lg:top-[25%] lg:-right-[0%]"
+                  >
                     <Image
                       src="/images/header-bg.svg"
                       alt="Background sketch"
@@ -90,22 +106,23 @@ export default function Header({ currentLocale }: { currentLocale: Locale }) {
                 <div className="relative py-6 px-4 md:px-8 overflow-hidden">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-y-2">
                     {SERVICES.map((service, id) => (
-                      <div key={service.id} className="group flex flex-col items-center justify-end">
+                      <div
+                        key={service.id}
+                        className="group flex flex-col items-center justify-end"
+                      >
                         <button
-  key={service.id}
-  onClick={() => {
-    setMenuOpen(false);
+                          onClick={() => {
+                            setMenuOpen(false);
 
-    window.dispatchEvent(
-      new CustomEvent("jump-to-service", {
-        detail: service.id,
-      })
-    );
-  }}
-  className="group flex items-center justify-between px-4 py-3 rounded-md
-              transition-all hover:bg-zinc-200/80 w-full text-left"
->
-
+                            window.dispatchEvent(
+                              new CustomEvent("jump-to-service", {
+                                detail: service.id,
+                              })
+                            );
+                          }}
+                          className="group flex items-center justify-between px-4 py-3 rounded-md
+                                      transition-all hover:bg-zinc-200/80 w-full text-left"
+                        >
                           <div className="flex items-center gap-3">
                             <Image
                               src={service.iconRedSrc}
@@ -114,12 +131,21 @@ export default function Header({ currentLocale }: { currentLocale: Locale }) {
                               height={24}
                               className="transition-all"
                             />
-                            <span className="text-[13px] font-bold transition-colors leading-[1.05]">
-                              {t(`services.${SERVICES[id].id}.title`)}
+                            <span className="text-[16px] md:text-[13px] lg:text-[13px] font-bold transition-colors leading-[1.05]">
+                              {t(
+                                `services.${SERVICES[id].id}.title`
+                              )
+                                .split("\n")
+                                .map((line, i) => (
+                                  <span key={i}>
+                                    {line}
+                                    <br />
+                                  </span>
+                                ))}
                             </span>
                           </div>
                         </button>
-                        <div className="w-full h-1 border-b border-zinc-400"/>
+                        <div className="w-full h-1 border-b border-zinc-400" />
                       </div>
                     ))}
                   </div>
@@ -130,7 +156,14 @@ export default function Header({ currentLocale }: { currentLocale: Locale }) {
         </div>
 
         {/* CENTER: Logo */}
-        <div className="flex items-center">
+        <div
+          className="
+            pointer-events-none
+            absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+            md:static md:translate-x-0 md:translate-y-0 md:pointer-events-auto
+            flex items-center
+          "
+        >
           <Image
             src="/logo-kaboom-text.svg"
             alt="Kaboom"
